@@ -29,12 +29,26 @@ public class MovisensCharacteristic {
 	public static final UUID MOVEMENTACCELERATION_WAITING = UUID.fromString("20b6f034-50e5-4fad-92c8-fa20ee4203c6");
 	public static final UUID MET = UUID.fromString("088133e4-bf36-4c10-943a-17e07734d4ba");
 	public static final UUID MET_WAITING = UUID.fromString("e19aa0f5-da3d-4dbf-a4a2-6e8ad6c4d0ce");
-	public static final UUID STEPS = UUID.fromString("8ba3207b-6a87-424d-bde0-4f665f500f04");
-	public static final UUID STEPS_WAITING = UUID.fromString("9b72b459-d1e5-48fe-9c91-2fb168261b21");
+	public static final UUID STEP_COUNT = UUID.fromString("8ba3207b-6a87-424d-bde0-4f665f500f04");
+	public static final UUID STEP_COUNT_WAITING = UUID.fromString("9b72b459-d1e5-48fe-9c91-2fb168261b21");
 	public static final UUID ACTIVITYCLASS = UUID.fromString("2716a61a-ecbe-4bbf-a6b6-9c238acb1382");
 	public static final UUID ACTIVITYCLASS_WAITING = UUID.fromString("bff835f8-0d98-43d1-a98d-723b2c7b6aeb");
-	
+	public static final UUID AGE = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_SEDENTARY = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_SEDENTARY_WAITING = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_LIGHT = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_LIGHT_WAITING = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_MODERATE = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_MODERATE_WAITING = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_VIGOROUS = UUID.fromString("tbd");
+	public static final UUID ACTIVITY_LEVEL_VIGOROUS_WAITING = UUID.fromString("tbd");
+	public static final UUID GENDER = UUID.fromString("tbd");
+	public static final UUID HEIGHT = UUID.fromString("tbd");
+	public static final UUID SENSOR_LOCATION = UUID.fromString("tbd");
+	public static final UUID WEIGHT = UUID.fromString("tbd");
+
 	private static HashMap<UUID, String> attributes = new HashMap<UUID, String>();
+
 	static {
 		attributes.put(BATTERY_LEVEL_X, "Battery level X");
 		attributes.put(CURRENT_TIME, "Current time");
@@ -59,14 +73,27 @@ public class MovisensCharacteristic {
 		attributes.put(MOVEMENTACCELERATION_WAITING, "Movement acceleration waiting");
 		attributes.put(MET, "MET");
 		attributes.put(MET_WAITING, "MET waiting");
-		attributes.put(STEPS, "Steps");
-		attributes.put(STEPS_WAITING, "Steps waiting");
+		attributes.put(STEP_COUNT, "Steps");
+		attributes.put(STEP_COUNT_WAITING, "Steps waiting");
 		attributes.put(ACTIVITYCLASS, "Activity class");
 		attributes.put(ACTIVITYCLASS_WAITING, "Activity class waiting");
-    }
+		attributes.put(ACTIVITY_LEVEL_SEDENTARY, "Time in activity level sedentary");
+		attributes.put(ACTIVITY_LEVEL_SEDENTARY_WAITING, "Time in activity level sedentary waiting");
+		attributes.put(ACTIVITY_LEVEL_LIGHT, "Time in activity level light");
+		attributes.put(ACTIVITY_LEVEL_LIGHT_WAITING, "Time in activity level light waiting");
+		attributes.put(ACTIVITY_LEVEL_MODERATE, "Time in activity level moderate");
+		attributes.put(ACTIVITY_LEVEL_MODERATE_WAITING, "Time in activity level moderate waiting");
+		attributes.put(ACTIVITY_LEVEL_VIGOROUS, "Time in activity level vigorous");
+		attributes.put(ACTIVITY_LEVEL_VIGOROUS_WAITING, "Time in activity level vigorous waiting");
+		attributes.put(GENDER, "Gender of participant");
+		attributes.put(WEIGHT, "Weight of participant");
+		attributes.put(HEIGHT, "Height of participant");
+		attributes.put(AGE, "Age of Participant");
+		attributes.put(SENSOR_LOCATION, "Sensor location at participant");
+	}
 
-    public static String lookup(UUID uuid, String defaultName) {
-        String name = attributes.get(uuid);
+	public static String lookup(UUID uuid, String defaultName) {
+		String name = attributes.get(uuid);
 		return name == null ? defaultName : name;
 	}
 }
