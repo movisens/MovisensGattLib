@@ -10,7 +10,7 @@ public class Age {
 	/**
 	 * 
 	 * @param age
-	 *            in days
+	 *            in years (for example 35,5)
 	 */
 	public Age(float age) {
 		this.value = GattByteBuffer.allocate(4).putFloat32(age).array();
