@@ -3,6 +3,8 @@ package com.movisens.movisensgattlib;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.movisens.smartgattlib.GattUtils;
+
 public class MovisensCharacteristic {
 	public static final UUID BATTERY_LEVEL_X = UUID.fromString("f89edec7-f7e0-94f2-747d-ee7acaa6d413");
 	public static final UUID CURRENT_TIME = UUID.fromString("f89edec4-d590-764d-530f-8fff5c181606");
@@ -35,10 +37,10 @@ public class MovisensCharacteristic {
 	public static final UUID STEP_COUNT_WAITING = UUID.fromString("9b72b459-d1e5-48fe-9c91-2fb168261b21");
 	public static final UUID ACTIVITYCLASS = UUID.fromString("2716a61a-ecbe-4bbf-a6b6-9c238acb1382");
 	public static final UUID ACTIVITYCLASS_WAITING = UUID.fromString("bff835f8-0d98-43d1-a98d-723b2c7b6aeb");
-	public static final UUID AGE = UUID.fromString("2a80");
-	public static final UUID GENDER = UUID.fromString("2a8c");
-	public static final UUID WEIGHT = UUID.fromString("2a98");
-	public static final UUID HEIGHT = UUID.fromString("2a8e");
+	public static final UUID AGE = new UUID((0x2A80L << 32) | 0x1000, GattUtils.leastSigBits);
+	public static final UUID GENDER = new UUID((0x2A8CL << 32) | 0x1000, GattUtils.leastSigBits);
+	public static final UUID WEIGHT = new UUID((0x2A98L << 32) | 0x1000, GattUtils.leastSigBits);
+	public static final UUID HEIGHT = new UUID((0x2A8EL << 32) | 0x1000, GattUtils.leastSigBits);
 	public static final UUID SENSOR_LOCATION = UUID.fromString("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59");
 
 	private static HashMap<UUID, String> attributes = new HashMap<UUID, String>();
