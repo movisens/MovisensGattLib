@@ -1,5 +1,6 @@
 MovisensGattLib
 ===============
+<a href="https://jitpack.io/#movisens/MovisensGattLib/"><img src="https://img.shields.io/github/tag/movisens/MovisensGattLib.svg?label=Maven on JitPack" /></a>
 
 MovisensGattLib is a Java library that simplifies the work with [movisens **Bluetooth SMART** sensors](http://www.movisens.com/en/products/) (a.k.a. **Bluetooth Low Energy** in Bluetooth 4.0). It provides all UUIDs of the movisens sensors and an convenient way to interpret the characteristics (e.g. MovementAcceleration, RMSS).
 
@@ -9,9 +10,19 @@ There is also a complete [example project](https://github.com/movisens/MovisensG
 
 ### Set up ###
 
-1. Download the latest .jar file from the [MovsiensGattLib releases](https://github.com/movisens/MovisensGattLib/releases) page and place it in your Android app’s libs/ folder.
-2. Download the latest .jar file from the [SmartGattLib releases](https://github.com/movisens/SmartGattLib/releases) page and place it in your Android app’s libs/ folder.
-3. Use the example below to identifiy services and characteristics and interpret their data
+1. Add the JitPack repository and the dependency to your build file:
+
+  ```gradle
+	repositories {
+	    maven { url "https://jitpack.io" }
+	}
+	dependencies {
+	    compile 'com.github.movisens:SmartGattLib:1.7'
+	    compile 'com.github.movisens:MovisensGattLib:1.0'
+	}
+  ```
+  or download the latest .jar file from the [MovsiensGattLib releases](https://github.com/movisens/MovisensGattLib/releases) and the [SmartGattLib releases](https://github.com/movisens/SmartGattLib/releases) and place it in your Android app’s libs/ folder.
+2. Use the example below to identifiy services and characteristics and interpret their data
 
 ### Example Usage ###
 ```java
