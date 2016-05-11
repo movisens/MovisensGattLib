@@ -3,10 +3,10 @@ package com.movisens.movisensgattlib.characteristics;
 import com.movisens.smartgattlib.GattByteBuffer;
 
 public class MetLevel {
-	Integer sedetary = -1;
-	Integer light = -1;
-	Integer moderate = -1;
-	Integer vigorous = -1;
+	int sedetary = -1;
+	int light = -1;
+	int moderate = -1;
+	int vigorous = -1;
 
 	public MetLevel(byte[] value) {
 		GattByteBuffer gattByteBuffer = GattByteBuffer.wrap(value);
@@ -21,24 +21,24 @@ public class MetLevel {
 		return sedetary >= 0 && light >= 0 && moderate >= 0 && vigorous >= 0;
 	}
 
-	public Integer getSedetaryValue() {
+	public int getSedetaryValue() {
 		return sedetary;
 	}
 
-	public Integer getLightValue() {
+	public int getLightValue() {
 		return light;
 	}
 
-	public Integer getModerateValue() {
+	public int getModerateValue() {
 		return moderate;
 	}
 
-	public Integer getVigorousValue() {
+	public int getVigorousValue() {
 		return vigorous;
 	}
 
-	public Integer[] getValue() {
-		return new Integer[] { sedetary, light, moderate, vigorous };
+	public int[] getValue() {
+		return new int[] { sedetary, light, moderate, vigorous };
 	}
 
 }
