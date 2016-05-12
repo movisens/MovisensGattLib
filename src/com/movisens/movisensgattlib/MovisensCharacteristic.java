@@ -38,11 +38,11 @@ public class MovisensCharacteristic {
 	public static final UUID ACTIVITYCLASS = UUID.fromString("2716a61a-ecbe-4bbf-a6b6-9c238acb1382");
 	public static final UUID ACTIVITYCLASS_WAITING = UUID.fromString("bff835f8-0d98-43d1-a98d-723b2c7b6aeb");
 	public static final UUID AGE = new UUID((0x2A80L << 32) | 0x1000, GattUtils.leastSigBits);
+	public static final UUID AGE_FLOAT = UUID.fromString("7562060b-4aff-4422-aec7-77770d2a0530");
 	public static final UUID GENDER = new UUID((0x2A8CL << 32) | 0x1000, GattUtils.leastSigBits);
 	public static final UUID WEIGHT = new UUID((0x2A98L << 32) | 0x1000, GattUtils.leastSigBits);
 	public static final UUID HEIGHT = new UUID((0x2A8EL << 32) | 0x1000, GattUtils.leastSigBits);
 	public static final UUID SENSOR_LOCATION = UUID.fromString("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59");
-
 	private static HashMap<UUID, String> attributes = new HashMap<UUID, String>();
 
 	static {
@@ -75,10 +75,11 @@ public class MovisensCharacteristic {
 		attributes.put(STEP_COUNT_WAITING, "Steps waiting");
 		attributes.put(ACTIVITYCLASS, "Activity class");
 		attributes.put(ACTIVITYCLASS_WAITING, "Activity class waiting");
+		attributes.put(AGE, "Age of Participant");
+		attributes.put(AGE_FLOAT, "Age in float value of Participant");
 		attributes.put(GENDER, "Gender of participant");
 		attributes.put(WEIGHT, "Weight of participant");
 		attributes.put(HEIGHT, "Height of participant");
-		attributes.put(AGE, "Age of Participant");
 		attributes.put(SENSOR_LOCATION, "Sensor location at participant");
 	}
 
