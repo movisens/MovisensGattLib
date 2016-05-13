@@ -29,12 +29,16 @@ public class MovisensCharacteristic {
 	public static final UUID MOVEMENTACCELERATION_WAITING = UUID.fromString("20b6f034-50e5-4fad-92c8-fa20ee4203c6");
 	public static final UUID MET = UUID.fromString("088133e4-bf36-4c10-943a-17e07734d4ba");
 	public static final UUID MET_WAITING = UUID.fromString("e19aa0f5-da3d-4dbf-a4a2-6e8ad6c4d0ce");
-	public static final UUID STEPS = UUID.fromString("8ba3207b-6a87-424d-bde0-4f665f500f04");
-	public static final UUID STEPS_WAITING = UUID.fromString("9b72b459-d1e5-48fe-9c91-2fb168261b21");
+	public static final UUID MET_LEVEL = UUID.fromString("114dc370-a5d0-4d86-a701-030282a0a271");
+	public static final UUID MET_LEVEL_WAITING = UUID.fromString("547729db-1f9b-422f-a581-ea377ffcadf9");
+	public static final UUID STEP_COUNT = UUID.fromString("8ba3207b-6a87-424d-bde0-4f665f500f04");
+	public static final UUID STEP_COUNT_WAITING = UUID.fromString("9b72b459-d1e5-48fe-9c91-2fb168261b21");
 	public static final UUID ACTIVITYCLASS = UUID.fromString("2716a61a-ecbe-4bbf-a6b6-9c238acb1382");
 	public static final UUID ACTIVITYCLASS_WAITING = UUID.fromString("bff835f8-0d98-43d1-a98d-723b2c7b6aeb");
-	
+	public static final UUID AGE_FLOAT = UUID.fromString("7562060b-4aff-4422-aec7-77770d2a0530");
+	public static final UUID SENSOR_LOCATION = UUID.fromString("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59");
 	private static HashMap<UUID, String> attributes = new HashMap<UUID, String>();
+
 	static {
 		attributes.put(BATTERY_LEVEL_X, "Battery level X");
 		attributes.put(CURRENT_TIME, "Current time");
@@ -59,14 +63,18 @@ public class MovisensCharacteristic {
 		attributes.put(MOVEMENTACCELERATION_WAITING, "Movement acceleration waiting");
 		attributes.put(MET, "MET");
 		attributes.put(MET_WAITING, "MET waiting");
-		attributes.put(STEPS, "Steps");
-		attributes.put(STEPS_WAITING, "Steps waiting");
+		attributes.put(MET_LEVEL, "MET Level");
+		attributes.put(MET_LEVEL_WAITING, "MET Level waiting");
+		attributes.put(STEP_COUNT, "Steps");
+		attributes.put(STEP_COUNT_WAITING, "Steps waiting");
 		attributes.put(ACTIVITYCLASS, "Activity class");
 		attributes.put(ACTIVITYCLASS_WAITING, "Activity class waiting");
-    }
+		attributes.put(AGE_FLOAT, "Age in float value of Participant");
+		attributes.put(SENSOR_LOCATION, "Sensor location at participant");
+	}
 
-    public static String lookup(UUID uuid, String defaultName) {
-        String name = attributes.get(uuid);
+	public static String lookup(UUID uuid, String defaultName) {
+		String name = attributes.get(uuid);
 		return name == null ? defaultName : name;
 	}
 }
