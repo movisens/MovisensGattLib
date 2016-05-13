@@ -9,9 +9,39 @@ public class SensorLocation {
 
 		public final int value;
 
-		private Position(int value) {
+		Position(int value) {
 			this.value = value;
 		}
+
+		public static SensorLocation.Position getSensorPositionByValue(int positionValue) {
+			switch (positionValue) {
+			case 1:
+				return Position.RIGHT_SIDE_HIP;
+			case 2:
+				return Position.CHEST;
+			case 3:
+				return Position.RIGHT_WRIST;
+			case 4:
+				return Position.LEFT_WRIST;
+			case 5:
+				return Position.LEFT_ANKLE;
+			case 6:
+				return Position.RIGHT_ANKLE;
+			case 7:
+				return Position.RIGHT_THIGH;
+			case 8:
+				return Position.LEFT_THIGH;
+			case 9:
+				return Position.RIGHT_UPPER_ARM;
+			case 10:
+				return Position.LEFT_UPPER_ARM;
+			case 11:
+				return Position.LEFT_SIDE_HIP;
+			default:
+				return Position.RIGHT_SIDE_HIP;
+			}
+		}
+
 	}
 
 	private byte[] value;
