@@ -44,13 +44,24 @@ public class SensorLocation {
 
 	}
 
-	private byte[] value;
+	private byte[] bytes;
+	private Position value;
 
 	public SensorLocation(Position position) {
-		this.value = GattByteBuffer.allocate(4).putUint16(position.value).array();
+		this.value = position;
+		this.bytes = GattByteBuffer.allocate(4).putUint16(position.value).array();
 	}
 
-	public byte[] getValue() {
+	public SensorLocation(byte[] bytes) {
+		this.bytes = bytes;
+		this.value = Position.getSensorPositionByValue(GattByteBuffer.wrap(bytes).getUint16());
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public Position getValue() {
 		return value;
 	}
 
