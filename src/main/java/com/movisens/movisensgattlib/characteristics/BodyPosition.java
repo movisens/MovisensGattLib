@@ -17,7 +17,7 @@ public class BodyPosition {
         return value;
     }
 
-    private static enum Position {
+    public enum Position {
         UNKNOWN(0), LYING_SUPINE(1), LYING_LEFT(2), LYING_PRONE(3), LYING_RIGHT(4), UPRIGHT(5), SITTING_LYING(6), STANDING(7), NOT_WORN(99);
 
         public final int value;

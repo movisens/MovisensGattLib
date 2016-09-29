@@ -24,7 +24,7 @@ public class SensorLocation {
         return value;
     }
 
-    public static enum Position {
+    public enum Position {
         RIGHT_SIDE_HIP(1), CHEST(2), RIGHT_WRIST(3), LEFT_WRIST(4), LEFT_ANKLE(5), RIGHT_ANKLE(6), RIGHT_THIGH(
                 7), LEFT_THIGH(8), RIGHT_UPPER_ARM(9), LEFT_UPPER_ARM(10), LEFT_SIDE_HIP(11);
 
