@@ -38,6 +38,10 @@ public class MovisensCharacteristic {
     public static final UUID AGE_FLOAT = UUID.fromString("7562060b-4aff-4422-aec7-77770d2a0530");
     public static final UUID SENSOR_LOCATION = UUID.fromString("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59");
     public static final UUID BODY_POSTION = UUID.fromString("2abf95be-7496-4e72-b880-f9f00aad553b");
+    public static final UUID EDA_COUNTS = UUID.fromString("36dcc871-7d30-47ea-aa1c-9693dabdd026");
+    public static final UUID EDA_COUNTS_WAITING = UUID.fromString("58699790-e3b6-41ee-9cc9-0584a779b2e0");
+    public static final UUID EDA_SCL_MEAN = UUID.fromString("a884dc4b-62d6-44ee-bcbf-d0f725d95213");
+    public static final UUID EDA_SCL_MEAN_WAITING = UUID.fromString("47755955-966e-4b75-b79b-ef5c839cb191");
     private static HashMap<UUID, String> attributes = new HashMap<UUID, String>();
 
     static {
@@ -73,6 +77,10 @@ public class MovisensCharacteristic {
         attributes.put(AGE_FLOAT, "Age in float value of Participant");
         attributes.put(SENSOR_LOCATION, "Sensor location at participant");
         attributes.put(BODY_POSTION, "Body position");
+        attributes.put(EDA_COUNTS, "EDA counts");
+        attributes.put(EDA_COUNTS_WAITING, "EDA counts waiting");
+        attributes.put(EDA_SCL_MEAN, "EDA skin conductance level mean");
+        attributes.put(EDA_SCL_MEAN_WAITING, "EDA skin conductance level mean waiting");
     }
 
     public static String lookup(UUID uuid, String defaultName) {
