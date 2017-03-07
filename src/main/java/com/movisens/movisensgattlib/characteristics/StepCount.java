@@ -1,19 +1,21 @@
 package com.movisens.movisensgattlib.characteristics;
 
+import com.movisens.movisensgattlib.characteristics.base.AbstractReadOnlyCharacteristic;
 import com.movisens.smartgattlib.GattByteBuffer;
 
-public class StepCount {
-	Integer value = -1;
+public class StepCount extends AbstractReadOnlyCharacteristic<Integer> {
 
-	public StepCount(byte[] value) {
-		this.value = GattByteBuffer.wrap(value).getUint16();
-	}
+    public StepCount(byte[] value) {
+        super(value);
+    }
 
-	public Integer getValue() {
-		return value;
-	}
+    @Override
+    public boolean isValid() {
+        return value >= 0;
+    }
 
-	public boolean isValid() {
-		return value >= 0;
-	}
+    @Override
+    protected Integer getValueForBytes(byte[] bytes) {
+        return GattByteBuffer.wrap(bytes).getUint16();
+    }
 }

@@ -1,18 +1,17 @@
 package com.movisens.movisensgattlib.characteristics;
 
+import com.movisens.movisensgattlib.characteristics.base.AbstractReadOnlyCharacteristic;
 import com.movisens.smartgattlib.GattByteBuffer;
 
-public class MovementAcceleration {
-	Double value = Double.NaN;
+public class MovementAcceleration extends AbstractReadOnlyCharacteristic<Double> {
 
-	Double lsbValue = 1.0 / 256; // [g]
+    public MovementAcceleration(byte[] value) {
+        super(value);
+    }
 
-	public MovementAcceleration(byte[] value) {
-		this.value = GattByteBuffer.wrap(value).getUint16().doubleValue()
-				* lsbValue;
-	}
-
-	public Double getValue() {
-		return value;
-	}
+    @Override
+    protected Double getValueForBytes(byte[] bytes) {
+        Double lsbValue = 1.0 / 256;
+        return GattByteBuffer.wrap(bytes).getUint16().doubleValue() * lsbValue;
+    }
 }

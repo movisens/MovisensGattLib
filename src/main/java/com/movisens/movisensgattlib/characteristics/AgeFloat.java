@@ -1,32 +1,29 @@
 package com.movisens.movisensgattlib.characteristics;
 
+import com.movisens.movisensgattlib.characteristics.base.AbstractCharacteristic;
 import com.movisens.smartgattlib.GattByteBuffer;
 
-public class AgeFloat {
-	private byte[] bytes;
-	private float value;
+public class AgeFloat extends AbstractCharacteristic<Float> {
 
-	/**
-	 * 
-	 * @param age
-	 *            in years (for example 35,5)
-	 */
-	public AgeFloat(float age) {
-		this.value = age;
-		this.bytes = GattByteBuffer.allocate(4).putFloat32(age).array();
-	}
+    public AgeFloat(byte[] bytes) {
+        super(bytes);
+    }
 
-	public AgeFloat(byte[] bytes) {
-		this.bytes = bytes;
-		this.value = GattByteBuffer.wrap(bytes).getFloat32();
-	}
+    /**
+     * @param age in years (for example 35,5)
+     */
+    public AgeFloat(Float age) {
+        super(age);
+    }
 
-	public byte[] getBytes() {
-		return bytes;
-	}
+    @Override
+    protected Float getValueForBytes(byte[] bytes) {
+        return GattByteBuffer.wrap(bytes).getFloat32();
+    }
 
-	public float getValue() {
-		return value;
-	}
+    @Override
+    protected byte[] getBytesForValue(Float value) {
+        return GattByteBuffer.allocate(4).putFloat32(value).array();
+    }
 
 }

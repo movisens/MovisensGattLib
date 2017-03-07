@@ -1,27 +1,25 @@
 package com.movisens.movisensgattlib.characteristics;
 
+import com.movisens.movisensgattlib.characteristics.base.AbstractCharacteristic;
 import com.movisens.smartgattlib.GattByteBuffer;
 
-public class SensorLocation {
-    private byte[] bytes;
-    private Position value;
-
+public class SensorLocation extends AbstractCharacteristic<SensorLocation.Position> {
     public SensorLocation(Position position) {
-        this.value = position;
-        this.bytes = GattByteBuffer.allocate(4).putUint16(position.value).array();
+        super(position);
     }
 
     public SensorLocation(byte[] bytes) {
-        this.bytes = bytes;
-        this.value = Position.getSensorPositionByValue(GattByteBuffer.wrap(bytes).getUint16());
+        super(bytes);
     }
 
-    public byte[] getBytes() {
-        return bytes;
+    @Override
+    protected Position getValueForBytes(byte[] bytes) {
+        return Position.getSensorPositionByValue(GattByteBuffer.wrap(bytes).getUint16());
     }
 
-    public Position getValue() {
-        return value;
+    @Override
+    protected byte[] getBytesForValue(Position value) {
+        return GattByteBuffer.allocate(4).putUint16(value.value).array();
     }
 
     public enum Position {
