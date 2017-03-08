@@ -4,8 +4,6 @@ import com.movisens.movisensgattlib.characteristics.base.AbstractReadOnlyCharact
 import com.movisens.smartgattlib.GattByteBuffer;
 
 public class MeasurementEnabled extends AbstractReadOnlyCharacteristic<Boolean> {
-    Boolean value = false;
-
     public MeasurementEnabled(byte[] value) {
         super(value);
     }
