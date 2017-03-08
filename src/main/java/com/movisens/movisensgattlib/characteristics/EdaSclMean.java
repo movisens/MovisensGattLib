@@ -7,22 +7,20 @@ import com.movisens.smartgattlib.GattByteBuffer;
  * Created by Robert Zetzsche on 07.03.2017.
  */
 
-public class EdaSclMean extends AbstractReadOnlyCharacteristic<Double> {
-    Double value = Double.NaN;
+public class EdaSclMean extends AbstractReadOnlyCharacteristic<Integer> {
+    Integer value = -1;
 
     public EdaSclMean(byte[] value) {
         super(value);
-        if (this.value == -1)
-            this.value = Double.NaN;
     }
 
     @Override
     public boolean isValid() {
-        return !value.isNaN();
+        return value >= 0;
     }
 
     @Override
-    protected Double getValueForBytes(byte[] bytes) {
-        return GattByteBuffer.wrap(bytes).getUint16().doubleValue();
+    protected Integer getValueForBytes(byte[] bytes) {
+        return GattByteBuffer.wrap(bytes).getUint16();
     }
 }
