@@ -1,15 +1,16 @@
 package com.movisens.movisensgattlib.characteristics;
 
 import com.movisens.smartgattlib.GattByteBuffer;
+import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
-public class DataAvailable {
-	Boolean value = false;
+public class DataAvailable extends AbstractReadOnlyCharacteristic<Boolean> {
 
-	public DataAvailable(byte[] value) {
-		this.value = GattByteBuffer.wrap(value).getUint8() > 0;
-	}
+    public DataAvailable(byte[] bytes) {
+        super(bytes);
+    }
 
-	public Boolean getValue() {
-		return value;
-	}
+    @Override
+    protected Boolean getValueForBytes(byte[] bytes) {
+        return GattByteBuffer.wrap(bytes).getUint8() > 0;
+    }
 }

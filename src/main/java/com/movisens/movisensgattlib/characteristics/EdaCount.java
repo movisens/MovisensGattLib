@@ -3,10 +3,14 @@ package com.movisens.movisensgattlib.characteristics;
 import com.movisens.smartgattlib.GattByteBuffer;
 import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
-public class StepCount extends AbstractReadOnlyCharacteristic<Integer> {
+/**
+ * Created by Robert Zetzsche on 07.03.2017.
+ */
 
-    public StepCount(byte[] value) {
-        super(value);
+public class EdaCount extends AbstractReadOnlyCharacteristic<Integer> {
+
+    public EdaCount(byte[] bytes) {
+        super(bytes);
     }
 
     @Override

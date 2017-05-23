@@ -1,20 +1,20 @@
 package com.movisens.movisensgattlib.characteristics;
 
 import com.movisens.smartgattlib.GattByteBuffer;
+import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
 /**
  * Created by Robert Zetzsche on 28.09.2016.
  */
 
-public class BodyPosition {
-    private final Position value;
-
+public class BodyPosition extends AbstractReadOnlyCharacteristic<BodyPosition.Position> {
     public BodyPosition(byte[] bytes) {
-        this.value = Position.getSensorPositionByValue(GattByteBuffer.wrap(bytes).getUint8());
+        super(bytes);
     }
 
-    public BodyPosition.Position getValue() {
-        return value;
+    @Override
+    protected Position getValueForBytes(byte[] bytes) {
+        return Position.getSensorPositionByValue(GattByteBuffer.wrap(bytes).getUint8());
     }
 
     public enum Position {
