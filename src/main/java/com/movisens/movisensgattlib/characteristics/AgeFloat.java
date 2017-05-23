@@ -1,7 +1,8 @@
 package com.movisens.movisensgattlib.characteristics;
 
-import com.movisens.movisensgattlib.characteristics.base.AbstractCharacteristic;
+
 import com.movisens.smartgattlib.GattByteBuffer;
+import com.movisens.smartgattlib.characteristics.definition.AbstractCharacteristic;
 
 public class AgeFloat extends AbstractCharacteristic<Float> {
 

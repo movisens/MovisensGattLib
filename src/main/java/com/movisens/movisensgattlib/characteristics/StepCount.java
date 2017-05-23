@@ -1,7 +1,7 @@
 package com.movisens.movisensgattlib.characteristics;
 
-import com.movisens.movisensgattlib.characteristics.base.AbstractReadOnlyCharacteristic;
 import com.movisens.smartgattlib.GattByteBuffer;
+import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
 public class StepCount extends AbstractReadOnlyCharacteristic<Integer> {
 
