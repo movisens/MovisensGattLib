@@ -4,10 +4,10 @@ import com.movisens.smartgattlib.GattByteBuffer;
 import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
 public class MetLevel extends AbstractReadOnlyCharacteristic<Integer[]> {
-    private int sedentary = -1;
-    private int light = -1;
-    private int moderate = -1;
-    private int vigorous = -1;
+    private int sedentary;
+    private int light;
+    private int moderate;
+    private int vigorous;
 
     public MetLevel(byte[] value) {
         super(value);

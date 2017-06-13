@@ -24,7 +24,7 @@ public class CharacteristicsTest {
         Float testAge = 12.5F;
         AgeFloat ageFloat = new AgeFloat(testAge);
         AgeFloat converted = new AgeFloat(ageFloat.getBytes());
-        assertTrue(converted.getValue() == testAge);
+        assertTrue(converted.getValue().equals(testAge));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class CharacteristicsTest {
 
     @Test
     public void testMetLevel() {
-        int[] metLevel = new int[]{12, 25, 45, 18};
+        Integer[] metLevel = new Integer[]{12, 25, 45, 18};
         GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
         for (int i : metLevel) {
             gattByteBuffer.putUint8((short) i);
@@ -58,10 +58,10 @@ public class CharacteristicsTest {
         MetLevel level = new MetLevel(gattByteBuffer.array());
         assertTrue(level.isValid());
         assertArrayEquals(metLevel, level.getValue());
-        assertEquals(metLevel[0], level.getSedentaryValue());
-        assertEquals(metLevel[1], level.getLightValue());
-        assertEquals(metLevel[2], level.getModerateValue());
-        assertEquals(metLevel[3], level.getVigorousValue());
+        assertEquals((int) metLevel[0], level.getSedentaryValue());
+        assertEquals((int) metLevel[1], level.getLightValue());
+        assertEquals((int) metLevel[2], level.getModerateValue());
+        assertEquals((int) metLevel[3], level.getVigorousValue());
     }
 
     @Test

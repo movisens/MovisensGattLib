@@ -4,7 +4,6 @@ import com.movisens.smartgattlib.GattByteBuffer;
 import com.movisens.smartgattlib.characteristics.definition.AbstractReadOnlyCharacteristic;
 
 public class Rmssd extends AbstractReadOnlyCharacteristic<Double> {
-    Double value = Double.NaN;
 
     public Rmssd(byte[] value) {
         super(value);
