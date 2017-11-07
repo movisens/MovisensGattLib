@@ -17,8 +17,8 @@ There is also a complete [example project](https://github.com/movisens/MovisensG
 	    maven { url "https://jitpack.io" }
 	}
 	dependencies {
-	    compile 'com.github.movisens:SmartGattLib:1.7'
-	    compile 'com.github.movisens:MovisensGattLib:1.0'
+	    compile 'com.github.movisens:SmartGattLib:3.0.0'
+	    compile 'com.github.movisens:MovisensGattLib:2.0.0'
 	}
   ```
   or download the latest .jar file from the [MovsiensGattLib releases](https://github.com/movisens/MovisensGattLib/releases) and the [SmartGattLib releases](https://github.com/movisens/SmartGattLib/releases) and place it in your Android app’s libs/ folder.
@@ -27,40 +27,44 @@ There is also a complete [example project](https://github.com/movisens/MovisensG
 ### Example Usage ###
 ```java
 import com.movisens.smartgattlib.*;
-import com.movisens.movisensgattlib.*;
+import com.movisens.smartgattlib.attributes.*;
+import com.movisens.smartgattlib.helper.*;
+import com.movisens.movisensgattlib.attributes.*;
 
 // onConnected
 // TODO: iterate over available services
 UUID serviceUuid = null;// service.getUuid();
-if (MovisensService.ACC_SERVICE.equals(serviceUuid)) {
+if (MovisensServices.PHYSICAL_ACTIVITY_SERVICE.equals(serviceUuid)) {
 
 	// TODO: iterate over characteristics
 	UUID characteristicUuid = null;// characteristic.getUuid();
-	if (MovisensCharacteristic.MOVEMENTACCELERATION.equals(characteristicUuid)) {
-		// TODO: Enable notification of characteristic MovisensCharacteristic.MOVEMENTACCELERATION
+	if (MovisensCharacteristics.MOVEMENT_ACCELERATION.equals(characteristicUuid)) {
+		// TODO: Enable notification of characteristic MovisensCharacteristics.MOVEMENT_ACCELERATION
 	}
-}else if (MovisensService.MOVISENS_SERVICE.equals(serviceUuid)) {
+}else if (MovisensServices.SENSOR_CONTROL_SERVICE.equals(serviceUuid)) {
 	byte[] enable = GattByteBuffer.allocate(1).putBoolean(true).array();
 	
-	// TODO: iterate over characteristics
-	UUID characteristicUuid = null;// characteristic.getUuid();
-	if (MovisensCharacteristic.CURRENT_TIME.equals(characteristicUuid)) {
-		// TODO: Write getLocalTime() to characteristic MovisensCharacteristic.CURRENT_TIME to sync time
-	}else if (MovisensCharacteristic.MEASUREMENT_ENABLED.equals(characteristicUuid)) {
-		// TODO: Write enable to characteristic MovisensCharacteristic.MEASUREMENT_ENABLED to enable measurement
-	}else if (MovisensCharacteristic.AUTHORIZE.equals(characteristicUuid)) {
-		// TODO: Write enable to characteristic MovisensCharacteristic.MEASUREMENT_ENABLED to start measurement
-	}
+    // TODO: iterate over characteristics
+    UUID characteristicUuid = null;// characteristic.getUuid();
+    if (MovisensCharacteristics.CURRENT_TIME.equals(characteristicUuid)) {
+        // TODO: Write getLocalTime() to characteristic MovisensCharacteristic.CURRENT_TIME to sync time
+    }else if (MovisensCharacteristics.MEASUREMENT_ENABLED.equals(characteristicUuid)) {
+        // TODO: Write enable to characteristic MovisensCharacteristic.MEASUREMENT_ENABLED to enable measurement
+    }else if (MovisensCharacteristics.SAVE_ENERGY.equals(characteristicUuid)) {
+        // TODO: Write enable to characteristic MovisensCharacteristic.characteristic to go into energy saving mode
+    }
 }else{
-	System.out.println("Found unused Service: " + MovisensService.lookup(serviceUuid, "unknown"));
+	System.out.println("Found unused Service: " + MovisensServices.lookup(serviceUuid, "unknown"));
 }
 
 
 // onCharacteristicChanged
-UUID characteristicUuid = null;// characteristic.getUuid();
-if (MovisensCharacteristic.MOVEMENTACCELERATION.equals(characteristicUuid)) {
-	byte[] value = null;// characteristic.getValue();
-	MovementAcceleration movement = new MovementAcceleration(value);
-	System.out.println("MovementAcceleration is: " + movement.getValue());
+UUID uuid = null; // TODO: Fill with the received uuid
+byte[] data = null; // TODO: Fill with the received bytes
+
+AbstractAttribute a = Characteristics.lookup(uuid).createAttribute(data);
+if (a instanceof MovementAcceleration) {
+    MovementAcceleration movementAcceleration = ((MovementAcceleration) a);
+    System.out.println("Received MovementAcceleration: " + movementAcceleration.getMovementAcceleration());
 }
 ```
