@@ -64,9 +64,9 @@ public class CharacteristicsTest {
 
     @Test
     public void testHrvIsValid() {
-        Short hrvIsValid = 1;
-        GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
-        gattByteBuffer.putUint8((short) hrvIsValid);
+        Boolean hrvIsValid = true;
+        GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(1);
+        gattByteBuffer.putBoolean(hrvIsValid);
         HrvIsValid available = new HrvIsValid(gattByteBuffer.array());
         assertEquals(hrvIsValid, available.getHrvIsValid());
     }
