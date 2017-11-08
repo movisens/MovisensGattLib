@@ -23,3 +23,8 @@ local.properties
 proguard/
 .idea/
 *.iml
+
+# eclipse files
+.project
+.classpath
+.settings/

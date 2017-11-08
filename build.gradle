@@ -24,6 +24,7 @@ sourceCompatibility = 1.6
 version = '2.0.0'
 
 repositories {
+	mavenLocal()
     mavenCentral()
     maven { url "https://jitpack.io" }
 }
@@ -50,4 +51,8 @@ jar {
                 'Export-Package': 'com.movisens.movisensgattlib'
         )
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3'
 }
