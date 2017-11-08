@@ -10,9 +10,9 @@ public class HrvIsValid extends AbstractReadAttribute
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID;
 	
-	private Short hrvIsValid;
+	private Boolean hrvIsValid;
 	
-	public Short getHrvIsValid()
+	public Boolean getHrvIsValid()
 	{
 		return hrvIsValid;
 	}
@@ -26,7 +26,7 @@ public class HrvIsValid extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		hrvIsValid = bb.getUint8();
+		hrvIsValid = bb.getBoolean();
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class HrvIsValid extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Hrv Is Valid: " + "hrvIsValid = " + getHrvIsValid() + " " + getHrvIsValidUnit();
+		return "Hrv Is Valid: " + "hrvIsValid = " + getHrvIsValid();
 	}
 }
