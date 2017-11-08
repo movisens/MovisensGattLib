@@ -38,6 +38,6 @@ public class ColorTemperature extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Color Temperature: " + "colorTemperature = " + getColorTemperature() + " " + getColorTemperatureUnit();
+		return "Color Temperature: " + "colorTemperature = " + getColorTemperature();
 	}
 }

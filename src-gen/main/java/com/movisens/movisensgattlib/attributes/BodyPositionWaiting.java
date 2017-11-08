@@ -38,6 +38,6 @@ public class BodyPositionWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Body Position Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Body Position Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

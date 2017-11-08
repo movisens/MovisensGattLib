@@ -38,6 +38,6 @@ public class ActivityclassWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Activityclass Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Activityclass Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

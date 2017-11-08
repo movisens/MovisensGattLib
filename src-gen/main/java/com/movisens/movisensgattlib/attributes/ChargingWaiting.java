@@ -38,6 +38,6 @@ public class ChargingWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Charging Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Charging Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

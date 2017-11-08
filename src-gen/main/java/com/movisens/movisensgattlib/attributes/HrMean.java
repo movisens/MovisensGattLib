@@ -38,6 +38,6 @@ public class HrMean extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Hr Mean: " + "hrMean = " + getHrMean() + " " + getHrMeanUnit();
+		return "Hr Mean: " + "hrMean = " + getHrMean();
 	}
 }

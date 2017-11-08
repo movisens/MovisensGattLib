@@ -38,6 +38,6 @@ public class RmssdWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Rmssd Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Rmssd Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

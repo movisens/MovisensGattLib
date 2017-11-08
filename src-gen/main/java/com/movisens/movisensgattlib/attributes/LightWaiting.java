@@ -38,6 +38,6 @@ public class LightWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Light Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Light Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

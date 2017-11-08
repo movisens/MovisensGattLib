@@ -81,7 +81,7 @@ public class RawaccBuffered extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<x.length; i++)
 		{
-			result += "Rawacc Buffered: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "x = " + getX()[i] + " " + getXUnit() + ", " + "y = " + getY()[i] + " " + getYUnit() + ", " + "z = " + getZ()[i] + " " + getZUnit() + "\r\n";
+			result += "Rawacc Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "x = " + getX()[i] + ", " + "y = " + getY()[i] + ", " + "z = " + getZ()[i] + "\r\n";
 		}
 		return result;
 	}

@@ -55,7 +55,7 @@ public class MetBuffered extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<met.length; i++)
 		{
-			result += "Met Buffered: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "met = " + getMet()[i] + " " + getMetUnit() + "\r\n";
+			result += "Met Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "met = " + getMet()[i] + "\r\n";
 		}
 		return result;
 	}

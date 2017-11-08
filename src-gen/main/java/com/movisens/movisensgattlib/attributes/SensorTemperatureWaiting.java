@@ -38,6 +38,6 @@ public class SensorTemperatureWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Sensor Temperature Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Sensor Temperature Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

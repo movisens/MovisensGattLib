@@ -55,7 +55,7 @@ public class Pim extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<pim.length; i++)
 		{
-			result += "Pim: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "pim = " + getPim()[i] + " " + getPimUnit() + "\r\n";
+			result += "Pim: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "pim = " + getPim()[i] + "\r\n";
 		}
 		return result;
 	}

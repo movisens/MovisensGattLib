@@ -38,6 +38,6 @@ public class EdaSclMean extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Eda Scl Mean: " + "edaSclMean = " + getEdaSclMean() + " " + getEdaSclMeanUnit();
+		return "Eda Scl Mean: " + "edaSclMean = " + getEdaSclMean();
 	}
 }

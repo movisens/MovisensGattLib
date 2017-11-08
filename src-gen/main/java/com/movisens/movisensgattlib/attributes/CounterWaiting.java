@@ -38,6 +38,6 @@ public class CounterWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Counter Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Counter Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

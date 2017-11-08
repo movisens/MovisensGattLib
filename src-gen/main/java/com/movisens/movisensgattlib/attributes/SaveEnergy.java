@@ -39,6 +39,6 @@ public class SaveEnergy extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Save Energy: " + "saveEnergy = " + getSaveEnergy() + " " + getSaveEnergyUnit();
+		return "Save Energy: " + "saveEnergy = " + getSaveEnergy();
 	}
 }

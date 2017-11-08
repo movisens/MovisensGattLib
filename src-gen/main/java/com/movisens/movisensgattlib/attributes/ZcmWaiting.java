@@ -38,6 +38,6 @@ public class ZcmWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Zcm Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Zcm Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

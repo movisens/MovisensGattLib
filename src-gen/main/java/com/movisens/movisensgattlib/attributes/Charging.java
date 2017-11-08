@@ -38,6 +38,6 @@ public class Charging extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Charging: " + "charging = " + getCharging() + " " + getChargingUnit();
+		return "Charging: " + "charging = " + getCharging();
 	}
 }

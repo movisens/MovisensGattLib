@@ -55,7 +55,7 @@ public class ActivityclassBuffered extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<activityClass.length; i++)
 		{
-			result += "Activityclass Buffered: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "activityClass = " + getActivityClass()[i] + " " + getActivityClassUnit() + "\r\n";
+			result += "Activityclass Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "activityClass = " + getActivityClass()[i] + "\r\n";
 		}
 		return result;
 	}

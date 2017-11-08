@@ -38,6 +38,6 @@ public class MovementAccelerationWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Movement Acceleration Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Movement Acceleration Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

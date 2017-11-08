@@ -38,6 +38,6 @@ public class InclinationWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Inclination Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Inclination Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

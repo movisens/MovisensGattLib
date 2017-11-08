@@ -38,6 +38,6 @@ public class Steps extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Steps: " + "steps = " + getSteps() + " " + getStepsUnit();
+		return "Steps: " + "steps = " + getSteps();
 	}
 }

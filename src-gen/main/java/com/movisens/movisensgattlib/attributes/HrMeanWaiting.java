@@ -38,6 +38,6 @@ public class HrMeanWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Hr Mean Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Hr Mean Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

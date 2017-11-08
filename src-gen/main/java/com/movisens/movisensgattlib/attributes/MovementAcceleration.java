@@ -38,6 +38,6 @@ public class MovementAcceleration extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Movement Acceleration: " + "movementAcceleration = " + getMovementAcceleration() + " " + getMovementAccelerationUnit();
+		return "Movement Acceleration: " + "movementAcceleration = " + getMovementAcceleration() + getMovementAccelerationUnit();
 	}
 }

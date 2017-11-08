@@ -38,6 +38,6 @@ public class EdaSclMeanWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Eda Scl Mean Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Eda Scl Mean Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

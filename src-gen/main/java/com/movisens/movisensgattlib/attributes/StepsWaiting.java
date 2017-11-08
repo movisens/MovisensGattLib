@@ -38,6 +38,6 @@ public class StepsWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Steps Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Steps Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

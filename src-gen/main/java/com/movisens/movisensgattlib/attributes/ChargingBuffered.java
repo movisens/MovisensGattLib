@@ -55,7 +55,7 @@ public class ChargingBuffered extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<charging.length; i++)
 		{
-			result += "Charging Buffered: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "charging = " + getCharging()[i] + " " + getChargingUnit() + "\r\n";
+			result += "Charging Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "charging = " + getCharging()[i] + "\r\n";
 		}
 		return result;
 	}

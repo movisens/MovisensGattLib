@@ -38,6 +38,6 @@ public class Met extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Met: " + "met = " + getMet() + " " + getMetUnit();
+		return "Met: " + "met = " + getMet();
 	}
 }

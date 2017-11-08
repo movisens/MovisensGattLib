@@ -38,6 +38,6 @@ public class PimWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Pim Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Pim Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

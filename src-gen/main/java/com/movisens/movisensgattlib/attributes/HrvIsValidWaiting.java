@@ -38,6 +38,6 @@ public class HrvIsValidWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Hrv Is Valid Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Hrv Is Valid Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

@@ -38,6 +38,6 @@ public class Status extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Status: " + "status = " + getStatus() + " " + getStatusUnit();
+		return "Status: " + "status = " + getStatus();
 	}
 }

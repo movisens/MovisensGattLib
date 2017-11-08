@@ -38,6 +38,6 @@ public class EdaCounts extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Eda Counts: " + "edaCounts = " + getEdaCounts() + " " + getEdaCountsUnit();
+		return "Eda Counts: " + "edaCounts = " + getEdaCounts();
 	}
 }

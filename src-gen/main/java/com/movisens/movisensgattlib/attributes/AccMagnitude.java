@@ -38,6 +38,6 @@ public class AccMagnitude extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Acc Magnitude: " + "accMagnitude = " + getAccMagnitude() + " " + getAccMagnitudeUnit();
+		return "Acc Magnitude: " + "accMagnitude = " + getAccMagnitude();
 	}
 }

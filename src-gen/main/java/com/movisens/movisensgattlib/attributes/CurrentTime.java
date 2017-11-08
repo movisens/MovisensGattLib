@@ -46,6 +46,6 @@ public class CurrentTime extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Current Time: " + "currentTime = " + getCurrentTime() + " " + getCurrentTimeUnit();
+		return "Current Time: " + "currentTime = " + getCurrentTime();
 	}
 }

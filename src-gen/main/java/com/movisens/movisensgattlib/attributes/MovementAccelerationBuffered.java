@@ -55,7 +55,7 @@ public class MovementAccelerationBuffered extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<movementAcceleration.length; i++)
 		{
-			result += "Movement Acceleration Buffered: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "movementAcceleration = " + getMovementAcceleration()[i] + " " + getMovementAccelerationUnit() + "\r\n";
+			result += "Movement Acceleration Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "movementAcceleration = " + getMovementAcceleration()[i] + getMovementAccelerationUnit() + "\r\n";
 		}
 		return result;
 	}

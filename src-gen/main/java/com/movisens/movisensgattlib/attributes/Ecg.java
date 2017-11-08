@@ -50,6 +50,6 @@ public class Ecg extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Ecg: " + "ecgFirst = " + getEcgFirst() + " " + getEcgFirstUnit() + ", " + "ecgDiff = " + getEcgDiff() + " " + getEcgDiffUnit();
+		return "Ecg: " + "ecgFirst = " + getEcgFirst() + ", " + "ecgDiff = " + getEcgDiff();
 	}
 }

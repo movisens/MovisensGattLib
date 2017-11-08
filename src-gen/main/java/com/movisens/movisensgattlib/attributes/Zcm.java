@@ -55,7 +55,7 @@ public class Zcm extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<zcm.length; i++)
 		{
-			result += "Zcm: " + "time=" + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + "zcm = " + getZcm()[i] + " " + getZcmUnit() + "\r\n";
+			result += "Zcm: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "zcm = " + getZcm()[i] + "\r\n";
 		}
 		return result;
 	}

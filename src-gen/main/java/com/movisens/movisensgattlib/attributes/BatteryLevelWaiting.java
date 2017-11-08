@@ -38,6 +38,6 @@ public class BatteryLevelWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Battery Level Waiting: " + "samplesWaiting = " + getSamplesWaiting() + " " + getSamplesWaitingUnit();
+		return "Battery Level Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }
