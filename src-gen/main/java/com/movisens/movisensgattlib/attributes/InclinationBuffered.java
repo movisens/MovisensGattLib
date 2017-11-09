@@ -8,10 +8,10 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class Inclination extends AbstractReadAttribute
+public class InclinationBuffered extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.INCLINATION;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.INCLINATION_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -49,7 +49,7 @@ public class Inclination extends AbstractReadAttribute
 		return "";
 	}
 	
-	public Inclination(byte[] data)
+	public InclinationBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -81,7 +81,7 @@ public class Inclination extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<x.length; i++)
 		{
-			result += "Inclination: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "x = " + getX()[i] + ", " + "y = " + getY()[i] + ", " + "z = " + getZ()[i] + "\r\n";
+			result += "Inclination Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "x = " + getX()[i] + ", " + "y = " + getY()[i] + ", " + "z = " + getZ()[i] + "\r\n";
 		}
 		return result;
 	}

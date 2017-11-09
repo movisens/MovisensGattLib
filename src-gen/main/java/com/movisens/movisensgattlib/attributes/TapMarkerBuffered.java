@@ -8,26 +8,26 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class Zcm extends AbstractReadAttribute
+public class TapMarkerBuffered extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ZCM;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.TAP_MARKER_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Short zcm[];
+	private Long tapMarker[];
 	
-	public Short[] getZcm()
+	public Long[] getTapMarker()
 	{
-		return zcm;
+		return tapMarker;
 	}
 	
-	public String getZcmUnit()
+	public String getTapMarkerUnit()
 	{
 		return "";
 	}
 	
-	public Zcm(byte[] data)
+	public TapMarkerBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -35,11 +35,11 @@ public class Zcm extends AbstractReadAttribute
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		zcm = new Short[numValues];
+		tapMarker = new Long[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			zcm[i] = bb.getInt16();
+			tapMarker[i] = bb.getUint32();
 		}
 	}
 
@@ -53,9 +53,9 @@ public class Zcm extends AbstractReadAttribute
 	public String toString()
 	{
 		String result = "";
-		for(int i=0; i<zcm.length; i++)
+		for(int i=0; i<tapMarker.length; i++)
 		{
-			result += "Zcm: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "zcm = " + getZcm()[i] + "\r\n";
+			result += "Tap Marker Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "tapMarker = " + getTapMarker()[i] + "\r\n";
 		}
 		return result;
 	}

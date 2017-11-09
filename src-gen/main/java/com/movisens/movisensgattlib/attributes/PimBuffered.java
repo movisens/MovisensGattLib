@@ -8,10 +8,10 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class Pim extends AbstractReadAttribute
+public class PimBuffered extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.PIM;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.PIM_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -27,7 +27,7 @@ public class Pim extends AbstractReadAttribute
 		return "";
 	}
 	
-	public Pim(byte[] data)
+	public PimBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -55,7 +55,7 @@ public class Pim extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<pim.length; i++)
 		{
-			result += "Pim: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "pim = " + getPim()[i] + "\r\n";
+			result += "Pim Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "pim = " + getPim()[i] + "\r\n";
 		}
 		return result;
 	}

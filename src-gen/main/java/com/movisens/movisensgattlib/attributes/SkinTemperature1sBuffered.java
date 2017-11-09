@@ -8,10 +8,10 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class SkinTemperatureBuffered10 extends AbstractReadAttribute
+public class SkinTemperature1sBuffered extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE_BUFFERED__1_0;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE_1S_BUFFERED;
 	
 	public static final int periodLength = 1;
 	private long time;
@@ -27,7 +27,7 @@ public class SkinTemperatureBuffered10 extends AbstractReadAttribute
 		return "Grad Celsius";
 	}
 	
-	public SkinTemperatureBuffered10(byte[] data)
+	public SkinTemperature1sBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -55,7 +55,7 @@ public class SkinTemperatureBuffered10 extends AbstractReadAttribute
 		String result = "";
 		for(int i=0; i<temperature.length; i++)
 		{
-			result += "Skin Temperature Buffered  1 0: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "temperature = " + getTemperature()[i] + getTemperatureUnit() + "\r\n";
+			result += "Skin Temperature 1s Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "temperature = " + getTemperature()[i] + getTemperatureUnit() + "\r\n";
 		}
 		return result;
 	}
