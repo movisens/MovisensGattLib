@@ -19,14 +19,14 @@ public class Example {
 		// onConnected
 		// TODO: iterate over available services
 		UUID serviceUuid = null;// service.getUuid();
-		if (MovisensServices.PHYSICAL_ACTIVITY_SERVICE.equals(serviceUuid)) {
+		if (MovisensServices.PHYSICAL_ACTIVITY.equals(serviceUuid)) {
 
 			// TODO: iterate over characteristics
 			UUID characteristicUuid = null;// characteristic.getUuid();
 			if (MovisensCharacteristics.MOVEMENT_ACCELERATION.equals(characteristicUuid)) {
 				// TODO: Enable notification of characteristic MovisensCharacteristic.MOVEMENTACCELERATION
 			}
-		}else if (MovisensServices.SENSOR_CONTROL_SERVICE.equals(serviceUuid)) {
+		}else if (MovisensServices.SENSOR_CONTROL.equals(serviceUuid)) {
 			byte[] enable = GattByteBuffer.allocate(1).putBoolean(true).array();
 			
 			// TODO: iterate over characteristics
