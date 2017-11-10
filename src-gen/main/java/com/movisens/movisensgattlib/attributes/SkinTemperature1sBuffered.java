@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.helper.BufferedAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class SkinTemperature1sBuffered extends AbstractReadAttribute
+public class SkinTemperature1sBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE_1S_BUFFERED;
@@ -16,6 +17,18 @@ public class SkinTemperature1sBuffered extends AbstractReadAttribute
 	public static final int periodLength = 1;
 	private long time;
 	private Double temperature[];
+	
+	@Override
+	public Date getTime()
+	{
+		return new Date(time*1000);
+	}
+	
+	@Override
+	public double getSamplerate()
+	{
+		return 1.0/periodLength;
+	}
 	
 	public Double[] getTemperature()
 	{

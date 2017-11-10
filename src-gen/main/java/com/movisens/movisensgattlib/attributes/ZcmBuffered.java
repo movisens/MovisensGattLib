@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.helper.BufferedAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class ZcmBuffered extends AbstractReadAttribute
+public class ZcmBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ZCM_BUFFERED;
@@ -16,6 +17,18 @@ public class ZcmBuffered extends AbstractReadAttribute
 	public static final int periodLength = 60;
 	private long time;
 	private Short zcm[];
+	
+	@Override
+	public Date getTime()
+	{
+		return new Date(time*1000);
+	}
+	
+	@Override
+	public double getSamplerate()
+	{
+		return 1.0/periodLength;
+	}
 	
 	public Short[] getZcm()
 	{

@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.helper.BufferedAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class IlluminationBuffered extends AbstractReadAttribute
+public class IlluminationBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ILLUMINATION_BUFFERED;
@@ -16,6 +17,18 @@ public class IlluminationBuffered extends AbstractReadAttribute
 	public static final int periodLength = 60;
 	private long time;
 	private Long illumination[];
+	
+	@Override
+	public Date getTime()
+	{
+		return new Date(time*1000);
+	}
+	
+	@Override
+	public double getSamplerate()
+	{
+		return 1.0/periodLength;
+	}
 	
 	public Long[] getIllumination()
 	{

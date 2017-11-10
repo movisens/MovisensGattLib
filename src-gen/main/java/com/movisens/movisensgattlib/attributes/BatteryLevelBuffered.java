@@ -4,18 +4,31 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.helper.BufferedAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class BatteryLevelBuffered extends AbstractReadAttribute
+public class BatteryLevelBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.BATTERY_LEVEL_BUFFERED;
 	
-	public static final int periodLength = 10;
+	public static final int periodLength = 60;
 	private long time;
 	private Double level[];
+	
+	@Override
+	public Date getTime()
+	{
+		return new Date(time*1000);
+	}
+	
+	@Override
+	public double getSamplerate()
+	{
+		return 1.0/periodLength;
+	}
 	
 	public Double[] getLevel()
 	{
