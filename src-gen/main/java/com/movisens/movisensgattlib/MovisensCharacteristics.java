@@ -11,6 +11,7 @@ import com.movisens.movisensgattlib.attributes.Charging;
 import com.movisens.movisensgattlib.attributes.ChargingBuffered;
 import com.movisens.movisensgattlib.attributes.ChargingWaiting;
 import com.movisens.movisensgattlib.attributes.CurrentTime;
+import com.movisens.movisensgattlib.attributes.MeasurementStartTime;
 import com.movisens.movisensgattlib.attributes.DeleteData;
 import com.movisens.movisensgattlib.attributes.SaveEnergy;
 import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
@@ -118,6 +119,7 @@ public class MovisensCharacteristics
 	public static final Characteristic LIGHT = new Characteristic("375bf82c-41e8-4ca1-9b95-f8634b1ba2f8", "Light", Light.class);
 	public static final Characteristic LIGHT_WAITING = new Characteristic("d166790b-9531-44fd-8314-14f303280de1", "Light Waiting", LightWaiting.class);
 	public static final Characteristic MEASUREMENT_ENABLED = new Characteristic("f89edec7-f7e0-94f2-747d-ee7acaa6d412", "Measurement Enabled", MeasurementEnabled.class);
+	public static final Characteristic MEASUREMENT_START_TIME = new Characteristic("2d81487d-08f7-47e1-a060-0659d9b4b766", "Measurement Start Time", MeasurementStartTime.class);
 	public static final Characteristic MET = new Characteristic("088133e4-bf36-4c10-943a-17e07734d4ba", "Met", Met.class);
 	public static final Characteristic MET_BUFFERED = new Characteristic("82e947c3-48a2-4106-8536-b3bdc6b10453", "Met Buffered", MetBuffered.class);
 	public static final Characteristic MET_LEVEL = new Characteristic("114dc370-a5d0-4d86-a701-030282a0a271", "Met Level", MetLevel.class);
@@ -194,6 +196,7 @@ public class MovisensCharacteristics
 		characteristics.put(LIGHT);
 		characteristics.put(LIGHT_WAITING);
 		characteristics.put(MEASUREMENT_ENABLED);
+		characteristics.put(MEASUREMENT_START_TIME);
 		characteristics.put(MET);
 		characteristics.put(MET_BUFFERED);
 		characteristics.put(MET_LEVEL);
