@@ -23,13 +23,41 @@ public class EdaCountsBuffered extends AbstractReadAttribute implements Buffered
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"edaCounts"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = edaCounts.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = edaCounts[i];
+		}
+		
+		return data;
+	}
+
 	public Integer[] getEdaCounts()
 	{
 		return edaCounts;

@@ -25,13 +25,43 @@ public class RawaccBuffered extends AbstractReadAttribute implements BufferedAtt
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"x", "y", "z"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {"", "", ""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = x.length;
+		double[][] data = new double[numSamples][3];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = x[i];
+			data[i][1] = y[i];
+			data[i][2] = z[i];
+		}
+		
+		return data;
+	}
+
 	public Short[] getX()
 	{
 		return x;

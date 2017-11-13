@@ -27,13 +27,45 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"red", "green", "blue", "clear", "ir"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {"", "", "", "", ""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = red.length;
+		double[][] data = new double[numSamples][5];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = red[i];
+			data[i][1] = green[i];
+			data[i][2] = blue[i];
+			data[i][3] = clear[i];
+			data[i][4] = ir[i];
+		}
+		
+		return data;
+	}
+
 	public Long[] getRed()
 	{
 		return red;

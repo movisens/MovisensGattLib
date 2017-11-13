@@ -23,13 +23,41 @@ public class EdaSclMeanBuffered extends AbstractReadAttribute implements Buffere
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"edaSclMean"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = edaSclMean.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = edaSclMean[i];
+		}
+		
+		return data;
+	}
+
 	public Integer[] getEdaSclMean()
 	{
 		return edaSclMean;

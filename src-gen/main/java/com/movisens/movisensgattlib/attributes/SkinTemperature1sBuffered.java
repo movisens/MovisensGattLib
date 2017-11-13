@@ -23,13 +23,41 @@ public class SkinTemperature1sBuffered extends AbstractReadAttribute implements 
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"temperature"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {"Grad Celsius"};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = temperature.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = temperature[i];
+		}
+		
+		return data;
+	}
+
 	public Double[] getTemperature()
 	{
 		return temperature;

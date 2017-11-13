@@ -7,4 +7,7 @@ public interface BufferedAttribute {
 	Date getTime();
 	double getSamplerate();
 	
+	String[] getValueNames();
+	String[] getValueUnits();
+	double[][] getValues();
 }

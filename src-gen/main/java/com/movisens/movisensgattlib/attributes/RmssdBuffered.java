@@ -23,13 +23,41 @@ public class RmssdBuffered extends AbstractReadAttribute implements BufferedAttr
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"rmssd"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = rmssd.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = rmssd[i];
+		}
+		
+		return data;
+	}
+
 	public Short[] getRmssd()
 	{
 		return rmssd;

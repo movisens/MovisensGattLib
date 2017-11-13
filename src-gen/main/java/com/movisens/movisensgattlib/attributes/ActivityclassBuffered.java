@@ -23,13 +23,41 @@ public class ActivityclassBuffered extends AbstractReadAttribute implements Buff
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"activityClass"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = activityClass.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = activityClass[i];
+		}
+		
+		return data;
+	}
+
 	public Short[] getActivityClass()
 	{
 		return activityClass;

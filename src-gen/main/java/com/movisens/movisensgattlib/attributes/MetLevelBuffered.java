@@ -26,13 +26,44 @@ public class MetLevelBuffered extends AbstractReadAttribute implements BufferedA
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"sedentary", "light", "moderate", "vigorous"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {"", "", "", ""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = sedentary.length;
+		double[][] data = new double[numSamples][4];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = sedentary[i];
+			data[i][1] = light[i];
+			data[i][2] = moderate[i];
+			data[i][3] = vigorous[i];
+		}
+		
+		return data;
+	}
+
 	public Short[] getSedentary()
 	{
 		return sedentary;

@@ -23,13 +23,41 @@ public class HrvIsValidBuffered extends AbstractReadAttribute implements Buffere
 	{
 		return new Date(time*1000);
 	}
-	
+
 	@Override
 	public double getSamplerate()
 	{
 		return 1.0/periodLength;
 	}
+
+	@Override
+	public String[] getValueNames()
+	{
+		String[] names = {"hrvIsValid"};
+		return names;
+	}
+
+	@Override
+	public String[] getValueUnits()
+	{
+		String[] names = {""};
+		return names;
+	}
 	
+	@Override
+	public double[][] getValues()
+	{
+		int numSamples = hrvIsValid.length;
+		double[][] data = new double[numSamples][1];
+		
+		for(int i=0; i<numSamples; i++)
+		{
+			data[i][0] = hrvIsValid[i] ? 1.0 : 0.0;
+		}
+		
+		return data;
+	}
+
 	public Boolean[] getHrvIsValid()
 	{
 		return hrvIsValid;

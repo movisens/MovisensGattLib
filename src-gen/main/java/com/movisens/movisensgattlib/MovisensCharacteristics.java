@@ -14,6 +14,7 @@ import com.movisens.movisensgattlib.attributes.CurrentTime;
 import com.movisens.movisensgattlib.attributes.MeasurementStartTime;
 import com.movisens.movisensgattlib.attributes.DeleteData;
 import com.movisens.movisensgattlib.attributes.SaveEnergy;
+import com.movisens.movisensgattlib.attributes.SendBufferedData;
 import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
 import com.movisens.movisensgattlib.attributes.DataAvailable;
 import com.movisens.movisensgattlib.attributes.Status;
@@ -157,6 +158,7 @@ public class MovisensCharacteristics
 	public static final Characteristic RMSSD_BUFFERED = new Characteristic("1bc36d57-595b-499e-8f2a-fa2275bcabc3", "Rmssd Buffered", RmssdBuffered.class);
 	public static final Characteristic RMSSD_WAITING = new Characteristic("f89edec0-b569-ee0d-9589-e4abd1f42693", "Rmssd Waiting", RmssdWaiting.class);
 	public static final Characteristic SAVE_ENERGY = new Characteristic("f89edebf-9b5b-486d-054f-b3ce3e226d42", "Save Energy", SaveEnergy.class);
+	public static final Characteristic SEND_BUFFERED_DATA = new Characteristic("8b7446a0-372a-4841-aa5e-3b97d30a45b3", "Send Buffered Data", SendBufferedData.class);
 	public static final Characteristic SENSOR_LOCATION = new Characteristic("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59", "Sensor Location", SensorLocation.class);
 	public static final Characteristic SENSOR_TEMPERATURE = new Characteristic("2c007893-37a4-473d-8c07-09c41324eea5", "Sensor Temperature", SensorTemperature.class);
 	public static final Characteristic SENSOR_TEMPERATURE_BUFFERED = new Characteristic("869c06de-f52a-4a90-9a3a-ca5fd35d6707", "Sensor Temperature Buffered", SensorTemperatureBuffered.class);
@@ -245,6 +247,7 @@ public class MovisensCharacteristics
 		characteristics.put(RMSSD_BUFFERED);
 		characteristics.put(RMSSD_WAITING);
 		characteristics.put(SAVE_ENERGY);
+		characteristics.put(SEND_BUFFERED_DATA);
 		characteristics.put(SENSOR_LOCATION);
 		characteristics.put(SENSOR_TEMPERATURE);
 		characteristics.put(SENSOR_TEMPERATURE_BUFFERED);
