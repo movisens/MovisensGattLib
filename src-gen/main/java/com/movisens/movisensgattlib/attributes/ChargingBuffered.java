@@ -14,7 +14,7 @@ public class ChargingBuffered extends AbstractReadAttribute implements BufferedA
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CHARGING_BUFFERED;
 	
-	public static final int periodLength = 10;
+	public static final int periodLength = 60;
 	private long time;
 	private Boolean charging[];
 	
