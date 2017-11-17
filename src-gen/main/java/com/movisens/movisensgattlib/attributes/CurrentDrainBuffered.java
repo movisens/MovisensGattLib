@@ -9,15 +9,14 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class LightBuffered extends AbstractReadAttribute implements BufferedAttribute
+public class CurrentDrainBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT_BUFFERED;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CURRENT_DRAIN_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Long clear[];
-	private Long ir[];
+	private Double currentDrain[];
 	
 	@Override
 	public Date getTime()
@@ -34,53 +33,42 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 	@Override
 	public String[] getValueNames()
 	{
-		String[] names = {"clear", "ir"};
+		String[] names = {"currentDrain"};
 		return names;
 	}
 
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"", ""};
+		String[] names = {"mA"};
 		return names;
 	}
 	
 	@Override
 	public double[][] getValues()
 	{
-		int numSamples = clear.length;
-		double[][] data = new double[numSamples][2];
+		int numSamples = currentDrain.length;
+		double[][] data = new double[numSamples][1];
 		
 		for(int i=0; i<numSamples; i++)
 		{
-			data[i][0] = clear[i];
-			data[i][1] = ir[i];
+			data[i][0] = currentDrain[i];
 		}
 		
 		return data;
 	}
 
-	public Long[] getClear()
+	public Double[] getCurrentDrain()
 	{
-		return clear;
+		return currentDrain;
 	}
 	
-	public String getClearUnit()
+	public String getCurrentDrainUnit()
 	{
-		return "";
+		return "mA";
 	}
 	
-	public Long[] getIr()
-	{
-		return ir;
-	}
-	
-	public String getIrUnit()
-	{
-		return "";
-	}
-	
-	public LightBuffered(byte[] data)
+	public CurrentDrainBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -88,13 +76,11 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		clear = new Long[numValues];
-		ir = new Long[numValues];
+		currentDrain = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			clear[i] = bb.getUint32();
-			ir[i] = bb.getUint32();
+			currentDrain[i] = ((double)bb.getInt32()) * 0.01;
 		}
 	}
 
@@ -108,9 +94,9 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 	public String toString()
 	{
 		String result = "";
-		for(int i=0; i<clear.length; i++)
+		for(int i=0; i<currentDrain.length; i++)
 		{
-			result += "Light Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + "\r\n";
+			result += "Current Drain Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "currentDrain = " + getCurrentDrain()[i] + getCurrentDrainUnit() + "\r\n";
 		}
 		return result;
 	}

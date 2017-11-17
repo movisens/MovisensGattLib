@@ -5,40 +5,28 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class Light extends AbstractReadAttribute
+public class CurrentDrain extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CURRENT_DRAIN;
 	
-	private Long clear;
-	private Long ir;
+	private Double currentDrain;
 	
-	public Long getClear()
+	public Double getCurrentDrain()
 	{
-		return clear;
+		return currentDrain;
 	}
 	
-	public String getClearUnit()
+	public String getCurrentDrainUnit()
 	{
-		return "";
+		return "mA";
 	}
 	
-	public Long getIr()
-	{
-		return ir;
-	}
-	
-	public String getIrUnit()
-	{
-		return "";
-	}
-	
-	public Light(byte[] data)
+	public CurrentDrain(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		clear = bb.getUint32();
-		ir = bb.getUint32();
+		currentDrain = ((double)bb.getInt32()) * 0.01;
 	}
 
 	@Override
@@ -50,6 +38,6 @@ public class Light extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Light: " + "clear = " + getClear() + ", " + "ir = " + getIr();
+		return "Current Drain: " + "currentDrain = " + getCurrentDrain() + getCurrentDrainUnit();
 	}
 }

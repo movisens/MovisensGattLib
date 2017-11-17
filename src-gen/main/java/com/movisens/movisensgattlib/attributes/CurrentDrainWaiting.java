@@ -5,40 +5,28 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class Light extends AbstractReadAttribute
+public class CurrentDrainWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CURRENT_DRAIN_WAITING;
 	
-	private Long clear;
-	private Long ir;
+	private Long samplesWaiting;
 	
-	public Long getClear()
+	public Long getSamplesWaiting()
 	{
-		return clear;
+		return samplesWaiting;
 	}
 	
-	public String getClearUnit()
-	{
-		return "";
-	}
-	
-	public Long getIr()
-	{
-		return ir;
-	}
-	
-	public String getIrUnit()
+	public String getSamplesWaitingUnit()
 	{
 		return "";
 	}
 	
-	public Light(byte[] data)
+	public CurrentDrainWaiting(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		clear = bb.getUint32();
-		ir = bb.getUint32();
+		samplesWaiting = bb.getUint32();
 	}
 
 	@Override
@@ -50,6 +38,6 @@ public class Light extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Light: " + "clear = " + getClear() + ", " + "ir = " + getIr();
+		return "Current Drain Waiting: " + "samplesWaiting = " + getSamplesWaiting();
 	}
 }

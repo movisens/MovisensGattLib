@@ -9,15 +9,16 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class LightBuffered extends AbstractReadAttribute implements BufferedAttribute
+public class LightRgbBuffered extends AbstractReadAttribute implements BufferedAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT_BUFFERED;
+	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT_RGB_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Long clear[];
-	private Long ir[];
+	private Long red[];
+	private Long green[];
+	private Long blue[];
 	
 	@Override
 	public Date getTime()
@@ -34,53 +35,64 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 	@Override
 	public String[] getValueNames()
 	{
-		String[] names = {"clear", "ir"};
+		String[] names = {"red", "green", "blue"};
 		return names;
 	}
 
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"", ""};
+		String[] names = {"", "", ""};
 		return names;
 	}
 	
 	@Override
 	public double[][] getValues()
 	{
-		int numSamples = clear.length;
-		double[][] data = new double[numSamples][2];
+		int numSamples = red.length;
+		double[][] data = new double[numSamples][3];
 		
 		for(int i=0; i<numSamples; i++)
 		{
-			data[i][0] = clear[i];
-			data[i][1] = ir[i];
+			data[i][0] = red[i];
+			data[i][1] = green[i];
+			data[i][2] = blue[i];
 		}
 		
 		return data;
 	}
 
-	public Long[] getClear()
+	public Long[] getRed()
 	{
-		return clear;
+		return red;
 	}
 	
-	public String getClearUnit()
-	{
-		return "";
-	}
-	
-	public Long[] getIr()
-	{
-		return ir;
-	}
-	
-	public String getIrUnit()
+	public String getRedUnit()
 	{
 		return "";
 	}
 	
-	public LightBuffered(byte[] data)
+	public Long[] getGreen()
+	{
+		return green;
+	}
+	
+	public String getGreenUnit()
+	{
+		return "";
+	}
+	
+	public Long[] getBlue()
+	{
+		return blue;
+	}
+	
+	public String getBlueUnit()
+	{
+		return "";
+	}
+	
+	public LightRgbBuffered(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
@@ -88,13 +100,15 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		clear = new Long[numValues];
-		ir = new Long[numValues];
+		red = new Long[numValues];
+		green = new Long[numValues];
+		blue = new Long[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			clear[i] = bb.getUint32();
-			ir[i] = bb.getUint32();
+			red[i] = bb.getUint32();
+			green[i] = bb.getUint32();
+			blue[i] = bb.getUint32();
 		}
 	}
 
@@ -108,9 +122,9 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 	public String toString()
 	{
 		String result = "";
-		for(int i=0; i<clear.length; i++)
+		for(int i=0; i<red.length; i++)
 		{
-			result += "Light Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + "\r\n";
+			result += "Light RGB buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "red = " + getRed()[i] + ", " + "green = " + getGreen()[i] + ", " + "blue = " + getBlue()[i] + "\r\n";
 		}
 		return result;
 	}
