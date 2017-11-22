@@ -38,6 +38,6 @@ public class DataTx extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Data Tx: " + "dataTx = " + getDataTx();
+		return getDataTx().toString();
 	}
 }

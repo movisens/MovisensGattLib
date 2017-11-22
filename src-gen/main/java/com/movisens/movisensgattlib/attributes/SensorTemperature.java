@@ -38,6 +38,6 @@ public class SensorTemperature extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Sensor Temperature: " + "temperature = " + getTemperature();
+		return getTemperature().toString();
 	}
 }

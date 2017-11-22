@@ -38,6 +38,6 @@ public class HrvIsValid extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Hrv Is Valid: " + "hrvIsValid = " + getHrvIsValid();
+		return getHrvIsValid().toString();
 	}
 }

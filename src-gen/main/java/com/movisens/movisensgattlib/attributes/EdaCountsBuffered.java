@@ -96,7 +96,7 @@ public class EdaCountsBuffered extends AbstractReadAttribute implements Buffered
 		String result = "";
 		for(int i=0; i<edaCounts.length; i++)
 		{
-			result += "Eda Counts Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "edaCounts = " + getEdaCounts()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getEdaCounts()[i].toString() + " \r\n";
 		}
 		return result;
 	}

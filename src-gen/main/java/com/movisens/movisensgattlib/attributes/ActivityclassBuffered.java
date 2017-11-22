@@ -96,7 +96,7 @@ public class ActivityclassBuffered extends AbstractReadAttribute implements Buff
 		String result = "";
 		for(int i=0; i<activityClass.length; i++)
 		{
-			result += "Activityclass Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "activityClass = " + getActivityClass()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getActivityClass()[i].toString() + " \r\n";
 		}
 		return result;
 	}

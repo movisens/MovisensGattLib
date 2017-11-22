@@ -38,6 +38,6 @@ public class SkinTemperatureWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Skin Temperature Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

@@ -74,6 +74,6 @@ public class MetLevel extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Met Level: " + "sedentary = " + getSedentary() + ", " + "light = " + getLight() + ", " + "moderate = " + getModerate() + ", " + "vigorous = " + getVigorous();
+		return "sedentary = " + getSedentary() + ", " + "light = " + getLight() + ", " + "moderate = " + getModerate() + ", " + "vigorous = " + getVigorous();
 	}
 }

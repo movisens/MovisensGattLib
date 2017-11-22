@@ -38,6 +38,6 @@ public class Counter extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Counter: " + "counter = " + getCounter();
+		return getCounter().toString();
 	}
 }

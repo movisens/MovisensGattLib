@@ -96,7 +96,7 @@ public class EdaSclMeanBuffered extends AbstractReadAttribute implements Buffere
 		String result = "";
 		for(int i=0; i<edaSclMean.length; i++)
 		{
-			result += "Eda Scl Mean Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "edaSclMean = " + getEdaSclMean()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getEdaSclMean()[i].toString() + " \r\n";
 		}
 		return result;
 	}

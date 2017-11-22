@@ -96,7 +96,7 @@ public class SkinTemperature1sBuffered extends AbstractReadAttribute implements 
 		String result = "";
 		for(int i=0; i<temperature.length; i++)
 		{
-			result += "Skin Temperature 1s Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "temperature = " + getTemperature()[i] + getTemperatureUnit() + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + getTemperatureUnit() + " \r\n";
 		}
 		return result;
 	}

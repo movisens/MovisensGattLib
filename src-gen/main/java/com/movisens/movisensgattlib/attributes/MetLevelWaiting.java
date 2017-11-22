@@ -38,6 +38,6 @@ public class MetLevelWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Met Level Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

@@ -38,6 +38,6 @@ public class Rmssd extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Rmssd: " + "rmssd = " + getRmssd();
+		return getRmssd().toString();
 	}
 }

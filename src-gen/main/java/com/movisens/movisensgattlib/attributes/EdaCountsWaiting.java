@@ -38,6 +38,6 @@ public class EdaCountsWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Eda Counts Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

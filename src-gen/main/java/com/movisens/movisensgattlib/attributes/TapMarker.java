@@ -38,6 +38,6 @@ public class TapMarker extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Tap Marker: " + "tapMarker = " + getTapMarker();
+		return getTapMarker().toString();
 	}
 }

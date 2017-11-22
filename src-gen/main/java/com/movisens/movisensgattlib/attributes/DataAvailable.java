@@ -38,6 +38,6 @@ public class DataAvailable extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Data Available: " + "dataAvailable = " + getDataAvailable();
+		return getDataAvailable().toString();
 	}
 }

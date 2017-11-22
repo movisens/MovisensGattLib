@@ -38,6 +38,6 @@ public class LightRgbWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Light RGB waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

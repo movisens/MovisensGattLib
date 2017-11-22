@@ -38,6 +38,6 @@ public class IlluminationWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Illumination Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

@@ -110,7 +110,7 @@ public class LightBuffered extends AbstractReadAttribute implements BufferedAttr
 		String result = "";
 		for(int i=0; i<clear.length; i++)
 		{
-			result += "Light Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + " \r\n";
 		}
 		return result;
 	}

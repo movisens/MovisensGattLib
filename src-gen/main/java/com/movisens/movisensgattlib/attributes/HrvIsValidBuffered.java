@@ -96,7 +96,7 @@ public class HrvIsValidBuffered extends AbstractReadAttribute implements Buffere
 		String result = "";
 		for(int i=0; i<hrvIsValid.length; i++)
 		{
-			result += "Hrv Is Valid Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "hrvIsValid = " + getHrvIsValid()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrvIsValid()[i].toString() + " \r\n";
 		}
 		return result;
 	}

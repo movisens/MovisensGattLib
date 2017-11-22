@@ -46,6 +46,6 @@ public class MeasurementEnabled extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Measurement Enabled: " + "measurementEnabled = " + getMeasurementEnabled();
+		return getMeasurementEnabled().toString();
 	}
 }

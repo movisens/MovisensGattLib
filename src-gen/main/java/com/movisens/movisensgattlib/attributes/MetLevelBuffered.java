@@ -138,7 +138,7 @@ public class MetLevelBuffered extends AbstractReadAttribute implements BufferedA
 		String result = "";
 		for(int i=0; i<sedentary.length; i++)
 		{
-			result += "Met Level Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + ", " + "light = " + getLight()[i] + ", " + "moderate = " + getModerate()[i] + ", " + "vigorous = " + getVigorous()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + ", " + "light = " + getLight()[i] + ", " + "moderate = " + getModerate()[i] + ", " + "vigorous = " + getVigorous()[i] + " \r\n";
 		}
 		return result;
 	}

@@ -38,6 +38,6 @@ public class SkinTemperature extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Skin Temperature: " + "temperature = " + getTemperature() + getTemperatureUnit();
+		return getTemperature().toString() + getTemperatureUnit();
 	}
 }

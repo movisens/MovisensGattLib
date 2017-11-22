@@ -38,6 +38,6 @@ public class TapMarkerWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Tap Marker Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

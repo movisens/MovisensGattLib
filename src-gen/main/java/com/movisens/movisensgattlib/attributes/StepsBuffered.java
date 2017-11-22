@@ -96,7 +96,7 @@ public class StepsBuffered extends AbstractReadAttribute implements BufferedAttr
 		String result = "";
 		for(int i=0; i<steps.length; i++)
 		{
-			result += "Steps Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "steps = " + getSteps()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getSteps()[i].toString() + " \r\n";
 		}
 		return result;
 	}

@@ -96,7 +96,7 @@ public class BatteryLevelBuffered extends AbstractReadAttribute implements Buffe
 		String result = "";
 		for(int i=0; i<level.length; i++)
 		{
-			result += "Battery Level Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "level = " + getLevel()[i] + getLevelUnit() + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getLevel()[i].toString() + getLevelUnit() + " \r\n";
 		}
 		return result;
 	}

@@ -124,7 +124,7 @@ public class LightRgbBuffered extends AbstractReadAttribute implements BufferedA
 		String result = "";
 		for(int i=0; i<red.length; i++)
 		{
-			result += "Light RGB buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "red = " + getRed()[i] + ", " + "green = " + getGreen()[i] + ", " + "blue = " + getBlue()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "red = " + getRed()[i] + ", " + "green = " + getGreen()[i] + ", " + "blue = " + getBlue()[i] + " \r\n";
 		}
 		return result;
 	}

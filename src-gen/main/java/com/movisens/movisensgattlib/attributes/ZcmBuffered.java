@@ -96,7 +96,7 @@ public class ZcmBuffered extends AbstractReadAttribute implements BufferedAttrib
 		String result = "";
 		for(int i=0; i<zcm.length; i++)
 		{
-			result += "Zcm Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "zcm = " + getZcm()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getZcm()[i].toString() + " \r\n";
 		}
 		return result;
 	}

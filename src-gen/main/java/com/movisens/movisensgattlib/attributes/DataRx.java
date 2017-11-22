@@ -39,6 +39,6 @@ public class DataRx extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Data Rx: " + "dataRx = " + getDataRx();
+		return getDataRx().toString();
 	}
 }

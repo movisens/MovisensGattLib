@@ -96,7 +96,7 @@ public class IlluminationBuffered extends AbstractReadAttribute implements Buffe
 		String result = "";
 		for(int i=0; i<illumination.length; i++)
 		{
-			result += "Illumination Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "illumination = " + getIllumination()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getIllumination()[i].toString() + " \r\n";
 		}
 		return result;
 	}

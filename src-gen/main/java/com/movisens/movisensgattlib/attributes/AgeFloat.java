@@ -46,6 +46,6 @@ public class AgeFloat extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Age Float: " + "age = " + getAge();
+		return getAge().toString();
 	}
 }

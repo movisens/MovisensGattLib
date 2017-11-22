@@ -96,7 +96,7 @@ public class HrMeanBuffered extends AbstractReadAttribute implements BufferedAtt
 		String result = "";
 		for(int i=0; i<hrMean.length; i++)
 		{
-			result += "Hr Mean Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "hrMean = " + getHrMean()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrMean()[i].toString() + " \r\n";
 		}
 		return result;
 	}

@@ -39,6 +39,6 @@ public class DeleteData extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Delete Data: " + "deleteData = " + getDeleteData();
+		return getDeleteData().toString();
 	}
 }

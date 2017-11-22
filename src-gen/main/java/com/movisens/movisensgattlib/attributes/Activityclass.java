@@ -38,6 +38,6 @@ public class Activityclass extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Activityclass: " + "activityClass = " + getActivityClass();
+		return getActivityClass().toString();
 	}
 }

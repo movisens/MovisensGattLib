@@ -96,7 +96,7 @@ public class SensorTemperatureBuffered extends AbstractReadAttribute implements 
 		String result = "";
 		for(int i=0; i<temperature.length; i++)
 		{
-			result += "Sensor Temperature Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "temperature = " + getTemperature()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + " \r\n";
 		}
 		return result;
 	}

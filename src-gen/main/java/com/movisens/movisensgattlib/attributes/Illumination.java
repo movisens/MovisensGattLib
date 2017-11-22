@@ -38,6 +38,6 @@ public class Illumination extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Illumination: " + "illumination = " + getIllumination();
+		return getIllumination().toString();
 	}
 }

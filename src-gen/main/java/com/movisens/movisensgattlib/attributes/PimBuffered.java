@@ -96,7 +96,7 @@ public class PimBuffered extends AbstractReadAttribute implements BufferedAttrib
 		String result = "";
 		for(int i=0; i<pim.length; i++)
 		{
-			result += "Pim Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "pim = " + getPim()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getPim()[i].toString() + " \r\n";
 		}
 		return result;
 	}

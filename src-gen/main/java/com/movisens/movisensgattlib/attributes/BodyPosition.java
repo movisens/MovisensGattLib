@@ -38,6 +38,6 @@ public class BodyPosition extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Body Position: " + "bodyPosition = " + getBodyPosition();
+		return getBodyPosition().toString();
 	}
 }

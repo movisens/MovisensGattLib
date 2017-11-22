@@ -38,6 +38,6 @@ public class ColorTemperatureWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Color Temperature Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

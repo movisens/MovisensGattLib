@@ -38,6 +38,6 @@ public class MeasurementStartTime extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Measurement Start Time: " + "time = " + getTime();
+		return getTime().toString();
 	}
 }

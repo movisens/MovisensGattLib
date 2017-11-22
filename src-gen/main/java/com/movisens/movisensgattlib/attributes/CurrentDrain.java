@@ -38,6 +38,6 @@ public class CurrentDrain extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Current Drain: " + "currentDrain = " + getCurrentDrain() + getCurrentDrainUnit();
+		return getCurrentDrain().toString() + getCurrentDrainUnit();
 	}
 }

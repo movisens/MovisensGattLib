@@ -96,7 +96,7 @@ public class RmssdBuffered extends AbstractReadAttribute implements BufferedAttr
 		String result = "";
 		for(int i=0; i<rmssd.length; i++)
 		{
-			result += "Rmssd Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "rmssd = " + getRmssd()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getRmssd()[i].toString() + " \r\n";
 		}
 		return result;
 	}

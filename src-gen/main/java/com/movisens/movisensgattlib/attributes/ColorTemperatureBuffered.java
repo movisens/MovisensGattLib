@@ -96,7 +96,7 @@ public class ColorTemperatureBuffered extends AbstractReadAttribute implements B
 		String result = "";
 		for(int i=0; i<colorTemperature.length; i++)
 		{
-			result += "Color Temperature Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "colorTemperature = " + getColorTemperature()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getColorTemperature()[i].toString() + " \r\n";
 		}
 		return result;
 	}

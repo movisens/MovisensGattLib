@@ -96,7 +96,7 @@ public class BodyPositionBuffered extends AbstractReadAttribute implements Buffe
 		String result = "";
 		for(int i=0; i<bodyPosition.length; i++)
 		{
-			result += "Body Position Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "bodyPosition = " + getBodyPosition()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getBodyPosition()[i].toString() + " \r\n";
 		}
 		return result;
 	}

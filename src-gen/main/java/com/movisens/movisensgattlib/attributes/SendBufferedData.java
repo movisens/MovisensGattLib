@@ -39,6 +39,6 @@ public class SendBufferedData extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Send Buffered Data: " + "sendBufferedData = " + getSendBufferedData();
+		return getSendBufferedData().toString();
 	}
 }

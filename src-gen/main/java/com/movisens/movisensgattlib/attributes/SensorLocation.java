@@ -46,6 +46,6 @@ public class SensorLocation extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return "Sensor Location: " + "sensorLocation = " + getSensorLocation();
+		return getSensorLocation().toString();
 	}
 }

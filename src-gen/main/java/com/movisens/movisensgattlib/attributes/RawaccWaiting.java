@@ -38,6 +38,6 @@ public class RawaccWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Rawacc Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

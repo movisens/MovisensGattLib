@@ -96,7 +96,7 @@ public class CurrentDrainBuffered extends AbstractReadAttribute implements Buffe
 		String result = "";
 		for(int i=0; i<currentDrain.length; i++)
 		{
-			result += "Current Drain Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "currentDrain = " + getCurrentDrain()[i] + getCurrentDrainUnit() + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getCurrentDrain()[i].toString() + getCurrentDrainUnit() + " \r\n";
 		}
 		return result;
 	}

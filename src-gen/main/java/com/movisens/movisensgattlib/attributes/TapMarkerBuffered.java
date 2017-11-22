@@ -96,7 +96,7 @@ public class TapMarkerBuffered extends AbstractReadAttribute implements Buffered
 		String result = "";
 		for(int i=0; i<tapMarker.length; i++)
 		{
-			result += "Tap Marker Buffered: " + "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "tapMarker = " + getTapMarker()[i] + "\r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTapMarker()[i].toString() + " \r\n";
 		}
 		return result;
 	}

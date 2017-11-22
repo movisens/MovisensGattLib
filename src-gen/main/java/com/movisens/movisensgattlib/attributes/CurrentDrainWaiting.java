@@ -38,6 +38,6 @@ public class CurrentDrainWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Current Drain Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }

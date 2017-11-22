@@ -38,6 +38,6 @@ public class AccMagnitudeWaiting extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "Acc Magnitude Waiting: " + "samplesWaiting = " + getSamplesWaiting();
+		return getSamplesWaiting().toString();
 	}
 }
