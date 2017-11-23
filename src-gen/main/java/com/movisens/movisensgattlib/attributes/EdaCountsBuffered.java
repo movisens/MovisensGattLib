@@ -5,11 +5,11 @@ import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractReadAttribute;
+import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class EdaCountsBuffered extends AbstractReadAttribute implements BufferedAttribute
+public class EdaCountsBuffered extends AbstractAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.EDA_COUNTS_BUFFERED;

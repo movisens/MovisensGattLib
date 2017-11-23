@@ -5,11 +5,11 @@ import java.util.Date;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractReadAttribute;
+import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class HrvIsValidBuffered extends AbstractReadAttribute implements BufferedAttribute
+public class HrvIsValidBuffered extends AbstractAttribute implements BufferedAttribute
 {
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID_BUFFERED;

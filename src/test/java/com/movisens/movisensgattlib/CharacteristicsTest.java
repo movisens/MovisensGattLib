@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class CharacteristicsTest {
     @Test
     public void testAgeFloat() {
-        Float testAge = 12.5F;
+        Double testAge = 12.5D;
         AgeFloat ageFloat = new AgeFloat(testAge);
         AgeFloat converted = new AgeFloat(ageFloat.getBytes());
         assertTrue(converted.getAge().equals(testAge));

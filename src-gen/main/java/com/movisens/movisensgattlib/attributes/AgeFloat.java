@@ -10,23 +10,31 @@ public class AgeFloat extends AbstractReadWriteAttribute
 
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.AGE_FLOAT;
 	
-	private Float age;
+	private Double age;
 	
-	public Float getAge()
+	public Double getAge()
 	{
 		return age;
 	}
 	
 	public String getAgeUnit()
 	{
-		return "";
+		return "a";
 	}
 	
-	public AgeFloat(Float age)
+	public AgeFloat(Double age)
 	{
+		if(age<0.0)
+		{
+			throw new RuntimeException("age out of range! Min value is 0.0");
+		}
+		if(age>200.0)
+		{
+			throw new RuntimeException("age out of range! Max value is 200.0");
+		}
 		this.age = age;
 		GattByteBuffer bb = GattByteBuffer.allocate(4);
-		bb.putFloat32(age);
+		bb.putFloat32(age.floatValue());
 		this.data = bb.array();
 	}
 
@@ -34,7 +42,7 @@ public class AgeFloat extends AbstractReadWriteAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		age = bb.getFloat32();
+		age = new Double(bb.getFloat32());
 	}
 
 	@Override
@@ -46,6 +54,6 @@ public class AgeFloat extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return getAge().toString();
+		return getAge().toString() + getAgeUnit();
 	}
 }
