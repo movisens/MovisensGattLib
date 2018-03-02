@@ -7,40 +7,31 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 public class Ecg extends AbstractReadAttribute
 {
-
 	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ECG;
 	
-	private Short ecgFirst;
-	private Byte ecgDiff;
-	
-	public Short getEcgFirst()
-	{
-		return ecgFirst;
-	}
-	
-	public String getEcgFirstUnit()
-	{
-		return "";
-	}
-	
-	public Byte getEcgDiff()
-	{
-		return ecgDiff;
-	}
-	
-	public String getEcgDiffUnit()
-	{
-		return "";
-	}
+    private int values[];
 	
 	public Ecg(byte[] data)
 	{
 		this.data = data;
-		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		ecgFirst = bb.getInt16();
-		ecgDiff = bb.getInt8();
+		GattByteBuffer byteBuffer = GattByteBuffer.wrap(data);
+        values = new int[19];
+        
+        values[0] = byteBuffer.getInt16();
+        int lastValue = values[0] ;
+        
+        for(int i=0;i<18;i++)
+        {
+            values[i+1] = lastValue - byteBuffer.getInt8();
+            lastValue = values[i+1] ;
+        }
 	}
 
+	public int[] getValues()
+	{
+	    return values;
+	}
+	
 	@Override
 	public Characteristic getCharacteristic()
 	{
@@ -50,6 +41,12 @@ public class Ecg extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "ecgFirst = " + getEcgFirst() + ", " + "ecgDiff = " + getEcgDiff();
+        String result = "Ecg\r\n";
+        for(int i=0;i<19;i++)
+        {
+            result += values[i] + " ";
+        }
+        
+        return result;
 	}
 }
