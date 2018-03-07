@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Charging extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CHARGING;
+	public static final Characteristic<Charging> CHARACTERISTIC = MovisensCharacteristics.CHARGING;
 	
 	private Boolean charging;
 	
@@ -30,7 +30,7 @@ public class Charging extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Charging> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

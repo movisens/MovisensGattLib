@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class SkinTemperature extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE;
+	public static final Characteristic<SkinTemperature> CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE;
 	
 	private Double temperature;
 	
@@ -30,7 +30,7 @@ public class SkinTemperature extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<SkinTemperature> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class ColorTemperatureWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE_WAITING;
+	public static final Characteristic<ColorTemperatureWaiting> CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class ColorTemperatureWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<ColorTemperatureWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

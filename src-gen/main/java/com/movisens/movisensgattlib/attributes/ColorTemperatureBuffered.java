@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class ColorTemperatureBuffered extends AbstractAttribute implements BufferedAttribute
+public class ColorTemperatureBuffered extends AbstractBufferedAttribute<ColorTemperatureData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE_BUFFERED;
+	public static final BufferedCharacteristic<ColorTemperatureBuffered, ColorTemperatureData> CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class ColorTemperatureBuffered extends AbstractAttribute implements Buffe
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<ColorTemperatureBuffered, ColorTemperatureData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class ColorTemperatureBuffered extends AbstractAttribute implements Buffe
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getColorTemperature()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<ColorTemperatureData> getData()
+	{
+	    Vector<ColorTemperatureData> datas = new Vector<ColorTemperatureData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<colorTemperature.length; i++)
+	    {
+	        datas.add(new ColorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getColorTemperature()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class SendBufferedData extends AbstractWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SEND_BUFFERED_DATA;
+	public static final Characteristic<SendBufferedData> CHARACTERISTIC = MovisensCharacteristics.SEND_BUFFERED_DATA;
 	
 	private Boolean sendBufferedData;
 	
@@ -31,7 +31,7 @@ public class SendBufferedData extends AbstractWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<SendBufferedData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

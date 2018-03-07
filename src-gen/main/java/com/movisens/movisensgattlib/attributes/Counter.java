@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Counter extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.COUNTER;
+	public static final Characteristic<Counter> CHARACTERISTIC = MovisensCharacteristics.COUNTER;
 	
 	private Long counter;
 	
@@ -30,7 +30,7 @@ public class Counter extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Counter> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

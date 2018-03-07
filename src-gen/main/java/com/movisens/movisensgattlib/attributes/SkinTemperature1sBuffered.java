@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class SkinTemperature1sBuffered extends AbstractAttribute implements BufferedAttribute
+public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTemperature1sData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE_1S_BUFFERED;
+	public static final BufferedCharacteristic<SkinTemperature1sBuffered, SkinTemperature1sData> CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE_1S_BUFFERED;
 	
 	public static final int periodLength = 1;
 	private long time;
@@ -85,7 +85,7 @@ public class SkinTemperature1sBuffered extends AbstractAttribute implements Buff
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<SkinTemperature1sBuffered, SkinTemperature1sData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class SkinTemperature1sBuffered extends AbstractAttribute implements Buff
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + getTemperatureUnit() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<SkinTemperature1sData> getData()
+	{
+	    Vector<SkinTemperature1sData> datas = new Vector<SkinTemperature1sData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<temperature.length; i++)
+	    {
+	        datas.add(new SkinTemperature1sData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTemperature()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

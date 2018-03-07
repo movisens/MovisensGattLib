@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class MeasurementEnabled extends AbstractReadWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MEASUREMENT_ENABLED;
+	public static final Characteristic<MeasurementEnabled> CHARACTERISTIC = MovisensCharacteristics.MEASUREMENT_ENABLED;
 	
 	private Boolean measurementEnabled;
 	
@@ -38,7 +38,7 @@ public class MeasurementEnabled extends AbstractReadWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<MeasurementEnabled> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

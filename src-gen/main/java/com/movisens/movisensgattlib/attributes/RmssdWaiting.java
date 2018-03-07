@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class RmssdWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.RMSSD_WAITING;
+	public static final Characteristic<RmssdWaiting> CHARACTERISTIC = MovisensCharacteristics.RMSSD_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class RmssdWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<RmssdWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

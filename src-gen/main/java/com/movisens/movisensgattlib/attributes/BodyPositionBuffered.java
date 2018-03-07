@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class BodyPositionBuffered extends AbstractAttribute implements BufferedAttribute
+public class BodyPositionBuffered extends AbstractBufferedAttribute<BodyPositionData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION_BUFFERED;
+	public static final BufferedCharacteristic<BodyPositionBuffered, BodyPositionData> CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class BodyPositionBuffered extends AbstractAttribute implements BufferedA
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<BodyPositionBuffered, BodyPositionData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class BodyPositionBuffered extends AbstractAttribute implements BufferedA
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getBodyPosition()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<BodyPositionData> getData()
+	{
+	    Vector<BodyPositionData> datas = new Vector<BodyPositionData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<bodyPosition.length; i++)
+	    {
+	        datas.add(new BodyPositionData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getBodyPosition()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

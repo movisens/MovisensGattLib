@@ -1,13 +1,24 @@
 package com.movisens.movisensgattlib;
 
 
-import com.movisens.movisensgattlib.attributes.*;
-import com.movisens.smartgattlib.helper.GattByteBuffer;
-import org.junit.Test;
-
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import com.movisens.movisensgattlib.attributes.AgeFloat;
+import com.movisens.movisensgattlib.attributes.BodyPosition;
+import com.movisens.movisensgattlib.attributes.DataAvailable;
+import com.movisens.movisensgattlib.attributes.EnumBodyPosition;
+import com.movisens.movisensgattlib.attributes.EnumSensorLocation;
+import com.movisens.movisensgattlib.attributes.HrvIsValid;
+import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
+import com.movisens.movisensgattlib.attributes.MetLevel;
+import com.movisens.movisensgattlib.attributes.MovementAcceleration;
+import com.movisens.movisensgattlib.attributes.Rmssd;
+import com.movisens.movisensgattlib.attributes.SensorLocation;
+import com.movisens.movisensgattlib.attributes.Steps;
+import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 public class CharacteristicsTest {
     @Test

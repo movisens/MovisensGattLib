@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class MovementAccelerationBuffered extends AbstractAttribute implements BufferedAttribute
+public class MovementAccelerationBuffered extends AbstractBufferedAttribute<MovementAccelerationData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION_BUFFERED;
+	public static final BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData> CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class MovementAccelerationBuffered extends AbstractAttribute implements B
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class MovementAccelerationBuffered extends AbstractAttribute implements B
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getMovementAcceleration()[i].toString() + getMovementAccelerationUnit() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<MovementAccelerationData> getData()
+	{
+	    Vector<MovementAccelerationData> datas = new Vector<MovementAccelerationData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<movementAcceleration.length; i++)
+	    {
+	        datas.add(new MovementAccelerationData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getMovementAcceleration()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

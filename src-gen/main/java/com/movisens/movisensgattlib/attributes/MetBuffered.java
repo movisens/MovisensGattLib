@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class MetBuffered extends AbstractAttribute implements BufferedAttribute
+public class MetBuffered extends AbstractBufferedAttribute<MetData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MET_BUFFERED;
+	public static final BufferedCharacteristic<MetBuffered, MetData> CHARACTERISTIC = MovisensCharacteristics.MET_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class MetBuffered extends AbstractAttribute implements BufferedAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<MetBuffered, MetData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class MetBuffered extends AbstractAttribute implements BufferedAttribute
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getMet()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<MetData> getData()
+	{
+	    Vector<MetData> datas = new Vector<MetData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<met.length; i++)
+	    {
+	        datas.add(new MetData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getMet()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

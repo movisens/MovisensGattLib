@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class MetLevelBuffered extends AbstractAttribute implements BufferedAttribute
+public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MET_LEVEL_BUFFERED;
+	public static final BufferedCharacteristic<MetLevelBuffered, MetLevelData> CHARACTERISTIC = MovisensCharacteristics.MET_LEVEL_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -127,7 +127,7 @@ public class MetLevelBuffered extends AbstractAttribute implements BufferedAttri
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<MetLevelBuffered, MetLevelData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -141,5 +141,19 @@ public class MetLevelBuffered extends AbstractAttribute implements BufferedAttri
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + ", " + "light = " + getLight()[i] + ", " + "moderate = " + getModerate()[i] + ", " + "vigorous = " + getVigorous()[i] + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<MetLevelData> getData()
+	{
+	    Vector<MetLevelData> datas = new Vector<MetLevelData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<sedentary.length; i++)
+	    {
+	        datas.add(new MetLevelData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getSedentary()[i], getLight()[i], getModerate()[i], getVigorous()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

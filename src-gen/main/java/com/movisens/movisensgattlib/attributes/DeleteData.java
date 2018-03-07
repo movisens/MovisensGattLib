@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class DeleteData extends AbstractWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.DELETE_DATA;
+	public static final Characteristic<DeleteData> CHARACTERISTIC = MovisensCharacteristics.DELETE_DATA;
 	
 	private Boolean deleteData;
 	
@@ -31,7 +31,7 @@ public class DeleteData extends AbstractWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<DeleteData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

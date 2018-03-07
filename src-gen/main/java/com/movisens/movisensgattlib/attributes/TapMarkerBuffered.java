@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class TapMarkerBuffered extends AbstractAttribute implements BufferedAttribute
+public class TapMarkerBuffered extends AbstractBufferedAttribute<TapMarkerData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.TAP_MARKER_BUFFERED;
+	public static final BufferedCharacteristic<TapMarkerBuffered, TapMarkerData> CHARACTERISTIC = MovisensCharacteristics.TAP_MARKER_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class TapMarkerBuffered extends AbstractAttribute implements BufferedAttr
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<TapMarkerBuffered, TapMarkerData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class TapMarkerBuffered extends AbstractAttribute implements BufferedAttr
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTapMarker()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<TapMarkerData> getData()
+	{
+	    Vector<TapMarkerData> datas = new Vector<TapMarkerData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<tapMarker.length; i++)
+	    {
+	        datas.add(new TapMarkerData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTapMarker()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

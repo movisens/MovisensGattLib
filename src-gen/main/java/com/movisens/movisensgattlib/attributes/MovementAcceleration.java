@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class MovementAcceleration extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION;
+	public static final Characteristic<MovementAcceleration> CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION;
 	
 	private Double movementAcceleration;
 	
@@ -30,7 +30,7 @@ public class MovementAcceleration extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<MovementAcceleration> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

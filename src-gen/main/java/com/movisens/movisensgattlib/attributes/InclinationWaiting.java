@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class InclinationWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.INCLINATION_WAITING;
+	public static final Characteristic<InclinationWaiting> CHARACTERISTIC = MovisensCharacteristics.INCLINATION_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class InclinationWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<InclinationWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

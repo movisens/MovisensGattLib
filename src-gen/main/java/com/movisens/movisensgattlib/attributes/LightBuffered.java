@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class LightBuffered extends AbstractAttribute implements BufferedAttribute
+public class LightBuffered extends AbstractBufferedAttribute<LightData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT_BUFFERED;
+	public static final BufferedCharacteristic<LightBuffered, LightData> CHARACTERISTIC = MovisensCharacteristics.LIGHT_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -99,7 +99,7 @@ public class LightBuffered extends AbstractAttribute implements BufferedAttribut
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<LightBuffered, LightData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -113,5 +113,19 @@ public class LightBuffered extends AbstractAttribute implements BufferedAttribut
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<LightData> getData()
+	{
+	    Vector<LightData> datas = new Vector<LightData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<clear.length; i++)
+	    {
+	        datas.add(new LightData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getClear()[i], getIr()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

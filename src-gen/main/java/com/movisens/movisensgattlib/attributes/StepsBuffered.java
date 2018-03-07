@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class StepsBuffered extends AbstractAttribute implements BufferedAttribute
+public class StepsBuffered extends AbstractBufferedAttribute<StepsData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.STEPS_BUFFERED;
+	public static final BufferedCharacteristic<StepsBuffered, StepsData> CHARACTERISTIC = MovisensCharacteristics.STEPS_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class StepsBuffered extends AbstractAttribute implements BufferedAttribut
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<StepsBuffered, StepsData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class StepsBuffered extends AbstractAttribute implements BufferedAttribut
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getSteps()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<StepsData> getData()
+	{
+	    Vector<StepsData> datas = new Vector<StepsData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<steps.length; i++)
+	    {
+	        datas.add(new StepsData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getSteps()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

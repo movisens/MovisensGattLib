@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class BodyPosition extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION;
+	public static final Characteristic<BodyPosition> CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION;
 	
 	private EnumBodyPosition bodyPosition;
 	
@@ -30,7 +30,7 @@ public class BodyPosition extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<BodyPosition> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

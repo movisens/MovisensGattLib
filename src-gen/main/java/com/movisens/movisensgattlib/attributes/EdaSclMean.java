@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class EdaSclMean extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.EDA_SCL_MEAN;
+	public static final Characteristic<EdaSclMean> CHARACTERISTIC = MovisensCharacteristics.EDA_SCL_MEAN;
 	
 	private Integer edaSclMean;
 	
@@ -30,7 +30,7 @@ public class EdaSclMean extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<EdaSclMean> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

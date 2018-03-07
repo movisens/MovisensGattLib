@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class TapMarkerWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.TAP_MARKER_WAITING;
+	public static final Characteristic<TapMarkerWaiting> CHARACTERISTIC = MovisensCharacteristics.TAP_MARKER_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class TapMarkerWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<TapMarkerWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

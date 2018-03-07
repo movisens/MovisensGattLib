@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class HrMeanBuffered extends AbstractAttribute implements BufferedAttribute
+public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HR_MEAN_BUFFERED;
+	public static final BufferedCharacteristic<HrMeanBuffered, HrMeanData> CHARACTERISTIC = MovisensCharacteristics.HR_MEAN_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class HrMeanBuffered extends AbstractAttribute implements BufferedAttribu
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<HrMeanBuffered, HrMeanData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class HrMeanBuffered extends AbstractAttribute implements BufferedAttribu
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrMean()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<HrMeanData> getData()
+	{
+	    Vector<HrMeanData> datas = new Vector<HrMeanData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<hrMean.length; i++)
+	    {
+	        datas.add(new HrMeanData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getHrMean()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

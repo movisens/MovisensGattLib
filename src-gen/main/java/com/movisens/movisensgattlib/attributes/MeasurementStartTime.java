@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class MeasurementStartTime extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MEASUREMENT_START_TIME;
+	public static final Characteristic<MeasurementStartTime> CHARACTERISTIC = MovisensCharacteristics.MEASUREMENT_START_TIME;
 	
 	private java.util.Date time;
 	
@@ -30,7 +30,7 @@ public class MeasurementStartTime extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<MeasurementStartTime> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class CurrentDrain extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CURRENT_DRAIN;
+	public static final Characteristic<CurrentDrain> CHARACTERISTIC = MovisensCharacteristics.CURRENT_DRAIN;
 	
 	private Double currentDrain;
 	
@@ -30,7 +30,7 @@ public class CurrentDrain extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<CurrentDrain> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

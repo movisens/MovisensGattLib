@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class PimWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.PIM_WAITING;
+	public static final Characteristic<PimWaiting> CHARACTERISTIC = MovisensCharacteristics.PIM_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class PimWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<PimWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class ZcmWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ZCM_WAITING;
+	public static final Characteristic<ZcmWaiting> CHARACTERISTIC = MovisensCharacteristics.ZCM_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class ZcmWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<ZcmWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

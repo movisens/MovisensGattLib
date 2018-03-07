@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class DataAvailable extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.DATA_AVAILABLE;
+	public static final Characteristic<DataAvailable> CHARACTERISTIC = MovisensCharacteristics.DATA_AVAILABLE;
 	
 	private Boolean dataAvailable;
 	
@@ -30,7 +30,7 @@ public class DataAvailable extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<DataAvailable> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

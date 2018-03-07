@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Met extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MET;
+	public static final Characteristic<Met> CHARACTERISTIC = MovisensCharacteristics.MET;
 	
 	private Double met;
 	
@@ -30,7 +30,7 @@ public class Met extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Met> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

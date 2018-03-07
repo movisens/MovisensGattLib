@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class LightRgbBuffered extends AbstractAttribute implements BufferedAttribute
+public class LightRgbBuffered extends AbstractBufferedAttribute<LightRgbData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT_RGB_BUFFERED;
+	public static final BufferedCharacteristic<LightRgbBuffered, LightRgbData> CHARACTERISTIC = MovisensCharacteristics.LIGHT_RGB_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -113,7 +113,7 @@ public class LightRgbBuffered extends AbstractAttribute implements BufferedAttri
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<LightRgbBuffered, LightRgbData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -127,5 +127,19 @@ public class LightRgbBuffered extends AbstractAttribute implements BufferedAttri
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "red = " + getRed()[i] + ", " + "green = " + getGreen()[i] + ", " + "blue = " + getBlue()[i] + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<LightRgbData> getData()
+	{
+	    Vector<LightRgbData> datas = new Vector<LightRgbData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<red.length; i++)
+	    {
+	        datas.add(new LightRgbData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getRed()[i], getGreen()[i], getBlue()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

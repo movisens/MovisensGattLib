@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class MovementAccelerationWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION_WAITING;
+	public static final Characteristic<MovementAccelerationWaiting> CHARACTERISTIC = MovisensCharacteristics.MOVEMENT_ACCELERATION_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class MovementAccelerationWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<MovementAccelerationWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

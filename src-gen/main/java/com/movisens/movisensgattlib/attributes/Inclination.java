@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Inclination extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.INCLINATION;
+	public static final Characteristic<Inclination> CHARACTERISTIC = MovisensCharacteristics.INCLINATION;
 	
 	private Short x;
 	private Short y;
@@ -54,7 +54,7 @@ public class Inclination extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Inclination> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

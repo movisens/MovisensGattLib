@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Rmssd extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.RMSSD;
+	public static final Characteristic<Rmssd> CHARACTERISTIC = MovisensCharacteristics.RMSSD;
 	
 	private Short rmssd;
 	
@@ -30,7 +30,7 @@ public class Rmssd extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Rmssd> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

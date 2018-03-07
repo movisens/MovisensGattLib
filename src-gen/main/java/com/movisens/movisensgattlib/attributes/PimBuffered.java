@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class PimBuffered extends AbstractAttribute implements BufferedAttribute
+public class PimBuffered extends AbstractBufferedAttribute<PimData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.PIM_BUFFERED;
+	public static final BufferedCharacteristic<PimBuffered, PimData> CHARACTERISTIC = MovisensCharacteristics.PIM_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class PimBuffered extends AbstractAttribute implements BufferedAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<PimBuffered, PimData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class PimBuffered extends AbstractAttribute implements BufferedAttribute
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getPim()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<PimData> getData()
+	{
+	    Vector<PimData> datas = new Vector<PimData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<pim.length; i++)
+	    {
+	        datas.add(new PimData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getPim()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

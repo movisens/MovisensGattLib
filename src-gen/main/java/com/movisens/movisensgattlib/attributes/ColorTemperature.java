@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class ColorTemperature extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE;
+	public static final Characteristic<ColorTemperature> CHARACTERISTIC = MovisensCharacteristics.COLOR_TEMPERATURE;
 	
 	private Long colorTemperature;
 	
@@ -30,7 +30,7 @@ public class ColorTemperature extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<ColorTemperature> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

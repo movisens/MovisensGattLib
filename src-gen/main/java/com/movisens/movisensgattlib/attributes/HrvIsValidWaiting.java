@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class HrvIsValidWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID_WAITING;
+	public static final Characteristic<HrvIsValidWaiting> CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class HrvIsValidWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<HrvIsValidWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class ActivityclassBuffered extends AbstractAttribute implements BufferedAttribute
+public class ActivityclassBuffered extends AbstractBufferedAttribute<ActivityclassData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ACTIVITYCLASS_BUFFERED;
+	public static final BufferedCharacteristic<ActivityclassBuffered, ActivityclassData> CHARACTERISTIC = MovisensCharacteristics.ACTIVITYCLASS_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class ActivityclassBuffered extends AbstractAttribute implements Buffered
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<ActivityclassBuffered, ActivityclassData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class ActivityclassBuffered extends AbstractAttribute implements Buffered
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getActivityClass()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<ActivityclassData> getData()
+	{
+	    Vector<ActivityclassData> datas = new Vector<ActivityclassData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<activityClass.length; i++)
+	    {
+	        datas.add(new ActivityclassData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getActivityClass()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

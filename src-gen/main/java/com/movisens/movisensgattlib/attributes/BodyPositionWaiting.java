@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class BodyPositionWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION_WAITING;
+	public static final Characteristic<BodyPositionWaiting> CHARACTERISTIC = MovisensCharacteristics.BODY_POSITION_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class BodyPositionWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<BodyPositionWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

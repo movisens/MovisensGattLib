@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class EdaCountsWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.EDA_COUNTS_WAITING;
+	public static final Characteristic<EdaCountsWaiting> CHARACTERISTIC = MovisensCharacteristics.EDA_COUNTS_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class EdaCountsWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<EdaCountsWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

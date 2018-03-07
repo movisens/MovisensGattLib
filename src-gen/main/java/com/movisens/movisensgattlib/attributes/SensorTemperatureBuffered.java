@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class SensorTemperatureBuffered extends AbstractAttribute implements BufferedAttribute
+public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorTemperatureData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SENSOR_TEMPERATURE_BUFFERED;
+	public static final BufferedCharacteristic<SensorTemperatureBuffered, SensorTemperatureData> CHARACTERISTIC = MovisensCharacteristics.SENSOR_TEMPERATURE_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class SensorTemperatureBuffered extends AbstractAttribute implements Buff
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<SensorTemperatureBuffered, SensorTemperatureData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class SensorTemperatureBuffered extends AbstractAttribute implements Buff
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<SensorTemperatureData> getData()
+	{
+	    Vector<SensorTemperatureData> datas = new Vector<SensorTemperatureData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<temperature.length; i++)
+	    {
+	        datas.add(new SensorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTemperature()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

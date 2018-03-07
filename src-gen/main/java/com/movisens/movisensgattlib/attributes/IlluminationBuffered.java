@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class IlluminationBuffered extends AbstractAttribute implements BufferedAttribute
+public class IlluminationBuffered extends AbstractBufferedAttribute<IlluminationData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ILLUMINATION_BUFFERED;
+	public static final BufferedCharacteristic<IlluminationBuffered, IlluminationData> CHARACTERISTIC = MovisensCharacteristics.ILLUMINATION_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class IlluminationBuffered extends AbstractAttribute implements BufferedA
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<IlluminationBuffered, IlluminationData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class IlluminationBuffered extends AbstractAttribute implements BufferedA
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getIllumination()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<IlluminationData> getData()
+	{
+	    Vector<IlluminationData> datas = new Vector<IlluminationData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<illumination.length; i++)
+	    {
+	        datas.add(new IlluminationData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getIllumination()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

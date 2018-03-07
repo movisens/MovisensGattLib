@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class MetLevel extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.MET_LEVEL;
+	public static final Characteristic<MetLevel> CHARACTERISTIC = MovisensCharacteristics.MET_LEVEL;
 	
 	private Short sedentary;
 	private Short light;
@@ -66,7 +66,7 @@ public class MetLevel extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<MetLevel> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

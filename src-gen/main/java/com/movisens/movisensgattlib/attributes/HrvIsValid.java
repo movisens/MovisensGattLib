@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class HrvIsValid extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID;
+	public static final Characteristic<HrvIsValid> CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID;
 	
 	private Boolean hrvIsValid;
 	
@@ -30,7 +30,7 @@ public class HrvIsValid extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<HrvIsValid> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

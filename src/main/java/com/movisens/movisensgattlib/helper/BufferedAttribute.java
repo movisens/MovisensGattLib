@@ -2,7 +2,7 @@ package com.movisens.movisensgattlib.helper;
 
 import java.util.Date;
 
-public interface BufferedAttribute {
+public interface BufferedAttribute<T extends AbstractData> {
 
 	Date getTime();
 	double getSamplerate();
@@ -10,4 +10,6 @@ public interface BufferedAttribute {
 	String[] getValueNames();
 	String[] getValueUnits();
 	double[][] getValues();
+	
+	Iterable<T> getData();
 }

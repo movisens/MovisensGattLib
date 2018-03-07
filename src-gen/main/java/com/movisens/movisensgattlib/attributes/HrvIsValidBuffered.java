@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class HrvIsValidBuffered extends AbstractAttribute implements BufferedAttribute
+public class HrvIsValidBuffered extends AbstractBufferedAttribute<HrvIsValidData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID_BUFFERED;
+	public static final BufferedCharacteristic<HrvIsValidBuffered, HrvIsValidData> CHARACTERISTIC = MovisensCharacteristics.HRV_IS_VALID_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class HrvIsValidBuffered extends AbstractAttribute implements BufferedAtt
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<HrvIsValidBuffered, HrvIsValidData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class HrvIsValidBuffered extends AbstractAttribute implements BufferedAtt
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrvIsValid()[i].toString() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<HrvIsValidData> getData()
+	{
+	    Vector<HrvIsValidData> datas = new Vector<HrvIsValidData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<hrvIsValid.length; i++)
+	    {
+	        datas.add(new HrvIsValidData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getHrvIsValid()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

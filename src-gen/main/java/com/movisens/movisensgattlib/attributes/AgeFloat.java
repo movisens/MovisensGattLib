@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class AgeFloat extends AbstractReadWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.AGE_FLOAT;
+	public static final Characteristic<AgeFloat> CHARACTERISTIC = MovisensCharacteristics.AGE_FLOAT;
 	
 	private Double age;
 	
@@ -46,7 +46,7 @@ public class AgeFloat extends AbstractReadWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<AgeFloat> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

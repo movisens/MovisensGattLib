@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class DataRx extends AbstractWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.DATA_RX;
+	public static final Characteristic<DataRx> CHARACTERISTIC = MovisensCharacteristics.DATA_RX;
 	
 	private Short dataRx;
 	
@@ -31,7 +31,7 @@ public class DataRx extends AbstractWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<DataRx> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

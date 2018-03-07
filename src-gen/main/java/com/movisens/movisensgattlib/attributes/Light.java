@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class Light extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.LIGHT;
+	public static final Characteristic<Light> CHARACTERISTIC = MovisensCharacteristics.LIGHT;
 	
 	private Long clear;
 	private Long ir;
@@ -42,7 +42,7 @@ public class Light extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Light> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

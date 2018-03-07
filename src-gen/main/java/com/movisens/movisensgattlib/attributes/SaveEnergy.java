@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class SaveEnergy extends AbstractWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SAVE_ENERGY;
+	public static final Characteristic<SaveEnergy> CHARACTERISTIC = MovisensCharacteristics.SAVE_ENERGY;
 	
 	private Boolean saveEnergy;
 	
@@ -31,7 +31,7 @@ public class SaveEnergy extends AbstractWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<SaveEnergy> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

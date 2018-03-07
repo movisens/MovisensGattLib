@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class SensorLocation extends AbstractReadWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.SENSOR_LOCATION;
+	public static final Characteristic<SensorLocation> CHARACTERISTIC = MovisensCharacteristics.SENSOR_LOCATION;
 	
 	private EnumSensorLocation sensorLocation;
 	
@@ -38,7 +38,7 @@ public class SensorLocation extends AbstractReadWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<SensorLocation> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

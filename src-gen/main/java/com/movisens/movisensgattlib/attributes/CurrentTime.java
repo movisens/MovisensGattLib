@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class CurrentTime extends AbstractReadWriteAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.CURRENT_TIME;
+	public static final Characteristic<CurrentTime> CHARACTERISTIC = MovisensCharacteristics.CURRENT_TIME;
 	
 	private java.util.Date currentTime;
 	
@@ -38,7 +38,7 @@ public class CurrentTime extends AbstractReadWriteAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<CurrentTime> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

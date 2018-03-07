@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class EdaSclMeanWaiting extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.EDA_SCL_MEAN_WAITING;
+	public static final Characteristic<EdaSclMeanWaiting> CHARACTERISTIC = MovisensCharacteristics.EDA_SCL_MEAN_WAITING;
 	
 	private Long samplesWaiting;
 	
@@ -30,7 +30,7 @@ public class EdaSclMeanWaiting extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<EdaSclMeanWaiting> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

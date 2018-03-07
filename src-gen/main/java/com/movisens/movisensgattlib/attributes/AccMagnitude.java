@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 public class AccMagnitude extends AbstractReadAttribute
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ACC_MAGNITUDE;
+	public static final Characteristic<AccMagnitude> CHARACTERISTIC = MovisensCharacteristics.ACC_MAGNITUDE;
 	
 	private Short accMagnitude;
 	
@@ -30,7 +30,7 @@ public class AccMagnitude extends AbstractReadAttribute
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<AccMagnitude> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}

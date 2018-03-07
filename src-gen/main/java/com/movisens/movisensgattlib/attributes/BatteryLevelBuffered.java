@@ -2,17 +2,17 @@ package com.movisens.movisensgattlib.attributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.helper.BufferedAttribute;
-import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
+import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class BatteryLevelBuffered extends AbstractAttribute implements BufferedAttribute
+public class BatteryLevelBuffered extends AbstractBufferedAttribute<BatteryLevelData>
 {
 
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.BATTERY_LEVEL_BUFFERED;
+	public static final BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> CHARACTERISTIC = MovisensCharacteristics.BATTERY_LEVEL_BUFFERED;
 	
 	public static final int periodLength = 60;
 	private long time;
@@ -85,7 +85,7 @@ public class BatteryLevelBuffered extends AbstractAttribute implements BufferedA
 	}
 
 	@Override
-	public Characteristic getCharacteristic()
+	public BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -99,5 +99,19 @@ public class BatteryLevelBuffered extends AbstractAttribute implements BufferedA
 			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getLevel()[i].toString() + getLevelUnit() + " \r\n";
 		}
 		return result;
+	}
+
+	@Override
+	public Iterable<BatteryLevelData> getData()
+	{
+	    Vector<BatteryLevelData> datas = new Vector<BatteryLevelData>();
+	    long now = new Date().getTime();
+	    
+	    for(int i=0; i<level.length; i++)
+	    {
+	        datas.add(new BatteryLevelData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getLevel()[i]));
+	    }
+	    
+	    return datas;
 	}
 }

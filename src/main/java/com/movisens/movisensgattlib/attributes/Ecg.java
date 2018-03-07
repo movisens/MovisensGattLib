@@ -7,7 +7,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 public class Ecg extends AbstractReadAttribute
 {
-	public static final Characteristic CHARACTERISTIC = MovisensCharacteristics.ECG;
+	public static final Characteristic<Ecg> CHARACTERISTIC = MovisensCharacteristics.ECG;
 	
     private int values[];
 	
@@ -33,7 +33,7 @@ public class Ecg extends AbstractReadAttribute
 	}
 	
 	@Override
-	public Characteristic getCharacteristic()
+	public Characteristic<Ecg> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
