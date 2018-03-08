@@ -109,7 +109,7 @@ public class IlluminationBuffered extends AbstractBufferedAttribute<Illumination
 	    
 	    for(int i=0; i<illumination.length; i++)
 	    {
-	        datas.add(new IlluminationData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getIllumination()[i]));
+	        datas.add(new IlluminationData(now, (time + (periodLength * i)) * 1000, periodLength, getIllumination()[i]));
 	    }
 	    
 	    return datas;

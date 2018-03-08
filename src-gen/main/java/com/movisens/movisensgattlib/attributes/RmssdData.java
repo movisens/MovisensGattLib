@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class RmssdData extends AbstractData
 {
@@ -12,10 +13,15 @@ public class RmssdData extends AbstractData
 		return rmssd;
 	}
 	
-    public RmssdData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<RmssdBuffered, RmssdData> characteristic, Short rmssd)
+    public RmssdData(long localTime, long sampleTime, int periodlength, Short rmssd)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.rmssd = rmssd;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.RMSSD_BUFFERED;
+    }
 }

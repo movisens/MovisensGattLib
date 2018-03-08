@@ -109,7 +109,7 @@ public class CurrentDrainBuffered extends AbstractBufferedAttribute<CurrentDrain
 	    
 	    for(int i=0; i<currentDrain.length; i++)
 	    {
-	        datas.add(new CurrentDrainData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getCurrentDrain()[i]));
+	        datas.add(new CurrentDrainData(now, (time + (periodLength * i)) * 1000, periodLength, getCurrentDrain()[i]));
 	    }
 	    
 	    return datas;

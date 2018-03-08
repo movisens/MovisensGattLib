@@ -109,7 +109,7 @@ public class ZcmBuffered extends AbstractBufferedAttribute<ZcmData>
 	    
 	    for(int i=0; i<zcm.length; i++)
 	    {
-	        datas.add(new ZcmData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getZcm()[i]));
+	        datas.add(new ZcmData(now, (time + (periodLength * i)) * 1000, periodLength, getZcm()[i]));
 	    }
 	    
 	    return datas;

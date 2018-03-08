@@ -109,7 +109,7 @@ public class ChargingBuffered extends AbstractBufferedAttribute<ChargingData>
 	    
 	    for(int i=0; i<charging.length; i++)
 	    {
-	        datas.add(new ChargingData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getCharging()[i]));
+	        datas.add(new ChargingData(now, (time + (periodLength * i)) * 1000, periodLength, getCharging()[i]));
 	    }
 	    
 	    return datas;

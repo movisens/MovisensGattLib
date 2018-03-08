@@ -109,7 +109,7 @@ public class StepsBuffered extends AbstractBufferedAttribute<StepsData>
 	    
 	    for(int i=0; i<steps.length; i++)
 	    {
-	        datas.add(new StepsData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getSteps()[i]));
+	        datas.add(new StepsData(now, (time + (periodLength * i)) * 1000, periodLength, getSteps()[i]));
 	    }
 	    
 	    return datas;

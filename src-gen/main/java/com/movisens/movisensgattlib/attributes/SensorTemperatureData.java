@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class SensorTemperatureData extends AbstractData
 {
@@ -12,10 +13,15 @@ public class SensorTemperatureData extends AbstractData
 		return temperature;
 	}
 	
-    public SensorTemperatureData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<SensorTemperatureBuffered, SensorTemperatureData> characteristic, Integer temperature)
+    public SensorTemperatureData(long localTime, long sampleTime, int periodlength, Integer temperature)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.temperature = temperature;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.SENSOR_TEMPERATURE_BUFFERED;
+    }
 }

@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class LightData extends AbstractData
 {
@@ -17,11 +18,16 @@ public class LightData extends AbstractData
 		return ir;
 	}
 	
-    public LightData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<LightBuffered, LightData> characteristic, Long clear, Long ir)
+    public LightData(long localTime, long sampleTime, int periodlength, Long clear, Long ir)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.clear = clear;
 		this.ir = ir;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.LIGHT_BUFFERED;
+    }
 }

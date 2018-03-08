@@ -123,7 +123,7 @@ public class LightBuffered extends AbstractBufferedAttribute<LightData>
 	    
 	    for(int i=0; i<clear.length; i++)
 	    {
-	        datas.add(new LightData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getClear()[i], getIr()[i]));
+	        datas.add(new LightData(now, (time + (periodLength * i)) * 1000, periodLength, getClear()[i], getIr()[i]));
 	    }
 	    
 	    return datas;

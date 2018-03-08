@@ -109,7 +109,7 @@ public class MetBuffered extends AbstractBufferedAttribute<MetData>
 	    
 	    for(int i=0; i<met.length; i++)
 	    {
-	        datas.add(new MetData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getMet()[i]));
+	        datas.add(new MetData(now, (time + (periodLength * i)) * 1000, periodLength, getMet()[i]));
 	    }
 	    
 	    return datas;

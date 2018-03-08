@@ -137,7 +137,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	    
 	    for(int i=0; i<x.length; i++)
 	    {
-	        datas.add(new InclinationData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getX()[i], getY()[i], getZ()[i]));
+	        datas.add(new InclinationData(now, (time + (periodLength * i)) * 1000, periodLength, getX()[i], getY()[i], getZ()[i]));
 	    }
 	    
 	    return datas;

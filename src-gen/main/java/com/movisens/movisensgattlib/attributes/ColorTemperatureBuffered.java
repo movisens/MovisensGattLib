@@ -109,7 +109,7 @@ public class ColorTemperatureBuffered extends AbstractBufferedAttribute<ColorTem
 	    
 	    for(int i=0; i<colorTemperature.length; i++)
 	    {
-	        datas.add(new ColorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getColorTemperature()[i]));
+	        datas.add(new ColorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, getColorTemperature()[i]));
 	    }
 	    
 	    return datas;

@@ -109,7 +109,7 @@ public class HrvIsValidBuffered extends AbstractBufferedAttribute<HrvIsValidData
 	    
 	    for(int i=0; i<hrvIsValid.length; i++)
 	    {
-	        datas.add(new HrvIsValidData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getHrvIsValid()[i]));
+	        datas.add(new HrvIsValidData(now, (time + (periodLength * i)) * 1000, periodLength, getHrvIsValid()[i]));
 	    }
 	    
 	    return datas;

@@ -109,7 +109,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 	    
 	    for(int i=0; i<hrMean.length; i++)
 	    {
-	        datas.add(new HrMeanData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getHrMean()[i]));
+	        datas.add(new HrMeanData(now, (time + (periodLength * i)) * 1000, periodLength, getHrMean()[i]));
 	    }
 	    
 	    return datas;

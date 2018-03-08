@@ -109,7 +109,7 @@ public class MovementAccelerationBuffered extends AbstractBufferedAttribute<Move
 	    
 	    for(int i=0; i<movementAcceleration.length; i++)
 	    {
-	        datas.add(new MovementAccelerationData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getMovementAcceleration()[i]));
+	        datas.add(new MovementAccelerationData(now, (time + (periodLength * i)) * 1000, periodLength, getMovementAcceleration()[i]));
 	    }
 	    
 	    return datas;

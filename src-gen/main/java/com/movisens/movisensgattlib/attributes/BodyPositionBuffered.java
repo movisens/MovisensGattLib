@@ -109,7 +109,7 @@ public class BodyPositionBuffered extends AbstractBufferedAttribute<BodyPosition
 	    
 	    for(int i=0; i<bodyPosition.length; i++)
 	    {
-	        datas.add(new BodyPositionData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getBodyPosition()[i]));
+	        datas.add(new BodyPositionData(now, (time + (periodLength * i)) * 1000, periodLength, getBodyPosition()[i]));
 	    }
 	    
 	    return datas;

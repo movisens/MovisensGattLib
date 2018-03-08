@@ -109,7 +109,7 @@ public class ActivityclassBuffered extends AbstractBufferedAttribute<Activitycla
 	    
 	    for(int i=0; i<activityClass.length; i++)
 	    {
-	        datas.add(new ActivityclassData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getActivityClass()[i]));
+	        datas.add(new ActivityclassData(now, (time + (periodLength * i)) * 1000, periodLength, getActivityClass()[i]));
 	    }
 	    
 	    return datas;

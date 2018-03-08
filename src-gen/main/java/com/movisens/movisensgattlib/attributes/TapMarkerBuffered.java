@@ -109,7 +109,7 @@ public class TapMarkerBuffered extends AbstractBufferedAttribute<TapMarkerData>
 	    
 	    for(int i=0; i<tapMarker.length; i++)
 	    {
-	        datas.add(new TapMarkerData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTapMarker()[i]));
+	        datas.add(new TapMarkerData(now, (time + (periodLength * i)) * 1000, periodLength, getTapMarker()[i]));
 	    }
 	    
 	    return datas;

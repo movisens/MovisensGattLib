@@ -1,13 +1,15 @@
 package com.movisens.movisensgattlib;
 
+import static com.movisens.movisensgattlib.MovisensCharacteristics.*;
+
 import java.util.Date;
 import java.util.UUID;
 import java.util.Vector;
 
-import com.movisens.movisensgattlib.attributes.CurrentDrainData;
 import com.movisens.movisensgattlib.attributes.CurrentTime;
 import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
 import com.movisens.movisensgattlib.attributes.MovementAcceleration;
+import com.movisens.movisensgattlib.attributes.MovementAccelerationData;
 import com.movisens.movisensgattlib.attributes.SaveEnergy;
 import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.AbstractData;
@@ -19,43 +21,69 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 public class Example
 {
-
-    public static void bla()
+    public static class DataModel
     {
+        private Iterable<AbstractData> attributes;
+        
+        public DataModel(Iterable<AbstractData> attributes)
+        {
+            super();
+            this.attributes = attributes;
+        }
+
+        public <T extends AbstractAttribute, I extends AbstractData> Iterable<I> get(BufferedCharacteristic<T, I> c)
+        {
+            
+            Vector<I> ts = new Vector<I>();
+
+            for (AbstractData a : attributes)
+            {
+                if (a.getCharacteristic().equals(c))
+                {
+                    @SuppressWarnings("unchecked")
+                    I ad = (I) a;
+                    ts.add(ad);
+                }
+            }
+
+            return ts;
+        }
+        
+    }
+
+    public static void receiveAttributes()
+    {
+        /* TODO: receive attributes from remote */
         UUID uuid = null;
         byte[] value = null;
         AbstractAttribute ap = MovisensCharacteristics.lookup(uuid).createAttribute(value);
 
+        /* store all buffered attributes */
         if (ap instanceof AbstractBufferedAttribute<?>)
         {
-            @SuppressWarnings({ "unused", "unchecked"})
+            @SuppressWarnings({"unchecked"})
             Iterable<AbstractData> iad = (Iterable<AbstractData>) ((AbstractBufferedAttribute<?>) ap).getData();
+
+            /* TODO: collect attributes, synchronize data, etc. */
+            DataModel am = new DataModel(iad);
+
+            calculateAlgorithm(am);
         }
 
     }
 
-    public static <T extends AbstractAttribute, I extends AbstractData> Iterable<I> get(BufferedCharacteristic<T, I> c)
-    {
-        Vector<AbstractData> attributes = new Vector<AbstractData>();
-        Vector<I> ts = new Vector<I>();
 
-        for (AbstractData a : attributes)
+    private static void calculateAlgorithm(DataModel model)
+    {
+        Iterable<MovementAccelerationData> mads = model.get(MOVEMENT_ACCELERATION_BUFFERED);
+        
+        for(MovementAccelerationData mad : mads)
         {
-            if (a.getCharacteristic().equals(c))
-            {
-                @SuppressWarnings("unchecked")
-                I ad = (I) a;
-                ts.add(ad);
-            }
+            System.out.println(mad.getArivalTime());
+            System.out.println(mad.getSampleTime());
+            System.out.println(mad.getMovementAcceleration());
+            System.out.println(mad.getCharacteristic());
         }
-
-        return ts;
-    }
-
-    public static void test()
-    {
-        @SuppressWarnings("unused")
-        Iterable<CurrentDrainData> d = get(MovisensCharacteristics.CURRENT_DRAIN_BUFFERED);
     }
 
     @SuppressWarnings("unused")

@@ -1,28 +1,40 @@
 package com.movisens.movisensgattlib.helper;
 
-public class AbstractData
+public abstract class AbstractData
 {
 
-    long localTime;
+    private long arivalTime;
 
-    long sampleTime;
+    private long sampleTime;
 
-    int periodlength;
+    private int periodlength;
 
-    BufferedCharacteristic<?, ?> characteristic;
-
-    public AbstractData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<?, ?> characteristic)
+    public AbstractData(long arivalTime, long sampleTime, int periodlength)
     {
         super();
-        this.localTime = localTime;
+        this.arivalTime = arivalTime;
         this.sampleTime = sampleTime;
         this.periodlength = periodlength;
-        this.characteristic = characteristic;
     }
 
-    public BufferedCharacteristic<?, ?> getCharacteristic()
+    
+    public long getArivalTime()
     {
-        return characteristic;
+        return arivalTime;
     }
+
+    
+    public long getSampleTime()
+    {
+        return sampleTime;
+    }
+
+    
+    public int getPeriodlength()
+    {
+        return periodlength;
+    }
+
+    public abstract BufferedCharacteristic<?, ?> getCharacteristic();
 
 }

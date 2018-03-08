@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class InclinationData extends AbstractData
 {
@@ -22,12 +23,17 @@ public class InclinationData extends AbstractData
 		return z;
 	}
 	
-    public InclinationData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<InclinationBuffered, InclinationData> characteristic, Short x, Short y, Short z)
+    public InclinationData(long localTime, long sampleTime, int periodlength, Short x, Short y, Short z)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.x = x;
 		this.y = y;
 		this.z = z;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.INCLINATION_BUFFERED;
+    }
 }

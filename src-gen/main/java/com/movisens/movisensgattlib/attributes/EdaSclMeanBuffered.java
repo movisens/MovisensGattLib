@@ -109,7 +109,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	    
 	    for(int i=0; i<edaSclMean.length; i++)
 	    {
-	        datas.add(new EdaSclMeanData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getEdaSclMean()[i]));
+	        datas.add(new EdaSclMeanData(now, (time + (periodLength * i)) * 1000, periodLength, getEdaSclMean()[i]));
 	    }
 	    
 	    return datas;

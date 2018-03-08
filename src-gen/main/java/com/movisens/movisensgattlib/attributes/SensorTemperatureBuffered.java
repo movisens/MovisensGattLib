@@ -109,7 +109,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	    
 	    for(int i=0; i<temperature.length; i++)
 	    {
-	        datas.add(new SensorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTemperature()[i]));
+	        datas.add(new SensorTemperatureData(now, (time + (periodLength * i)) * 1000, periodLength, getTemperature()[i]));
 	    }
 	    
 	    return datas;

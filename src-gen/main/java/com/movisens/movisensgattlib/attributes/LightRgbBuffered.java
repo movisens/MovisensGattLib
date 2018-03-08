@@ -137,7 +137,7 @@ public class LightRgbBuffered extends AbstractBufferedAttribute<LightRgbData>
 	    
 	    for(int i=0; i<red.length; i++)
 	    {
-	        datas.add(new LightRgbData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getRed()[i], getGreen()[i], getBlue()[i]));
+	        datas.add(new LightRgbData(now, (time + (periodLength * i)) * 1000, periodLength, getRed()[i], getGreen()[i], getBlue()[i]));
 	    }
 	    
 	    return datas;

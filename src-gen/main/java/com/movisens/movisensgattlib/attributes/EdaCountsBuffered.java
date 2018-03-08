@@ -109,7 +109,7 @@ public class EdaCountsBuffered extends AbstractBufferedAttribute<EdaCountsData>
 	    
 	    for(int i=0; i<edaCounts.length; i++)
 	    {
-	        datas.add(new EdaCountsData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getEdaCounts()[i]));
+	        datas.add(new EdaCountsData(now, (time + (periodLength * i)) * 1000, periodLength, getEdaCounts()[i]));
 	    }
 	    
 	    return datas;

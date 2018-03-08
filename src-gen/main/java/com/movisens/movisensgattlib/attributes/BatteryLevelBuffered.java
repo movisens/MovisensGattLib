@@ -109,7 +109,7 @@ public class BatteryLevelBuffered extends AbstractBufferedAttribute<BatteryLevel
 	    
 	    for(int i=0; i<level.length; i++)
 	    {
-	        datas.add(new BatteryLevelData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getLevel()[i]));
+	        datas.add(new BatteryLevelData(now, (time + (periodLength * i)) * 1000, periodLength, getLevel()[i]));
 	    }
 	    
 	    return datas;

@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class MetLevelData extends AbstractData
 {
@@ -27,13 +28,18 @@ public class MetLevelData extends AbstractData
 		return vigorous;
 	}
 	
-    public MetLevelData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<MetLevelBuffered, MetLevelData> characteristic, Short sedentary, Short light, Short moderate, Short vigorous)
+    public MetLevelData(long localTime, long sampleTime, int periodlength, Short sedentary, Short light, Short moderate, Short vigorous)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.sedentary = sedentary;
 		this.light = light;
 		this.moderate = moderate;
 		this.vigorous = vigorous;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.MET_LEVEL_BUFFERED;
+    }
 }

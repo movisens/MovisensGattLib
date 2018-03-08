@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.attributes;
 
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class EdaSclMeanData extends AbstractData
 {
@@ -12,10 +13,15 @@ public class EdaSclMeanData extends AbstractData
 		return edaSclMean;
 	}
 	
-    public EdaSclMeanData(long localTime, long sampleTime, int periodlength, BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData> characteristic, Integer edaSclMean)
+    public EdaSclMeanData(long localTime, long sampleTime, int periodlength, Integer edaSclMean)
     {
-        super(localTime, sampleTime, periodlength, characteristic);
+        super(localTime, sampleTime, periodlength);
 		this.edaSclMean = edaSclMean;
     }
 	
+    @Override
+    public BufferedCharacteristic<?, ?> getCharacteristic()
+    {
+        return MovisensCharacteristics.EDA_SCL_MEAN_BUFFERED;
+    }
 }

@@ -109,7 +109,7 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 	    
 	    for(int i=0; i<rmssd.length; i++)
 	    {
-	        datas.add(new RmssdData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getRmssd()[i]));
+	        datas.add(new RmssdData(now, (time + (periodLength * i)) * 1000, periodLength, getRmssd()[i]));
 	    }
 	    
 	    return datas;

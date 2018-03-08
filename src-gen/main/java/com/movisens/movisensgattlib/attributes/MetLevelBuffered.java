@@ -151,7 +151,7 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 	    
 	    for(int i=0; i<sedentary.length; i++)
 	    {
-	        datas.add(new MetLevelData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getSedentary()[i], getLight()[i], getModerate()[i], getVigorous()[i]));
+	        datas.add(new MetLevelData(now, (time + (periodLength * i)) * 1000, periodLength, getSedentary()[i], getLight()[i], getModerate()[i], getVigorous()[i]));
 	    }
 	    
 	    return datas;

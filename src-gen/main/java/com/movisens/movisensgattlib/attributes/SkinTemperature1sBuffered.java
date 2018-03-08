@@ -109,7 +109,7 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	    
 	    for(int i=0; i<temperature.length; i++)
 	    {
-	        datas.add(new SkinTemperature1sData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getTemperature()[i]));
+	        datas.add(new SkinTemperature1sData(now, (time + (periodLength * i)) * 1000, periodLength, getTemperature()[i]));
 	    }
 	    
 	    return datas;

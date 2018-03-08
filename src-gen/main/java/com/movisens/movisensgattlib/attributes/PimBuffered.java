@@ -109,7 +109,7 @@ public class PimBuffered extends AbstractBufferedAttribute<PimData>
 	    
 	    for(int i=0; i<pim.length; i++)
 	    {
-	        datas.add(new PimData(now, (time + (periodLength * i)) * 1000, periodLength, CHARACTERISTIC, getPim()[i]));
+	        datas.add(new PimData(now, (time + (periodLength * i)) * 1000, periodLength, getPim()[i]));
 	    }
 	    
 	    return datas;
