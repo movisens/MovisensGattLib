@@ -14,7 +14,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 
 	public static final BufferedCharacteristic<HrMeanBuffered, HrMeanData> CHARACTERISTIC = MovisensCharacteristics.HR_MEAN_BUFFERED;
 	
-	public static final int periodLength = 60;
+	public static final int periodLength = 12;
 	private long time;
 	private Short hrMean[];
 	
