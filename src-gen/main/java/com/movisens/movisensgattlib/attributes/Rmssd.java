@@ -10,23 +10,23 @@ public class Rmssd extends AbstractReadAttribute
 
 	public static final Characteristic<Rmssd> CHARACTERISTIC = MovisensCharacteristics.RMSSD;
 	
-	private Short rmssd;
+	private Double rmssd;
 	
-	public Short getRmssd()
+	public Double getRmssd()
 	{
 		return rmssd;
 	}
 	
 	public String getRmssdUnit()
 	{
-		return "";
+		return "ms";
 	}
 	
 	public Rmssd(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		rmssd = bb.getInt16();
+		rmssd = new Double(bb.getInt16());
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class Rmssd extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getRmssd().toString();
+		return getRmssd().toString() + getRmssdUnit();
 	}
 }

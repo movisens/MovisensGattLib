@@ -6,14 +6,14 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class RmssdData extends AbstractData
 {
-	private Short rmssd;
+	private Double rmssd;
 	
-	public Short getRmssd()
+	public Double getRmssd()
 	{
 		return rmssd;
 	}
 	
-    public RmssdData(long localTime, long sampleTime, int periodlength, Short rmssd)
+    public RmssdData(long localTime, long sampleTime, int periodlength, Double rmssd)
     {
         super(localTime, sampleTime, periodlength);
 		this.rmssd = rmssd;

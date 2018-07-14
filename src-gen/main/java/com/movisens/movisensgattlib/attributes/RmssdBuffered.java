@@ -16,7 +16,7 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Short rmssd[];
+	private Double rmssd[];
 	
 	@Override
 	public Date getTime()
@@ -40,7 +40,7 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {""};
+		String[] names = {"ms"};
 		return names;
 	}
 	
@@ -58,14 +58,14 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 		return data;
 	}
 
-	public Short[] getRmssd()
+	public Double[] getRmssd()
 	{
 		return rmssd;
 	}
 	
 	public String getRmssdUnit()
 	{
-		return "";
+		return "ms";
 	}
 	
 	public RmssdBuffered(byte[] data)
@@ -76,11 +76,11 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		rmssd = new Short[numValues];
+		rmssd = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			rmssd[i] = bb.getInt16();
+			rmssd[i] = new Double(bb.getInt16());
 		}
 	}
 
@@ -96,7 +96,7 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 		String result = "";
 		for(int i=0; i<rmssd.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getRmssd()[i].toString() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getRmssd()[i].toString() + getRmssdUnit() + " \r\n";
 		}
 		return result;
 	}
