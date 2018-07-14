@@ -35,6 +35,7 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<CurrentDrainBuffered, CurrentDrainData> CURRENT_DRAIN_BUFFERED = new BufferedCharacteristic<CurrentDrainBuffered, CurrentDrainData>("80a36368-e30f-4b4e-a2ec-c5ba68958648", "Current Drain Buffered", CurrentDrainBuffered.class);
 	public static final Characteristic<CurrentDrainWaiting> CURRENT_DRAIN_WAITING = new Characteristic<CurrentDrainWaiting>("732fbd29-2603-4807-b5d5-acdb773648c0", "Current Drain Waiting", CurrentDrainWaiting.class);
 	public static final Characteristic<CurrentTime> CURRENT_TIME = new Characteristic<CurrentTime>("f89edec4-d590-764d-530f-8fff5c181606", "Current Time", CurrentTime.class);
+	public static final Characteristic<CustomData> CUSTOM_DATA = new Characteristic<CustomData>("0086b101-7f7d-4249-bfae-1999065a68c2", "Custom Data", CustomData.class);
 	public static final Characteristic<DataAvailable> DATA_AVAILABLE = new Characteristic<DataAvailable>("10847e7a-d43f-4b9e-b2f2-3e8546215c3c", "Data Available", DataAvailable.class);
 	public static final Characteristic<DataRx> DATA_RX = new Characteristic<DataRx>("e7add780-b042-4876-aae1-112855353cc1", "Data Rx", DataRx.class);
 	public static final Characteristic<DataTx> DATA_TX = new Characteristic<DataTx>("9c36476a-1b04-41d7-963e-243a45e22ad9", "Data Tx", DataTx.class);
@@ -130,6 +131,7 @@ public class MovisensCharacteristics
 		characteristics.put(CURRENT_DRAIN_BUFFERED);
 		characteristics.put(CURRENT_DRAIN_WAITING);
 		characteristics.put(CURRENT_TIME);
+		characteristics.put(CUSTOM_DATA);
 		characteristics.put(DATA_AVAILABLE);
 		characteristics.put(DATA_RX);
 		characteristics.put(DATA_TX);
