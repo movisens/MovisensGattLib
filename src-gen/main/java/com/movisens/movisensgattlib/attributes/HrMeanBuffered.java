@@ -16,7 +16,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Short hrMean[];
+	private Double hrMean[];
 	
 	@Override
 	public Date getTime()
@@ -40,7 +40,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {""};
+		String[] names = {"1/min"};
 		return names;
 	}
 	
@@ -58,14 +58,14 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 		return data;
 	}
 
-	public Short[] getHrMean()
+	public Double[] getHrMean()
 	{
 		return hrMean;
 	}
 	
 	public String getHrMeanUnit()
 	{
-		return "";
+		return "1/min";
 	}
 	
 	public HrMeanBuffered(byte[] data)
@@ -76,11 +76,11 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		hrMean = new Short[numValues];
+		hrMean = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			hrMean[i] = bb.getInt16();
+			hrMean[i] = new Double(bb.getInt16());
 		}
 	}
 
@@ -96,7 +96,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 		String result = "";
 		for(int i=0; i<hrMean.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrMean()[i].toString() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getHrMean()[i].toString() + getHrMeanUnit() + " \r\n";
 		}
 		return result;
 	}

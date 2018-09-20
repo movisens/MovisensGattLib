@@ -16,7 +16,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Integer temperature[];
+	private Double temperature[];
 	
 	@Override
 	public Date getTime()
@@ -40,7 +40,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {""};
+		String[] names = {"°C"};
 		return names;
 	}
 	
@@ -58,14 +58,14 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 		return data;
 	}
 
-	public Integer[] getTemperature()
+	public Double[] getTemperature()
 	{
 		return temperature;
 	}
 	
 	public String getTemperatureUnit()
 	{
-		return "";
+		return "°C";
 	}
 	
 	public SensorTemperatureBuffered(byte[] data)
@@ -76,11 +76,11 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		temperature = new Integer[numValues];
+		temperature = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			temperature[i] = bb.getUint16();
+			temperature[i] = ((double)bb.getUint16()) * 0.1;
 		}
 	}
 
@@ -96,7 +96,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 		String result = "";
 		for(int i=0; i<temperature.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + getTemperatureUnit() + " \r\n";
 		}
 		return result;
 	}

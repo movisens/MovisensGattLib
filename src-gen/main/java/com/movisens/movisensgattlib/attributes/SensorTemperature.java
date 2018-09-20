@@ -10,23 +10,23 @@ public class SensorTemperature extends AbstractReadAttribute
 
 	public static final Characteristic<SensorTemperature> CHARACTERISTIC = MovisensCharacteristics.SENSOR_TEMPERATURE;
 	
-	private Integer temperature;
+	private Double temperature;
 	
-	public Integer getTemperature()
+	public Double getTemperature()
 	{
 		return temperature;
 	}
 	
 	public String getTemperatureUnit()
 	{
-		return "";
+		return "°C";
 	}
 	
 	public SensorTemperature(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		temperature = bb.getUint16();
+		temperature = ((double)bb.getUint16()) * 0.1;
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class SensorTemperature extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getTemperature().toString();
+		return getTemperature().toString() + getTemperatureUnit();
 	}
 }

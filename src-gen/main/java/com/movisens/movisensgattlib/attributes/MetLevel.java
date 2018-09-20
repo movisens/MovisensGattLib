@@ -10,59 +10,59 @@ public class MetLevel extends AbstractReadAttribute
 
 	public static final Characteristic<MetLevel> CHARACTERISTIC = MovisensCharacteristics.MET_LEVEL;
 	
-	private Short sedentary;
-	private Short light;
-	private Short moderate;
-	private Short vigorous;
+	private Double sedentary;
+	private Double light;
+	private Double moderate;
+	private Double vigorous;
 	
-	public Short getSedentary()
+	public Double getSedentary()
 	{
 		return sedentary;
 	}
 	
 	public String getSedentaryUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short getLight()
+	public Double getLight()
 	{
 		return light;
 	}
 	
 	public String getLightUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short getModerate()
+	public Double getModerate()
 	{
 		return moderate;
 	}
 	
 	public String getModerateUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short getVigorous()
+	public Double getVigorous()
 	{
 		return vigorous;
 	}
 	
 	public String getVigorousUnit()
 	{
-		return "";
+		return "s";
 	}
 	
 	public MetLevel(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		sedentary = bb.getUint8();
-		light = bb.getUint8();
-		moderate = bb.getUint8();
-		vigorous = bb.getUint8();
+		sedentary = new Double(bb.getUint8());
+		light = new Double(bb.getUint8());
+		moderate = new Double(bb.getUint8());
+		vigorous = new Double(bb.getUint8());
 	}
 
 	@Override
@@ -74,6 +74,6 @@ public class MetLevel extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "sedentary = " + getSedentary() + ", " + "light = " + getLight() + ", " + "moderate = " + getModerate() + ", " + "vigorous = " + getVigorous();
+		return "sedentary = " + getSedentary() + getSedentaryUnit() + ", " + "light = " + getLight() + getLightUnit() + ", " + "moderate = " + getModerate() + getModerateUnit() + ", " + "vigorous = " + getVigorous() + getVigorousUnit();
 	}
 }

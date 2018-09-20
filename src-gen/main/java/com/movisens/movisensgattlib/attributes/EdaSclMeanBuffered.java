@@ -16,7 +16,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Integer edaSclMean[];
+	private Double edaSclMean[];
 	
 	@Override
 	public Date getTime()
@@ -40,7 +40,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {""};
+		String[] names = {"µS"};
 		return names;
 	}
 	
@@ -58,14 +58,14 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 		return data;
 	}
 
-	public Integer[] getEdaSclMean()
+	public Double[] getEdaSclMean()
 	{
 		return edaSclMean;
 	}
 	
 	public String getEdaSclMeanUnit()
 	{
-		return "";
+		return "µS";
 	}
 	
 	public EdaSclMeanBuffered(byte[] data)
@@ -76,11 +76,11 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		edaSclMean = new Integer[numValues];
+		edaSclMean = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			edaSclMean[i] = bb.getUint16();
+			edaSclMean[i] = ((double)bb.getUint16()) * 0.0030518509475997192;
 		}
 	}
 
@@ -96,7 +96,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 		String result = "";
 		for(int i=0; i<edaSclMean.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getEdaSclMean()[i].toString() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getEdaSclMean()[i].toString() + getEdaSclMeanUnit() + " \r\n";
 		}
 		return result;
 	}

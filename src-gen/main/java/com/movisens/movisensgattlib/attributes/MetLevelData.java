@@ -6,29 +6,29 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class MetLevelData extends AbstractData
 {
-	private Short sedentary;
-	private Short light;
-	private Short moderate;
-	private Short vigorous;
+	private Double sedentary;
+	private Double light;
+	private Double moderate;
+	private Double vigorous;
 	
-	public Short getSedentary()
+	public Double getSedentary()
 	{
 		return sedentary;
 	}
-	public Short getLight()
+	public Double getLight()
 	{
 		return light;
 	}
-	public Short getModerate()
+	public Double getModerate()
 	{
 		return moderate;
 	}
-	public Short getVigorous()
+	public Double getVigorous()
 	{
 		return vigorous;
 	}
 	
-    public MetLevelData(long localTime, long sampleTime, int periodlength, Short sedentary, Short light, Short moderate, Short vigorous)
+    public MetLevelData(long localTime, long sampleTime, int periodlength, Double sedentary, Double light, Double moderate, Double vigorous)
     {
         super(localTime, sampleTime, periodlength);
 		this.sedentary = sedentary;

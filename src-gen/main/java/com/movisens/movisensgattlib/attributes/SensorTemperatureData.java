@@ -6,14 +6,14 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class SensorTemperatureData extends AbstractData
 {
-	private Integer temperature;
+	private Double temperature;
 	
-	public Integer getTemperature()
+	public Double getTemperature()
 	{
 		return temperature;
 	}
 	
-    public SensorTemperatureData(long localTime, long sampleTime, int periodlength, Integer temperature)
+    public SensorTemperatureData(long localTime, long sampleTime, int periodlength, Double temperature)
     {
         super(localTime, sampleTime, periodlength);
 		this.temperature = temperature;

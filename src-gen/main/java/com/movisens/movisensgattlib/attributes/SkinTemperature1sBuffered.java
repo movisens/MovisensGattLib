@@ -40,7 +40,7 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"Grad Celsius"};
+		String[] names = {"°C"};
 		return names;
 	}
 	
@@ -65,7 +65,7 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	
 	public String getTemperatureUnit()
 	{
-		return "Grad Celsius";
+		return "°C";
 	}
 	
 	public SkinTemperature1sBuffered(byte[] data)

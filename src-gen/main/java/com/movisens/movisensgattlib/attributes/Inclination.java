@@ -10,47 +10,47 @@ public class Inclination extends AbstractReadAttribute
 
 	public static final Characteristic<Inclination> CHARACTERISTIC = MovisensCharacteristics.INCLINATION;
 	
-	private Short x;
-	private Short y;
-	private Short z;
+	private Double x;
+	private Double y;
+	private Double z;
 	
-	public Short getX()
+	public Double getX()
 	{
 		return x;
 	}
 	
 	public String getXUnit()
 	{
-		return "";
+		return "°";
 	}
 	
-	public Short getY()
+	public Double getY()
 	{
 		return y;
 	}
 	
 	public String getYUnit()
 	{
-		return "";
+		return "°";
 	}
 	
-	public Short getZ()
+	public Double getZ()
 	{
 		return z;
 	}
 	
 	public String getZUnit()
 	{
-		return "";
+		return "°";
 	}
 	
 	public Inclination(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		x = bb.getUint8();
-		y = bb.getUint8();
-		z = bb.getUint8();
+		x = new Double(bb.getUint8());
+		y = new Double(bb.getUint8());
+		z = new Double(bb.getUint8());
 	}
 
 	@Override
@@ -62,6 +62,6 @@ public class Inclination extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "x = " + getX() + ", " + "y = " + getY() + ", " + "z = " + getZ();
+		return "x = " + getX() + getXUnit() + ", " + "y = " + getY() + getYUnit() + ", " + "z = " + getZ() + getZUnit();
 	}
 }

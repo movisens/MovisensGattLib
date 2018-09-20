@@ -6,24 +6,24 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class InclinationData extends AbstractData
 {
-	private Short x;
-	private Short y;
-	private Short z;
+	private Double x;
+	private Double y;
+	private Double z;
 	
-	public Short getX()
+	public Double getX()
 	{
 		return x;
 	}
-	public Short getY()
+	public Double getY()
 	{
 		return y;
 	}
-	public Short getZ()
+	public Double getZ()
 	{
 		return z;
 	}
 	
-    public InclinationData(long localTime, long sampleTime, int periodlength, Short x, Short y, Short z)
+    public InclinationData(long localTime, long sampleTime, int periodlength, Double x, Double y, Double z)
     {
         super(localTime, sampleTime, periodlength);
 		this.x = x;

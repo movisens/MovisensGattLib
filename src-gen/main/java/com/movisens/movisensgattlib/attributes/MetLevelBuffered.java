@@ -16,10 +16,10 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Short sedentary[];
-	private Short light[];
-	private Short moderate[];
-	private Short vigorous[];
+	private Double sedentary[];
+	private Double light[];
+	private Double moderate[];
+	private Double vigorous[];
 	
 	@Override
 	public Date getTime()
@@ -43,7 +43,7 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"", "", "", ""};
+		String[] names = {"s", "s", "s", "s"};
 		return names;
 	}
 	
@@ -64,44 +64,44 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 		return data;
 	}
 
-	public Short[] getSedentary()
+	public Double[] getSedentary()
 	{
 		return sedentary;
 	}
 	
 	public String getSedentaryUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short[] getLight()
+	public Double[] getLight()
 	{
 		return light;
 	}
 	
 	public String getLightUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short[] getModerate()
+	public Double[] getModerate()
 	{
 		return moderate;
 	}
 	
 	public String getModerateUnit()
 	{
-		return "";
+		return "s";
 	}
 	
-	public Short[] getVigorous()
+	public Double[] getVigorous()
 	{
 		return vigorous;
 	}
 	
 	public String getVigorousUnit()
 	{
-		return "";
+		return "s";
 	}
 	
 	public MetLevelBuffered(byte[] data)
@@ -112,17 +112,17 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		sedentary = new Short[numValues];
-		light = new Short[numValues];
-		moderate = new Short[numValues];
-		vigorous = new Short[numValues];
+		sedentary = new Double[numValues];
+		light = new Double[numValues];
+		moderate = new Double[numValues];
+		vigorous = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			sedentary[i] = bb.getUint8();
-			light[i] = bb.getUint8();
-			moderate[i] = bb.getUint8();
-			vigorous[i] = bb.getUint8();
+			sedentary[i] = new Double(bb.getUint8());
+			light[i] = new Double(bb.getUint8());
+			moderate[i] = new Double(bb.getUint8());
+			vigorous[i] = new Double(bb.getUint8());
 		}
 	}
 
@@ -138,7 +138,7 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 		String result = "";
 		for(int i=0; i<sedentary.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + ", " + "light = " + getLight()[i] + ", " + "moderate = " + getModerate()[i] + ", " + "vigorous = " + getVigorous()[i] + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + getSedentaryUnit() + ", " + "light = " + getLight()[i] + getLightUnit() + ", " + "moderate = " + getModerate()[i] + getModerateUnit() + ", " + "vigorous = " + getVigorous()[i] + getVigorousUnit() + " \r\n";
 		}
 		return result;
 	}

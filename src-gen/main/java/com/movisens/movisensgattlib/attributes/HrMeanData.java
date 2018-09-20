@@ -6,14 +6,14 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class HrMeanData extends AbstractData
 {
-	private Short hrMean;
+	private Double hrMean;
 	
-	public Short getHrMean()
+	public Double getHrMean()
 	{
 		return hrMean;
 	}
 	
-    public HrMeanData(long localTime, long sampleTime, int periodlength, Short hrMean)
+    public HrMeanData(long localTime, long sampleTime, int periodlength, Double hrMean)
     {
         super(localTime, sampleTime, periodlength);
 		this.hrMean = hrMean;

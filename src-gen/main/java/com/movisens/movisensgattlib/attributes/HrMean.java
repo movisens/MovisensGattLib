@@ -10,23 +10,23 @@ public class HrMean extends AbstractReadAttribute
 
 	public static final Characteristic<HrMean> CHARACTERISTIC = MovisensCharacteristics.HR_MEAN;
 	
-	private Short hrMean;
+	private Double hrMean;
 	
-	public Short getHrMean()
+	public Double getHrMean()
 	{
 		return hrMean;
 	}
 	
 	public String getHrMeanUnit()
 	{
-		return "";
+		return "1/min";
 	}
 	
 	public HrMean(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		hrMean = bb.getInt16();
+		hrMean = new Double(bb.getInt16());
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class HrMean extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getHrMean().toString();
+		return getHrMean().toString() + getHrMeanUnit();
 	}
 }

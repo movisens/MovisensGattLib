@@ -19,7 +19,7 @@ public class SkinTemperature extends AbstractReadAttribute
 	
 	public String getTemperatureUnit()
 	{
-		return "Grad Celsius";
+		return "°C";
 	}
 	
 	public SkinTemperature(byte[] data)

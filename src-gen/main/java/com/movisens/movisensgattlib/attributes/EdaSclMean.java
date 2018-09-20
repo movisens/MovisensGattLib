@@ -10,23 +10,23 @@ public class EdaSclMean extends AbstractReadAttribute
 
 	public static final Characteristic<EdaSclMean> CHARACTERISTIC = MovisensCharacteristics.EDA_SCL_MEAN;
 	
-	private Integer edaSclMean;
+	private Double edaSclMean;
 	
-	public Integer getEdaSclMean()
+	public Double getEdaSclMean()
 	{
 		return edaSclMean;
 	}
 	
 	public String getEdaSclMeanUnit()
 	{
-		return "";
+		return "µS";
 	}
 	
 	public EdaSclMean(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		edaSclMean = bb.getUint16();
+		edaSclMean = ((double)bb.getUint16()) * 0.0030518509475997192;
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class EdaSclMean extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getEdaSclMean().toString();
+		return getEdaSclMean().toString() + getEdaSclMeanUnit();
 	}
 }

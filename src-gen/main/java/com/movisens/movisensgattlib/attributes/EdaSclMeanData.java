@@ -6,14 +6,14 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class EdaSclMeanData extends AbstractData
 {
-	private Integer edaSclMean;
+	private Double edaSclMean;
 	
-	public Integer getEdaSclMean()
+	public Double getEdaSclMean()
 	{
 		return edaSclMean;
 	}
 	
-    public EdaSclMeanData(long localTime, long sampleTime, int periodlength, Integer edaSclMean)
+    public EdaSclMeanData(long localTime, long sampleTime, int periodlength, Double edaSclMean)
     {
         super(localTime, sampleTime, periodlength);
 		this.edaSclMean = edaSclMean;
