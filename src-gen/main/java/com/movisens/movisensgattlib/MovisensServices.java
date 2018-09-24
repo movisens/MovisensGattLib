@@ -9,10 +9,7 @@ public class MovisensServices
 {
 
 	public static final Service AMBIENT = new Service("d0f0f790-66c9-4e1f-bf48-1628a7ad89f9", "Ambient");
-	public static final Service CABLEREPLACEMENT = new Service("0bd51666-e7cb-469b-8e4d-2742f1ba77cc", "Cablereplacement");
-	public static final Service CARDIO = new Service("7d1ad222-c7f5-4352-a3ed-783dda0a23ed", "Cardio");
 	public static final Service EDA = new Service("eb08670d-f244-4511-b43e-04bba968b693", "Eda");
-	public static final Service EMV_TEST = new Service("9724d49b-dc55-492c-9b4d-d6d24c3e6c7c", "Emv Test");
 	public static final Service HRV = new Service("0bd51666-e7cb-469b-8e4d-2742f1ba77cd", "Hrv");
 	public static final Service MARKER = new Service("32062bba-7843-4ad6-94ea-95c66909edcf", "Marker");
 	public static final Service MOVISENS_BATTERY = new Service("27b66685-62e5-4e76-8c02-d625600ed2c6", "Movisens Battery");
@@ -26,10 +23,7 @@ public class MovisensServices
 	static
 	{
 		services.put(AMBIENT);
-		services.put(CABLEREPLACEMENT);
-		services.put(CARDIO);
 		services.put(EDA);
-		services.put(EMV_TEST);
 		services.put(HRV);
 		services.put(MARKER);
 		services.put(MOVISENS_BATTERY);

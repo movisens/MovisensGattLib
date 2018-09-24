@@ -12,23 +12,15 @@ public class MovisensCharacteristics
 {
 
 	public static final Characteristic<AccMagnitude> ACC_MAGNITUDE = new Characteristic<AccMagnitude>("e31154aa-3d7c-4725-9fa5-5d95a164b733", "Acc Magnitude", AccMagnitude.class);
-	public static final Characteristic<AccMagnitudeWaiting> ACC_MAGNITUDE_WAITING = new Characteristic<AccMagnitudeWaiting>("c00c344a-0bf6-48c8-8ed1-090ef63f380a", "Acc Magnitude Waiting", AccMagnitudeWaiting.class);
-	public static final Characteristic<Activityclass> ACTIVITYCLASS = new Characteristic<Activityclass>("2716a61a-ecbe-4bbf-a6b6-9c238acb1382", "Activityclass", Activityclass.class);
-	public static final BufferedCharacteristic<ActivityclassBuffered, ActivityclassData> ACTIVITYCLASS_BUFFERED = new BufferedCharacteristic<ActivityclassBuffered, ActivityclassData>("a496347d-fc9a-426f-94d9-31d663c87105", "Activityclass Buffered", ActivityclassBuffered.class);
-	public static final Characteristic<ActivityclassWaiting> ACTIVITYCLASS_WAITING = new Characteristic<ActivityclassWaiting>("bff835f8-0d98-43d1-a98d-723b2c7b6aeb", "Activityclass Waiting", ActivityclassWaiting.class);
 	public static final Characteristic<AgeFloat> AGE_FLOAT = new Characteristic<AgeFloat>("7562060b-4aff-4422-aec7-77770d2a0530", "Age Float", AgeFloat.class);
 	public static final BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> BATTERY_LEVEL_BUFFERED = new BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData>("c7538ae7-b2ec-4905-8ebc-4a0581df4335", "Battery Level Buffered", BatteryLevelBuffered.class);
 	public static final Characteristic<BatteryLevelWaiting> BATTERY_LEVEL_WAITING = new Characteristic<BatteryLevelWaiting>("f84adb7d-a503-44d4-88ba-8583b981b5b2", "Battery Level Waiting", BatteryLevelWaiting.class);
-	public static final Characteristic<BatteryLevelX> BATTERY_LEVEL_X = new Characteristic<BatteryLevelX>("f89edec7-f7e0-94f2-747d-ee7acaa6d413", "Battery Level X", BatteryLevelX.class);
 	public static final Characteristic<BodyPosition> BODY_POSITION = new Characteristic<BodyPosition>("2abf95be-7496-4e72-b880-f9f00aad553b", "Body Position", BodyPosition.class);
 	public static final BufferedCharacteristic<BodyPositionBuffered, BodyPositionData> BODY_POSITION_BUFFERED = new BufferedCharacteristic<BodyPositionBuffered, BodyPositionData>("fda6f11e-a1d0-41da-b611-5ab3ec34f6ca", "Body Position Buffered", BodyPositionBuffered.class);
 	public static final Characteristic<BodyPositionWaiting> BODY_POSITION_WAITING = new Characteristic<BodyPositionWaiting>("8fbffb12-23ed-498b-b19c-9c9a67f14b75", "Body Position Waiting", BodyPositionWaiting.class);
 	public static final Characteristic<Charging> CHARGING = new Characteristic<Charging>("d34f2d52-5fcd-491c-b782-6b84e439687e", "Charging", Charging.class);
 	public static final BufferedCharacteristic<ChargingBuffered, ChargingData> CHARGING_BUFFERED = new BufferedCharacteristic<ChargingBuffered, ChargingData>("601d030e-b067-4f80-9a36-09aa9fb21670", "Charging Buffered", ChargingBuffered.class);
 	public static final Characteristic<ChargingWaiting> CHARGING_WAITING = new Characteristic<ChargingWaiting>("c1432e2e-aa2e-456b-9c4f-c16ddc449371", "Charging Waiting", ChargingWaiting.class);
-	public static final Characteristic<ColorTemperature> COLOR_TEMPERATURE = new Characteristic<ColorTemperature>("cf339284-aa6a-4ef3-b469-a480752576d2", "Color Temperature", ColorTemperature.class);
-	public static final BufferedCharacteristic<ColorTemperatureBuffered, ColorTemperatureData> COLOR_TEMPERATURE_BUFFERED = new BufferedCharacteristic<ColorTemperatureBuffered, ColorTemperatureData>("8478339d-6687-42b8-9478-6a825d31bfeb", "Color Temperature Buffered", ColorTemperatureBuffered.class);
-	public static final Characteristic<ColorTemperatureWaiting> COLOR_TEMPERATURE_WAITING = new Characteristic<ColorTemperatureWaiting>("5115262d-6ee7-4021-941d-5eb191d06c9f", "Color Temperature Waiting", ColorTemperatureWaiting.class);
 	public static final Characteristic<Counter> COUNTER = new Characteristic<Counter>("6840e2b6-a9ea-409c-903e-2c001fcb319f", "Counter", Counter.class);
 	public static final Characteristic<CounterWaiting> COUNTER_WAITING = new Characteristic<CounterWaiting>("7bc5b98f-0dab-4e01-befd-b0734b99c756", "Counter Waiting", CounterWaiting.class);
 	public static final Characteristic<CurrentDrain> CURRENT_DRAIN = new Characteristic<CurrentDrain>("690e309f-0248-469c-b049-ee29b8230842", "Current Drain", CurrentDrain.class);
@@ -41,9 +33,6 @@ public class MovisensCharacteristics
 	public static final Characteristic<DataTx> DATA_TX = new Characteristic<DataTx>("9c36476a-1b04-41d7-963e-243a45e22ad9", "Data Tx", DataTx.class);
 	public static final Characteristic<DeleteData> DELETE_DATA = new Characteristic<DeleteData>("f89edec2-9fc2-c29e-ff29-da323b327e44", "Delete Data", DeleteData.class);
 	public static final Characteristic<Ecg> ECG = new Characteristic<Ecg>("99b97e05-b8b5-44db-ad20-439f75999a63", "Ecg", Ecg.class);
-	public static final Characteristic<EdaCounts> EDA_COUNTS = new Characteristic<EdaCounts>("36dcc871-7d30-47ea-aa1c-9693dabdd026", "Eda Counts", EdaCounts.class);
-	public static final BufferedCharacteristic<EdaCountsBuffered, EdaCountsData> EDA_COUNTS_BUFFERED = new BufferedCharacteristic<EdaCountsBuffered, EdaCountsData>("9c60e32c-9f59-4a4c-a0f2-f346c13b5bbb", "Eda Counts Buffered", EdaCountsBuffered.class);
-	public static final Characteristic<EdaCountsWaiting> EDA_COUNTS_WAITING = new Characteristic<EdaCountsWaiting>("58699790-e3b6-41ee-9cc9-0584a779b2e0", "Eda Counts Waiting", EdaCountsWaiting.class);
 	public static final Characteristic<EdaSclMean> EDA_SCL_MEAN = new Characteristic<EdaSclMean>("a884dc4b-62d6-44ee-bcbf-d0f725d95213", "Eda Scl Mean", EdaSclMean.class);
 	public static final BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData> EDA_SCL_MEAN_BUFFERED = new BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData>("663af1bc-2fa0-43c0-b452-2b8c1efb7f9d", "Eda Scl Mean Buffered", EdaSclMeanBuffered.class);
 	public static final Characteristic<EdaSclMeanWaiting> EDA_SCL_MEAN_WAITING = new Characteristic<EdaSclMeanWaiting>("47755955-966e-4b75-b79b-ef5c839cb191", "Eda Scl Mean Waiting", EdaSclMeanWaiting.class);
@@ -53,9 +42,6 @@ public class MovisensCharacteristics
 	public static final Characteristic<HrvIsValid> HRV_IS_VALID = new Characteristic<HrvIsValid>("5d9724de-501e-475f-b8e6-d0e77ea4d0c1", "Hrv Is Valid", HrvIsValid.class);
 	public static final BufferedCharacteristic<HrvIsValidBuffered, HrvIsValidData> HRV_IS_VALID_BUFFERED = new BufferedCharacteristic<HrvIsValidBuffered, HrvIsValidData>("0524f2f1-d8da-4ef6-9e3b-43d6ed0ec518", "Hrv Is Valid Buffered", HrvIsValidBuffered.class);
 	public static final Characteristic<HrvIsValidWaiting> HRV_IS_VALID_WAITING = new Characteristic<HrvIsValidWaiting>("b2734e22-5c9e-476c-a317-d3fb706df00c", "Hrv Is Valid Waiting", HrvIsValidWaiting.class);
-	public static final Characteristic<Illumination> ILLUMINATION = new Characteristic<Illumination>("69803916-a3fc-4748-b951-24ad3bfa6470", "Illumination", Illumination.class);
-	public static final BufferedCharacteristic<IlluminationBuffered, IlluminationData> ILLUMINATION_BUFFERED = new BufferedCharacteristic<IlluminationBuffered, IlluminationData>("162de980-b426-425d-8df0-602fba83e6b9", "Illumination Buffered", IlluminationBuffered.class);
-	public static final Characteristic<IlluminationWaiting> ILLUMINATION_WAITING = new Characteristic<IlluminationWaiting>("ae70c353-f228-4915-b36b-9cccd3faca0d", "Illumination Waiting", IlluminationWaiting.class);
 	public static final Characteristic<Inclination> INCLINATION = new Characteristic<Inclination>("e165b5d0-d83f-4a5c-86a6-306ca1ddf0ef", "Inclination", Inclination.class);
 	public static final BufferedCharacteristic<InclinationBuffered, InclinationData> INCLINATION_BUFFERED = new BufferedCharacteristic<InclinationBuffered, InclinationData>("f89edebf-9b5b-486d-054f-b3ce3e226d49", "Inclination Buffered", InclinationBuffered.class);
 	public static final Characteristic<InclinationWaiting> INCLINATION_WAITING = new Characteristic<InclinationWaiting>("f89edeb8-dda5-770a-e42d-005ed49f5e29", "Inclination Waiting", InclinationWaiting.class);
@@ -98,8 +84,6 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<StepsBuffered, StepsData> STEPS_BUFFERED = new BufferedCharacteristic<StepsBuffered, StepsData>("58c6374e-9927-414a-b90e-475014af65ba", "Steps Buffered", StepsBuffered.class);
 	public static final Characteristic<StepsWaiting> STEPS_WAITING = new Characteristic<StepsWaiting>("9b72b459-d1e5-48fe-9c91-2fb168261b21", "Steps Waiting", StepsWaiting.class);
 	public static final Characteristic<TapMarker> TAP_MARKER = new Characteristic<TapMarker>("207b171c-d7a5-48ef-8e60-6ccb5f0993f4", "Tap Marker", TapMarker.class);
-	public static final BufferedCharacteristic<TapMarkerBuffered, TapMarkerData> TAP_MARKER_BUFFERED = new BufferedCharacteristic<TapMarkerBuffered, TapMarkerData>("5cd3619c-ae4f-42c0-b975-2bca40f2627f", "Tap Marker Buffered", TapMarkerBuffered.class);
-	public static final Characteristic<TapMarkerWaiting> TAP_MARKER_WAITING = new Characteristic<TapMarkerWaiting>("eaf03861-68f9-4c78-ae52-1483085031cd", "Tap Marker Waiting", TapMarkerWaiting.class);
 	public static final BufferedCharacteristic<ZcmBuffered, ZcmData> ZCM_BUFFERED = new BufferedCharacteristic<ZcmBuffered, ZcmData>("f89edebe-0136-7900-2cec-b4641bb709f5", "Zcm Buffered", ZcmBuffered.class);
 	public static final Characteristic<ZcmWaiting> ZCM_WAITING = new Characteristic<ZcmWaiting>("f89edebd-c3bd-2d57-ba04-7bdeb96e7366", "Zcm Waiting", ZcmWaiting.class);
 
@@ -108,23 +92,15 @@ public class MovisensCharacteristics
 	static
 	{
 		characteristics.put(ACC_MAGNITUDE);
-		characteristics.put(ACC_MAGNITUDE_WAITING);
-		characteristics.put(ACTIVITYCLASS);
-		characteristics.put(ACTIVITYCLASS_BUFFERED);
-		characteristics.put(ACTIVITYCLASS_WAITING);
 		characteristics.put(AGE_FLOAT);
 		characteristics.put(BATTERY_LEVEL_BUFFERED);
 		characteristics.put(BATTERY_LEVEL_WAITING);
-		characteristics.put(BATTERY_LEVEL_X);
 		characteristics.put(BODY_POSITION);
 		characteristics.put(BODY_POSITION_BUFFERED);
 		characteristics.put(BODY_POSITION_WAITING);
 		characteristics.put(CHARGING);
 		characteristics.put(CHARGING_BUFFERED);
 		characteristics.put(CHARGING_WAITING);
-		characteristics.put(COLOR_TEMPERATURE);
-		characteristics.put(COLOR_TEMPERATURE_BUFFERED);
-		characteristics.put(COLOR_TEMPERATURE_WAITING);
 		characteristics.put(COUNTER);
 		characteristics.put(COUNTER_WAITING);
 		characteristics.put(CURRENT_DRAIN);
@@ -137,9 +113,6 @@ public class MovisensCharacteristics
 		characteristics.put(DATA_TX);
 		characteristics.put(DELETE_DATA);
 		characteristics.put(ECG);
-		characteristics.put(EDA_COUNTS);
-		characteristics.put(EDA_COUNTS_BUFFERED);
-		characteristics.put(EDA_COUNTS_WAITING);
 		characteristics.put(EDA_SCL_MEAN);
 		characteristics.put(EDA_SCL_MEAN_BUFFERED);
 		characteristics.put(EDA_SCL_MEAN_WAITING);
@@ -149,9 +122,6 @@ public class MovisensCharacteristics
 		characteristics.put(HRV_IS_VALID);
 		characteristics.put(HRV_IS_VALID_BUFFERED);
 		characteristics.put(HRV_IS_VALID_WAITING);
-		characteristics.put(ILLUMINATION);
-		characteristics.put(ILLUMINATION_BUFFERED);
-		characteristics.put(ILLUMINATION_WAITING);
 		characteristics.put(INCLINATION);
 		characteristics.put(INCLINATION_BUFFERED);
 		characteristics.put(INCLINATION_WAITING);
@@ -194,8 +164,6 @@ public class MovisensCharacteristics
 		characteristics.put(STEPS_BUFFERED);
 		characteristics.put(STEPS_WAITING);
 		characteristics.put(TAP_MARKER);
-		characteristics.put(TAP_MARKER_BUFFERED);
-		characteristics.put(TAP_MARKER_WAITING);
 		characteristics.put(ZCM_BUFFERED);
 		characteristics.put(ZCM_WAITING);
 	}
