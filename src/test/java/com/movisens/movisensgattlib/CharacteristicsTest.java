@@ -52,9 +52,9 @@ public class CharacteristicsTest {
 
     @Test
     public void testMetLevel() {
-        Short[] metLevel = new Short[]{12, 25, 45, 18};
+        Double[] metLevel = new Double[]{12.0, 25.0, 45.0, 18.0};
         GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
-        for (int i : metLevel) {
+        for (double i : metLevel) {
             gattByteBuffer.putUint8((short) i);
         }
         MetLevel level = new MetLevel(gattByteBuffer.array());
@@ -103,7 +103,7 @@ public class CharacteristicsTest {
 
     @Test
     public void testRmssd() {
-        Short rmssd = 125;
+        Double rmssd = 125.0;
         GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
         gattByteBuffer.putInt16((short) rmssd.intValue());
         Rmssd copyRmssd = new Rmssd(gattByteBuffer.array());

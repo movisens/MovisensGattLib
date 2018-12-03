@@ -16,6 +16,8 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
 
+compileJava.options.encoding = 'Cp1252'
+
 group = 'com.github.movisens'
 
 targetCompatibility = 1.6
