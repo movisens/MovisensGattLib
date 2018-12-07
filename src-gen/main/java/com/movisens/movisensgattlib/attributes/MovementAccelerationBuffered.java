@@ -18,11 +18,6 @@ public class MovementAccelerationBuffered extends AbstractBufferedAttribute<Move
 	private long time;
 	private Double movementAcceleration[];
 	
-	public int getBitPosition()
-	{
-		return 7;
-	}
-	
 	@Override
 	public Date getTime()
 	{

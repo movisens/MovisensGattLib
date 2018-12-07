@@ -6,7 +6,6 @@ public interface BufferedAttribute<T extends AbstractData> {
 
 	Date getTime();
 	double getSamplerate();
-	int getBitPosition();
 	
 	String[] getValueNames();
 	String[] getValueUnits();

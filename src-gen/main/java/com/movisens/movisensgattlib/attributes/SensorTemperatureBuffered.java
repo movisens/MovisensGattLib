@@ -18,11 +18,6 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	private long time;
 	private Double temperature[];
 	
-	public int getBitPosition()
-	{
-		return 23;
-	}
-	
 	@Override
 	public Date getTime()
 	{

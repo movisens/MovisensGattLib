@@ -18,11 +18,6 @@ public class BatteryLevelBuffered extends AbstractBufferedAttribute<BatteryLevel
 	private long time;
 	private Double level[];
 	
-	public int getBitPosition()
-	{
-		return 0;
-	}
-	
 	@Override
 	public Date getTime()
 	{

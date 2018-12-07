@@ -32,7 +32,7 @@ public class BitField
 
         if (bytePosition < data.length)
         {
-            data[bytePosition] = (byte)(1 << bitPositionInByte);
+            data[bytePosition] += (byte)(1 << bitPositionInByte);
             return true;
         }
         else

@@ -18,11 +18,6 @@ public class StepsBuffered extends AbstractBufferedAttribute<StepsData>
 	private long time;
 	private Integer steps[];
 	
-	public int getBitPosition()
-	{
-		return 10;
-	}
-	
 	@Override
 	public Date getTime()
 	{

@@ -23,7 +23,7 @@ group = 'com.github.movisens'
 targetCompatibility = 1.6
 sourceCompatibility = 1.6
 
-version = '2.1.8'
+version = '2.1.9'
 
 repositories {
 	mavenLocal()
@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.movisens:SmartGattLib:3.0.7'
+    compile 'com.github.movisens:SmartGattLib:3.0.8'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 

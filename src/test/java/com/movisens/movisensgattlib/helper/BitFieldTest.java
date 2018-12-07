@@ -31,7 +31,7 @@ public class BitFieldTest
     {
         final int arrayLength = 20;
 
-        for (int i = 1; i < arrayLength * 8; i++)
+        for (int i = 0; i < arrayLength * 8; i++)
         {
             BitField bf = new BitField(new byte[arrayLength]);
 
@@ -48,6 +48,22 @@ public class BitFieldTest
                     assertFalse(bf.isBitSet(j));
                 }
             }
+        }
+    }
+
+    @Test
+    public void testSetAllBits()
+    {
+        final int arrayLength = 20;
+        BitField bf = new BitField(new byte[arrayLength]);
+
+        for (int i = 0; i < arrayLength * 8; i++)
+        {
+            bf.setBit(i);
+        }
+        for (int j = 0; j < arrayLength * 8; j++)
+        {
+            assertTrue(""+j + " is not set", bf.isBitSet(j));
         }
     }
 

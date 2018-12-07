@@ -18,11 +18,6 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	private long time;
 	private Double temperature[];
 	
-	public int getBitPosition()
-	{
-		return 25;
-	}
-	
 	@Override
 	public Date getTime()
 	{

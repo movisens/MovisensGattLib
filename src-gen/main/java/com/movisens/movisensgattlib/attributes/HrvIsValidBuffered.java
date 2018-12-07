@@ -18,11 +18,6 @@ public class HrvIsValidBuffered extends AbstractBufferedAttribute<HrvIsValidData
 	private long time;
 	private Boolean hrvIsValid[];
 	
-	public int getBitPosition()
-	{
-		return 4;
-	}
-	
 	@Override
 	public Date getTime()
 	{

@@ -21,11 +21,6 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 	private Double moderate[];
 	private Double vigorous[];
 	
-	public int getBitPosition()
-	{
-		return 9;
-	}
-	
 	@Override
 	public Date getTime()
 	{

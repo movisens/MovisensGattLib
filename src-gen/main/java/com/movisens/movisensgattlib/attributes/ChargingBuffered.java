@@ -18,11 +18,6 @@ public class ChargingBuffered extends AbstractBufferedAttribute<ChargingData>
 	private long time;
 	private Boolean charging[];
 	
-	public int getBitPosition()
-	{
-		return 2;
-	}
-	
 	@Override
 	public Date getTime()
 	{
