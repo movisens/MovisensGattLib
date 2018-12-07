@@ -18,6 +18,11 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	private long time;
 	private Double edaSclMean[];
 	
+	public int getBitPosition()
+	{
+		return 18;
+	}
+	
 	@Override
 	public Date getTime()
 	{

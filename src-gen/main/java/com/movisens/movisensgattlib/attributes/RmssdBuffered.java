@@ -18,6 +18,11 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 	private long time;
 	private Double rmssd[];
 	
+	public int getBitPosition()
+	{
+		return 5;
+	}
+	
 	@Override
 	public Date getTime()
 	{

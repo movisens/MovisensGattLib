@@ -20,6 +20,11 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	private Double y[];
 	private Double z[];
 	
+	public int getBitPosition()
+	{
+		return 15;
+	}
+	
 	@Override
 	public Date getTime()
 	{

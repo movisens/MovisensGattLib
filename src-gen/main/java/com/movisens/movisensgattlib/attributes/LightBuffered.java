@@ -19,6 +19,11 @@ public class LightBuffered extends AbstractBufferedAttribute<LightData>
 	private Long clear[];
 	private Long ir[];
 	
+	public int getBitPosition()
+	{
+		return 19;
+	}
+	
 	@Override
 	public Date getTime()
 	{

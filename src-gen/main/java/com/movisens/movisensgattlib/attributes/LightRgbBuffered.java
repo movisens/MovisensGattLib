@@ -20,6 +20,11 @@ public class LightRgbBuffered extends AbstractBufferedAttribute<LightRgbData>
 	private Long green[];
 	private Long blue[];
 	
+	public int getBitPosition()
+	{
+		return 20;
+	}
+	
 	@Override
 	public Date getTime()
 	{

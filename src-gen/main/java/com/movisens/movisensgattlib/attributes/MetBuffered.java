@@ -18,6 +18,11 @@ public class MetBuffered extends AbstractBufferedAttribute<MetData>
 	private long time;
 	private Double met[];
 	
+	public int getBitPosition()
+	{
+		return 8;
+	}
+	
 	@Override
 	public Date getTime()
 	{

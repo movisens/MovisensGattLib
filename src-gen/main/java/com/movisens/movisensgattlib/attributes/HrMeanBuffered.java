@@ -18,6 +18,11 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 	private long time;
 	private Double hrMean[];
 	
+	public int getBitPosition()
+	{
+		return 6;
+	}
+	
 	@Override
 	public Date getTime()
 	{

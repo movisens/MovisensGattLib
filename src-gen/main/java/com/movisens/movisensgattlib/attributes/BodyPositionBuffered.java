@@ -18,6 +18,11 @@ public class BodyPositionBuffered extends AbstractBufferedAttribute<BodyPosition
 	private long time;
 	private EnumBodyPosition bodyPosition[];
 	
+	public int getBitPosition()
+	{
+		return 12;
+	}
+	
 	@Override
 	public Date getTime()
 	{
