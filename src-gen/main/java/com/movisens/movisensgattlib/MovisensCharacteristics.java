@@ -55,6 +55,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<MovementAcceleration> MOVEMENT_ACCELERATION = new Characteristic<MovementAcceleration>("d48d48e3-318f-4a11-8dd2-cb4a9051534f", "Movement Acceleration", MovementAcceleration.class);
 	public static final BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData> MOVEMENT_ACCELERATION_BUFFERED = new BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData>("9e2da811-041a-43ce-b703-013277f19ae6", "Movement Acceleration Buffered", 7, MovementAccelerationBuffered.class);
 	public static final Characteristic<MovementAccelerationWaiting> MOVEMENT_ACCELERATION_WAITING = new Characteristic<MovementAccelerationWaiting>("20b6f034-50e5-4fad-92c8-fa20ee4203c6", "Movement Acceleration Waiting", MovementAccelerationWaiting.class);
+	public static final Characteristic<RespiratoryMovement> RESPIRATORY_MOVEMENT = new Characteristic<RespiratoryMovement>("aaabeb9a-abed-4a17-a764-0aaf0ac808fe", "Respiratory Movement", RespiratoryMovement.class);
 	public static final Characteristic<Rmssd> RMSSD = new Characteristic<Rmssd>("f89edec1-9fea-e145-f614-8ff69aa7da66", "Rmssd", Rmssd.class);
 	public static final BufferedCharacteristic<RmssdBuffered, RmssdData> RMSSD_BUFFERED = new BufferedCharacteristic<RmssdBuffered, RmssdData>("1bc36d57-595b-499e-8f2a-fa2275bcabc3", "Rmssd Buffered", 5, RmssdBuffered.class);
 	public static final Characteristic<RmssdWaiting> RMSSD_WAITING = new Characteristic<RmssdWaiting>("f89edec0-b569-ee0d-9589-e4abd1f42693", "Rmssd Waiting", RmssdWaiting.class);
@@ -121,6 +122,7 @@ public class MovisensCharacteristics
 		characteristics.put(MOVEMENT_ACCELERATION);
 		characteristics.put(MOVEMENT_ACCELERATION_BUFFERED);
 		characteristics.put(MOVEMENT_ACCELERATION_WAITING);
+		characteristics.put(RESPIRATORY_MOVEMENT);
 		characteristics.put(RMSSD);
 		characteristics.put(RMSSD_BUFFERED);
 		characteristics.put(RMSSD_WAITING);

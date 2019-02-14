@@ -15,6 +15,7 @@ public class MovisensServices
 	public static final Service MOVISENS_BATTERY = new Service("27b66685-62e5-4e76-8c02-d625600ed2c6", "Movisens Battery");
 	public static final Service MOVISENS_USER_DATA = new Service("17e28d0f-5f44-421f-97d5-667655e24460", "Movisens User Data");
 	public static final Service PHYSICAL_ACTIVITY = new Service("0302c2b2-ce64-4542-b819-666d20d415bd", "Physical Activity");
+	public static final Service RESPIRATION = new Service("da87d1a7-749c-4711-bd54-c625043ecd83", "Respiration");
 	public static final Service SENSOR_CONTROL = new Service("f89edeb6-e4e8-928b-4cfa-ebc07fce1768", "Sensor Control");
 	public static final Service SKIN_TEMPERATURE = new Service("247af432-444c-4211-8b9d-2c8512cfdf4a", "Skin Temperature");
 
@@ -29,6 +30,7 @@ public class MovisensServices
 		services.put(MOVISENS_BATTERY);
 		services.put(MOVISENS_USER_DATA);
 		services.put(PHYSICAL_ACTIVITY);
+		services.put(RESPIRATION);
 		services.put(SENSOR_CONTROL);
 		services.put(SKIN_TEMPERATURE);
 	}
