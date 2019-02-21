@@ -62,6 +62,6 @@ public class Inclination extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "x = " + getX() + getXUnit() + ", " + "y = " + getY() + getYUnit() + ", " + "z = " + getZ() + getZUnit();
+		return "x = " + getX().toString() + getXUnit() + ", " + "y = " + getY().toString() + getYUnit() + ", " + "z = " + getZ().toString() + getZUnit();
 	}
 }

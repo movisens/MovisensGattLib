@@ -150,7 +150,7 @@ public class MovisensCharacteristics
 	 */
 	public static Collection<Characteristic<? extends AbstractAttribute>> getCharacteristics()
 	{
-	    return characteristics.getValues();
+		return characteristics.getValues();
 	}
 	
 	/**

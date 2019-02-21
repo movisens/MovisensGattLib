@@ -124,7 +124,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 		String result = "";
 		for(int i=0; i<x.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "x = " + getX()[i] + getXUnit() + ", " + "y = " + getY()[i] + getYUnit() + ", " + "z = " + getZ()[i] + getZUnit() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "x = " + getX()[i].toString() + getXUnit() + ", " + "y = " + getY()[i].toString() + getYUnit() + ", " + "z = " + getZ()[i].toString() + getZUnit() + " \r\n";
 		}
 		return result;
 	}

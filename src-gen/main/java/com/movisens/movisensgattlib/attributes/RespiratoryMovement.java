@@ -10,25 +10,24 @@ public class RespiratoryMovement extends AbstractReadAttribute
 
 	public static final Characteristic<RespiratoryMovement> CHARACTERISTIC = MovisensCharacteristics.RESPIRATORY_MOVEMENT;
 	
-	private Long sampleTimestamp;
-	private Long sendTimestamp;
+	private Short[] values;
 	
-	public Long getSampleTimestamp()
+	public Short[] getValues()
 	{
-		return sampleTimestamp;
+		return values;
 	}
 	
-	public String getSampleTimestampUnit()
+	private String getValuesString()
 	{
-		return "";
+			String result = "[";
+			for(short value : getValues()) {
+			    result += value + " ";
+			}
+			result += "]";
+			return result;
 	}
 	
-	public Long getSendTimestamp()
-	{
-		return sendTimestamp;
-	}
-	
-	public String getSendTimestampUnit()
+	public String getValuesUnit()
 	{
 		return "";
 	}
@@ -37,8 +36,11 @@ public class RespiratoryMovement extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		sampleTimestamp = bb.getInt64();
-		sendTimestamp = bb.getInt64();
+		values = new Short[4];
+		for (int i = 0; i < 4; i++)
+		{
+			values[i] = bb.getInt16();
+		}
 	}
 
 	@Override
@@ -50,6 +52,6 @@ public class RespiratoryMovement extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "sampleTimestamp = " + getSampleTimestamp() + ", " + "sendTimestamp = " + getSendTimestamp();
+		return getValuesString();
 	}
 }

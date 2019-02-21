@@ -138,7 +138,7 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 		String result = "";
 		for(int i=0; i<sedentary.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i] + getSedentaryUnit() + ", " + "light = " + getLight()[i] + getLightUnit() + ", " + "moderate = " + getModerate()[i] + getModerateUnit() + ", " + "vigorous = " + getVigorous()[i] + getVigorousUnit() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "sedentary = " + getSedentary()[i].toString() + getSedentaryUnit() + ", " + "light = " + getLight()[i].toString() + getLightUnit() + ", " + "moderate = " + getModerate()[i].toString() + getModerateUnit() + ", " + "vigorous = " + getVigorous()[i].toString() + getVigorousUnit() + " \r\n";
 		}
 		return result;
 	}

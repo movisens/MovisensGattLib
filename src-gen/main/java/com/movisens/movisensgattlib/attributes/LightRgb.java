@@ -62,6 +62,6 @@ public class LightRgb extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "red = " + getRed() + ", " + "green = " + getGreen() + ", " + "blue = " + getBlue();
+		return "red = " + getRed().toString() + ", " + "green = " + getGreen().toString() + ", " + "blue = " + getBlue().toString();
 	}
 }

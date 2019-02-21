@@ -50,6 +50,6 @@ public class Light extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "clear = " + getClear() + ", " + "ir = " + getIr();
+		return "clear = " + getClear().toString() + ", " + "ir = " + getIr().toString();
 	}
 }

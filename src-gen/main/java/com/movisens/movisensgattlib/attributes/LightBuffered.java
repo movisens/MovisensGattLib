@@ -110,7 +110,7 @@ public class LightBuffered extends AbstractBufferedAttribute<LightData>
 		String result = "";
 		for(int i=0; i<clear.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i] + ", " + "ir = " + getIr()[i] + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + "clear = " + getClear()[i].toString() + ", " + "ir = " + getIr()[i].toString() + " \r\n";
 		}
 		return result;
 	}
