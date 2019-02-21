@@ -1,3 +1,15 @@
+<a name="2.2.0"></a>
+# [2.2.0] (2019-02-21)
+- added some attributes: RESPIRATORY_MOVEMENT, CUSTOM_DATA, ACTIVATED_BUFFERED_CHARACTERISTICS
+- removed experimental attributes (e.g. ECG, ILLUMINATION)
+
+
+
+<a name="2.2.0"></a>
+# [2.1.0] (2019-02-21)
+ - introduced AbstractBufferedAttribute, AbstractData, BufferedCharacteristic
+ - use generics in Characteristic
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/movisens/SmartGattLib/compare/v1.4.0...v2.0.0) (2017-11-07)
 
