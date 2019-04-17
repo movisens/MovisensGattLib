@@ -1,4 +1,7 @@
 <a name="2.2.0"></a>
+# [2.3.0] (2019-04-17)
+- added START_MEASUREMENT to start the sensor and set the measurement duration
+
 # [2.2.0] (2019-02-21)
 - added some attributes: RESPIRATORY_MOVEMENT, CUSTOM_DATA, ACTIVATED_BUFFERED_CHARACTERISTICS
 - removed experimental attributes (e.g. ECG, ILLUMINATION)

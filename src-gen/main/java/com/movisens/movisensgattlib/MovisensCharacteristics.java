@@ -69,6 +69,7 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<SkinTemperature1sBuffered, SkinTemperature1sData> SKIN_TEMPERATURE_1S_BUFFERED = new BufferedCharacteristic<SkinTemperature1sBuffered, SkinTemperature1sData>("99ebde23-1b3e-4084-85c2-18bca6eb5a1a", "Skin Temperature 1s Buffered", 25, SkinTemperature1sBuffered.class);
 	public static final BufferedCharacteristic<SkinTemperatureBuffered, SkinTemperatureData> SKIN_TEMPERATURE_BUFFERED = new BufferedCharacteristic<SkinTemperatureBuffered, SkinTemperatureData>("78663ddf-83c3-4665-9d04-003c990acf78", "Skin Temperature Buffered", 24, SkinTemperatureBuffered.class);
 	public static final Characteristic<SkinTemperatureWaiting> SKIN_TEMPERATURE_WAITING = new Characteristic<SkinTemperatureWaiting>("f89edeb7-0d8c-b529-baef-2f9ab82f6cc6", "Skin Temperature Waiting", SkinTemperatureWaiting.class);
+	public static final Characteristic<StartMeasurement> START_MEASUREMENT = new Characteristic<StartMeasurement>("5936ef92-62e4-4759-9041-d3461130a4b5", "Start Measurement", StartMeasurement.class);
 	public static final Characteristic<Status> STATUS = new Characteristic<Status>("f89edec9-b0e0-d44f-45e8-d125177194d5", "Status", Status.class);
 	public static final Characteristic<Steps> STEPS = new Characteristic<Steps>("8ba3207b-6a87-424d-bde0-4f665f500f04", "Steps", Steps.class);
 	public static final BufferedCharacteristic<StepsBuffered, StepsData> STEPS_BUFFERED = new BufferedCharacteristic<StepsBuffered, StepsData>("58c6374e-9927-414a-b90e-475014af65ba", "Steps Buffered", 10, StepsBuffered.class);
@@ -136,6 +137,7 @@ public class MovisensCharacteristics
 		characteristics.put(SKIN_TEMPERATURE_1S_BUFFERED);
 		characteristics.put(SKIN_TEMPERATURE_BUFFERED);
 		characteristics.put(SKIN_TEMPERATURE_WAITING);
+		characteristics.put(START_MEASUREMENT);
 		characteristics.put(STATUS);
 		characteristics.put(STEPS);
 		characteristics.put(STEPS_BUFFERED);
