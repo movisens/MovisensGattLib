@@ -23,6 +23,7 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<ChargingBuffered, ChargingData> CHARGING_BUFFERED = new BufferedCharacteristic<ChargingBuffered, ChargingData>("601d030e-b067-4f80-9a36-09aa9fb21670", "Charging Buffered", 2, ChargingBuffered.class);
 	public static final Characteristic<ChargingWaiting> CHARGING_WAITING = new Characteristic<ChargingWaiting>("c1432e2e-aa2e-456b-9c4f-c16ddc449371", "Charging Waiting", ChargingWaiting.class);
 	public static final Characteristic<CurrentTime> CURRENT_TIME = new Characteristic<CurrentTime>("f89edec4-d590-764d-530f-8fff5c181606", "Current Time", CurrentTime.class);
+	public static final Characteristic<CurrentTimeMs> CURRENT_TIME_MS = new Characteristic<CurrentTimeMs>("8f717cee-030c-4628-9d76-4e3fd9d74fb6", "Current Time Ms", CurrentTimeMs.class);
 	public static final Characteristic<CustomData> CUSTOM_DATA = new Characteristic<CustomData>("0086b101-7f7d-4249-bfae-1999065a68c2", "Custom Data", CustomData.class);
 	public static final Characteristic<DataAvailable> DATA_AVAILABLE = new Characteristic<DataAvailable>("10847e7a-d43f-4b9e-b2f2-3e8546215c3c", "Data Available", DataAvailable.class);
 	public static final Characteristic<DeleteData> DELETE_DATA = new Characteristic<DeleteData>("f89edec2-9fc2-c29e-ff29-da323b327e44", "Delete Data", DeleteData.class);
@@ -91,6 +92,7 @@ public class MovisensCharacteristics
 		characteristics.put(CHARGING_BUFFERED);
 		characteristics.put(CHARGING_WAITING);
 		characteristics.put(CURRENT_TIME);
+		characteristics.put(CURRENT_TIME_MS);
 		characteristics.put(CUSTOM_DATA);
 		characteristics.put(DATA_AVAILABLE);
 		characteristics.put(DELETE_DATA);

@@ -1,3 +1,7 @@
+<a name="2.4.0"></a>
+# [2.4.0] (2019-09-03)
+- added CURRENT_TIME_MS to set or get sensor time in milliseconds
+
 <a name="2.2.0"></a>
 # [2.3.0] (2019-04-17)
 - added START_MEASUREMENT to start the sensor and set the measurement duration
@@ -5,8 +9,6 @@
 # [2.2.0] (2019-02-21)
 - added some attributes: RESPIRATORY_MOVEMENT, CUSTOM_DATA, ACTIVATED_BUFFERED_CHARACTERISTICS
 - removed experimental attributes (e.g. ECG, ILLUMINATION)
-
-
 
 <a name="2.2.0"></a>
 # [2.1.0] (2019-02-21)
