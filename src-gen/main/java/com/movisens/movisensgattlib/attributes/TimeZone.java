@@ -10,9 +10,9 @@ public class TimeZone extends AbstractReadWriteAttribute
 
 	public static final Characteristic<TimeZone> CHARACTERISTIC = MovisensCharacteristics.TIME_ZONE;
 	
-	private String timeZone;
+	private java.time.ZoneId timeZone;
 	
-	public String getTimeZone()
+	public java.time.ZoneId getTimeZone()
 	{
 		return timeZone;
 	}
@@ -22,11 +22,11 @@ public class TimeZone extends AbstractReadWriteAttribute
 		return "";
 	}
 	
-	public TimeZone(String timeZone)
+	public TimeZone(java.time.ZoneId timeZone)
 	{
 		this.timeZone = timeZone;
-		GattByteBuffer bb = GattByteBuffer.allocate(0);
-		bb.putString(timeZone);
+		GattByteBuffer bb = GattByteBuffer.allocate(20);
+		bb.putTimezone(timeZone);
 		this.data = bb.array();
 	}
 
@@ -34,7 +34,7 @@ public class TimeZone extends AbstractReadWriteAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		timeZone = bb.getString();
+		timeZone = bb.getTimezone();
 	}
 
 	@Override
