@@ -10,9 +10,9 @@ public class TimeZoneOffset extends AbstractReadWriteAttribute
 
 	public static final Characteristic<TimeZoneOffset> CHARACTERISTIC = MovisensCharacteristics.TIME_ZONE_OFFSET;
 	
-	private Short zoneOffset;
+	private Integer zoneOffset;
 	
-	public Short getZoneOffset()
+	public Integer getZoneOffset()
 	{
 		return zoneOffset;
 	}
@@ -22,11 +22,11 @@ public class TimeZoneOffset extends AbstractReadWriteAttribute
 		return "";
 	}
 	
-	public TimeZoneOffset(Short zoneOffset)
+	public TimeZoneOffset(Integer zoneOffset)
 	{
 		this.zoneOffset = zoneOffset;
-		GattByteBuffer bb = GattByteBuffer.allocate(2);
-		bb.putInt16(zoneOffset);
+		GattByteBuffer bb = GattByteBuffer.allocate(4);
+		bb.putInt32(zoneOffset);
 		this.data = bb.array();
 	}
 
@@ -34,7 +34,7 @@ public class TimeZoneOffset extends AbstractReadWriteAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		zoneOffset = bb.getInt16();
+		zoneOffset = bb.getInt32();
 	}
 
 	@Override

@@ -5,40 +5,40 @@ import com.movisens.smartgattlib.helper.AbstractReadWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-public class TimeZone extends AbstractReadWriteAttribute
+public class TimeZoneId extends AbstractReadWriteAttribute
 {
 
-	public static final Characteristic<TimeZone> CHARACTERISTIC = MovisensCharacteristics.TIME_ZONE;
+	public static final Characteristic<TimeZoneId> CHARACTERISTIC = MovisensCharacteristics.TIME_ZONE_ID;
 	
-	private java.time.ZoneId timeZone;
+	private String zoneId;
 	
-	public java.time.ZoneId getTimeZone()
+	public String getZoneId()
 	{
-		return timeZone;
+		return zoneId;
 	}
 	
-	public String getTimeZoneUnit()
+	public String getZoneIdUnit()
 	{
 		return "";
 	}
 	
-	public TimeZone(java.time.ZoneId timeZone)
+	public TimeZoneId(String zoneId)
 	{
-		this.timeZone = timeZone;
+		this.zoneId = zoneId;
 		GattByteBuffer bb = GattByteBuffer.allocate(20);
-		bb.putTimezone(timeZone);
+		bb.putTimezone(zoneId);
 		this.data = bb.array();
 	}
 
-	public TimeZone(byte[] data)
+	public TimeZoneId(byte[] data)
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		timeZone = bb.getTimezone();
+		zoneId = bb.getTimezone();
 	}
 
 	@Override
-	public Characteristic<TimeZone> getCharacteristic()
+	public Characteristic<TimeZoneId> getCharacteristic()
 	{
 		return CHARACTERISTIC;
 	}
@@ -46,6 +46,6 @@ public class TimeZone extends AbstractReadWriteAttribute
 	@Override
 	public String toString()
 	{
-		return getTimeZone().toString();
+		return getZoneId().toString();
 	}
 }
