@@ -77,6 +77,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<StepsWaiting> STEPS_WAITING = new Characteristic<StepsWaiting>("9b72b459-d1e5-48fe-9c91-2fb168261b21", "Steps Waiting", StepsWaiting.class);
 	public static final Characteristic<TapMarker> TAP_MARKER = new Characteristic<TapMarker>("207b171c-d7a5-48ef-8e60-6ccb5f0993f4", "Tap Marker", TapMarker.class);
 	public static final Characteristic<TimeZone> TIME_ZONE = new Characteristic<TimeZone>("8c3adbfa-9218-419e-b809-6de9918ba8d5", "Time Zone", TimeZone.class);
+	public static final Characteristic<TimeZoneOffset> TIME_ZONE_OFFSET = new Characteristic<TimeZoneOffset>("b9b5bd3a-475c-43a6-b25e-bc706eb016ca", "Time Zone Offset", TimeZoneOffset.class);
 
 	private static UuidObjectMap<Characteristic<? extends AbstractAttribute>> characteristics = new UuidObjectMap<Characteristic<? extends AbstractAttribute>>();
 
@@ -147,6 +148,7 @@ public class MovisensCharacteristics
 		characteristics.put(STEPS_WAITING);
 		characteristics.put(TAP_MARKER);
 		characteristics.put(TIME_ZONE);
+		characteristics.put(TIME_ZONE_OFFSET);
 	}
 	
 	/**
