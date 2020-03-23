@@ -75,6 +75,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<Steps> STEPS = new Characteristic<Steps>("8ba3207b-6a87-424d-bde0-4f665f500f04", "Steps", Steps.class);
 	public static final BufferedCharacteristic<StepsBuffered, StepsData> STEPS_BUFFERED = new BufferedCharacteristic<StepsBuffered, StepsData>("58c6374e-9927-414a-b90e-475014af65ba", "Steps Buffered", 10, StepsBuffered.class);
 	public static final Characteristic<StepsWaiting> STEPS_WAITING = new Characteristic<StepsWaiting>("9b72b459-d1e5-48fe-9c91-2fb168261b21", "Steps Waiting", StepsWaiting.class);
+	public static final Characteristic<StorageLevel> STORAGE_LEVEL = new Characteristic<StorageLevel>("8be8b5f3-03fe-4598-96b8-994e41f33979", "Storage Level", StorageLevel.class);
 	public static final Characteristic<TapMarker> TAP_MARKER = new Characteristic<TapMarker>("207b171c-d7a5-48ef-8e60-6ccb5f0993f4", "Tap Marker", TapMarker.class);
 	public static final Characteristic<TimeZoneId> TIME_ZONE_ID = new Characteristic<TimeZoneId>("8c3adbfa-9218-419e-b809-6de9918ba8d5", "Time Zone Id", TimeZoneId.class);
 	public static final Characteristic<TimeZoneOffset> TIME_ZONE_OFFSET = new Characteristic<TimeZoneOffset>("b9b5bd3a-475c-43a6-b25e-bc706eb016ca", "Time Zone Offset", TimeZoneOffset.class);
@@ -146,6 +147,7 @@ public class MovisensCharacteristics
 		characteristics.put(STEPS);
 		characteristics.put(STEPS_BUFFERED);
 		characteristics.put(STEPS_WAITING);
+		characteristics.put(STORAGE_LEVEL);
 		characteristics.put(TAP_MARKER);
 		characteristics.put(TIME_ZONE_ID);
 		characteristics.put(TIME_ZONE_OFFSET);
