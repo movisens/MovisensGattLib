@@ -1,3 +1,12 @@
+# [2.9.0]
+- added characteristic MeasurementStatus
+
+# [2.8.0]
+- added characteristic StorageLevel
+
+# [2.7.1]
+- added characteristic TimeZone and TimeOffset
+
 <a name="2.4.0"></a>
 # [2.4.0] (2019-09-03)
 - added CURRENT_TIME_MS to set or get sensor time in milliseconds
