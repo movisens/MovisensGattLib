@@ -58,8 +58,6 @@ public class MovisensCharacteristics
 	public static final Characteristic<MovementAcceleration> MOVEMENT_ACCELERATION = new Characteristic<MovementAcceleration>("d48d48e3-318f-4a11-8dd2-cb4a9051534f", "Movement Acceleration", MovementAcceleration.class);
 	public static final BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData> MOVEMENT_ACCELERATION_BUFFERED = new BufferedCharacteristic<MovementAccelerationBuffered, MovementAccelerationData>("9e2da811-041a-43ce-b703-013277f19ae6", "Movement Acceleration Buffered", 7, MovementAccelerationBuffered.class);
 	public static final Characteristic<MovementAccelerationWaiting> MOVEMENT_ACCELERATION_WAITING = new Characteristic<MovementAccelerationWaiting>("20b6f034-50e5-4fad-92c8-fa20ee4203c6", "Movement Acceleration Waiting", MovementAccelerationWaiting.class);
-	public static final BufferedCharacteristic<PimBuffered, PimData> PIM_BUFFERED = new BufferedCharacteristic<PimBuffered, PimData>("f89edebc-0267-c40c-be23-515de4ec781e", "Pim Buffered", 13, PimBuffered.class);
-	public static final Characteristic<PimWaiting> PIM_WAITING = new Characteristic<PimWaiting>("f89edebb-0aab-6b31-506b-a3c76b5af1e4", "Pim Waiting", PimWaiting.class);
 	public static final Characteristic<RespiratoryMovement> RESPIRATORY_MOVEMENT = new Characteristic<RespiratoryMovement>("aaabeb9a-abed-4a17-a764-0aaf0ac808fe", "Respiratory Movement", RespiratoryMovement.class);
 	public static final Characteristic<Rmssd> RMSSD = new Characteristic<Rmssd>("f89edec1-9fea-e145-f614-8ff69aa7da66", "Rmssd", Rmssd.class);
 	public static final BufferedCharacteristic<RmssdBuffered, RmssdData> RMSSD_BUFFERED = new BufferedCharacteristic<RmssdBuffered, RmssdData>("1bc36d57-595b-499e-8f2a-fa2275bcabc3", "Rmssd Buffered", 5, RmssdBuffered.class);
@@ -83,8 +81,6 @@ public class MovisensCharacteristics
 	public static final Characteristic<TapMarker> TAP_MARKER = new Characteristic<TapMarker>("207b171c-d7a5-48ef-8e60-6ccb5f0993f4", "Tap Marker", TapMarker.class);
 	public static final Characteristic<TimeZoneId> TIME_ZONE_ID = new Characteristic<TimeZoneId>("8c3adbfa-9218-419e-b809-6de9918ba8d5", "Time Zone Id", TimeZoneId.class);
 	public static final Characteristic<TimeZoneOffset> TIME_ZONE_OFFSET = new Characteristic<TimeZoneOffset>("b9b5bd3a-475c-43a6-b25e-bc706eb016ca", "Time Zone Offset", TimeZoneOffset.class);
-	public static final BufferedCharacteristic<ZcBuffered, ZcData> ZC_BUFFERED = new BufferedCharacteristic<ZcBuffered, ZcData>("f89edebe-0136-7900-2cec-b4641bb709f5", "Zc Buffered", 14, ZcBuffered.class);
-	public static final Characteristic<ZcWaiting> ZC_WAITING = new Characteristic<ZcWaiting>("f89edebd-c3bd-2d57-ba04-7bdeb96e7366", "Zc Waiting", ZcWaiting.class);
 
 	private static UuidObjectMap<Characteristic<? extends AbstractAttribute>> characteristics = new UuidObjectMap<Characteristic<? extends AbstractAttribute>>();
 
@@ -136,8 +132,6 @@ public class MovisensCharacteristics
 		characteristics.put(MOVEMENT_ACCELERATION);
 		characteristics.put(MOVEMENT_ACCELERATION_BUFFERED);
 		characteristics.put(MOVEMENT_ACCELERATION_WAITING);
-		characteristics.put(PIM_BUFFERED);
-		characteristics.put(PIM_WAITING);
 		characteristics.put(RESPIRATORY_MOVEMENT);
 		characteristics.put(RMSSD);
 		characteristics.put(RMSSD_BUFFERED);
@@ -161,8 +155,6 @@ public class MovisensCharacteristics
 		characteristics.put(TAP_MARKER);
 		characteristics.put(TIME_ZONE_ID);
 		characteristics.put(TIME_ZONE_OFFSET);
-		characteristics.put(ZC_BUFFERED);
-		characteristics.put(ZC_WAITING);
 	}
 	
 	/**
