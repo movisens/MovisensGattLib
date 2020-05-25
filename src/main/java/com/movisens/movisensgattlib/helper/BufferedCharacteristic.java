@@ -9,9 +9,9 @@ public class BufferedCharacteristic<T extends AbstractAttribute, I extends Abstr
 
     private int bitPosition;
     
-    public BufferedCharacteristic(String uuid, String name, int bitPosition, Class<T> attributeClass)
+    public BufferedCharacteristic(String uuid, String name, int bitPosition, Class<T> attributeClass, Characteristic<?>... requiredCharacteristics)
     {
-        super(uuid, name, attributeClass);
+        super(uuid, name, attributeClass, requiredCharacteristics);
         this.bitPosition = bitPosition;
     }
 

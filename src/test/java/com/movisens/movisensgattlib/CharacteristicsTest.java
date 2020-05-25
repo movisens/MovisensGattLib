@@ -2,7 +2,11 @@ package com.movisens.movisensgattlib;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -13,11 +17,14 @@ import com.movisens.movisensgattlib.attributes.EnumBodyPosition;
 import com.movisens.movisensgattlib.attributes.EnumSensorLocation;
 import com.movisens.movisensgattlib.attributes.HrvIsValid;
 import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
+import com.movisens.movisensgattlib.attributes.Met;
 import com.movisens.movisensgattlib.attributes.MetLevel;
 import com.movisens.movisensgattlib.attributes.MovementAcceleration;
 import com.movisens.movisensgattlib.attributes.Rmssd;
 import com.movisens.movisensgattlib.attributes.SensorLocation;
 import com.movisens.movisensgattlib.attributes.Steps;
+import com.movisens.smartgattlib.Characteristics;
+import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 public class CharacteristicsTest {
@@ -118,6 +125,18 @@ public class CharacteristicsTest {
 
         Steps stepsCount = new Steps(gattByteBuffer.array());
         assertEquals(steps, stepsCount.getSteps());
+    }
+    
+    @Test
+    public void testMetRequirements()
+    {
+        List<Characteristic<?>> cs = Arrays.asList(MovisensCharacteristics.MET.getRequiredCharacteristics());
+        assertFalse(cs.contains(Characteristics.AGE));
+        assertTrue(cs.contains(MovisensCharacteristics.AGE_FLOAT));
+        assertTrue(cs.contains(Characteristics.GENDER));
+        assertTrue(cs.contains(Characteristics.WEIGHT));
+        assertTrue(cs.contains(Characteristics.HEIGHT));
+        assertTrue(cs.contains(MovisensCharacteristics.SENSOR_LOCATION));
     }
 
 }
