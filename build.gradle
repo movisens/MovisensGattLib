@@ -23,7 +23,7 @@ group = 'com.github.movisens'
 targetCompatibility = 1.6
 sourceCompatibility = 1.6
 
-version = '2.12.0'
+version = '2.13.0'
 
 repositories {
 	mavenLocal()
