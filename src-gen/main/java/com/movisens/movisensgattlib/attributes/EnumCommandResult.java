@@ -9,7 +9,8 @@ public enum EnumCommandResult
 	NOT_DELETED_MEASUREMENT_ON    ((short)4, "not_deleted_measurement_on"),
 	NOT_STARTED_MEASUREMENT_ON    ((short)5, "not_started_measurement_on"),
 	NOT_STOPPED_MEASUREMENT_OFF   ((short)6, "not_stopped_measurement_off"),
-	INVALID                       ((short)7, "invalid");
+	NOT_ACTIVATED_PARTICIPANT_INFO_MISSING((short)7, "not_activated_participant_info_missing"),
+	INVALID                       ((short)8, "invalid");
 
 	private final short value;
 	private final String name;
@@ -48,6 +49,8 @@ public enum EnumCommandResult
 				return EnumCommandResult.NOT_STARTED_MEASUREMENT_ON;
 			case 6:
 				return EnumCommandResult.NOT_STOPPED_MEASUREMENT_OFF;
+			case 7:
+				return EnumCommandResult.NOT_ACTIVATED_PARTICIPANT_INFO_MISSING;
 			default:
 				return EnumCommandResult.INVALID;
 		}
