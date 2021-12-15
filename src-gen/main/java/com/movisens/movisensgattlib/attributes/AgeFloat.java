@@ -1,5 +1,6 @@
 package com.movisens.movisensgattlib.attributes;
 
+import com.movisens.movisensdevgattlib.security.CryptoManagerProvider;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractReadWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
@@ -35,12 +36,14 @@ public class AgeFloat extends AbstractReadWriteAttribute
 		this.age = age;
 		GattByteBuffer bb = GattByteBuffer.allocate(4);
 		bb.putFloat32(age.floatValue());
-		this.data = bb.array();
+		
+		data = CryptoManagerProvider.get().processBeforeSend(bb.array());
 	}
 
-	public AgeFloat(byte[] data)
+	public AgeFloat(byte[] input)
 	{
-		this.data = data;
+		data = CryptoManagerProvider.get().processAfterReceive(input);
+		
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
 		age = new Double(bb.getFloat32());
 	}

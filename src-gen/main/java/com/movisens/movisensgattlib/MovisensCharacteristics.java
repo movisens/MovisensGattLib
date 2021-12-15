@@ -29,6 +29,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<EdaSclMean> EDA_SCL_MEAN = new Characteristic<EdaSclMean>("a884dc4b-62d6-44ee-bcbf-d0f725d95213", "Eda Scl Mean", EdaSclMean.class);
 	public static final BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData> EDA_SCL_MEAN_BUFFERED = new BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData>("663af1bc-2fa0-43c0-b452-2b8c1efb7f9d", "Eda Scl Mean Buffered", 18, EdaSclMeanBuffered.class);
 	public static final Characteristic<EdaSclMeanWaiting> EDA_SCL_MEAN_WAITING = new Characteristic<EdaSclMeanWaiting>("47755955-966e-4b75-b79b-ef5c839cb191", "Eda Scl Mean Waiting", EdaSclMeanWaiting.class);
+	public static final Characteristic<EvaluationExpireTime> EVALUATION_EXPIRE_TIME = new Characteristic<EvaluationExpireTime>("8738ddd8-7937-43a0-848a-3a91b264e3b5", "Evaluation Expire Time", EvaluationExpireTime.class);
 	public static final Characteristic<HrMean> HR_MEAN = new Characteristic<HrMean>("3b999d71-751b-48fa-8817-b7131f47c2da", "Hr Mean", HrMean.class);
 	public static final BufferedCharacteristic<HrMeanBuffered, HrMeanData> HR_MEAN_BUFFERED = new BufferedCharacteristic<HrMeanBuffered, HrMeanData>("1d9533d1-8c6e-4b6a-b242-d0713be204f0", "Hr Mean Buffered", 6, HrMeanBuffered.class);
 	public static final Characteristic<HrMeanWaiting> HR_MEAN_WAITING = new Characteristic<HrMeanWaiting>("c806ec67-00be-490a-aa79-1011396f38e8", "Hr Mean Waiting", HrMeanWaiting.class);
@@ -44,6 +45,7 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<LightRgbBuffered, LightRgbData> LIGHT_RGB_BUFFERED = new BufferedCharacteristic<LightRgbBuffered, LightRgbData>("2c4abbf8-8da6-4e47-afcd-18034d67c5ee", "Light RGB buffered", 20, LightRgbBuffered.class);
 	public static final Characteristic<LightRgbWaiting> LIGHT_RGB_WAITING = new Characteristic<LightRgbWaiting>("c758f5a6-516d-4125-b8de-ae3ebcabeabc", "Light RGB waiting", LightRgbWaiting.class);
 	public static final Characteristic<LightWaiting> LIGHT_WAITING = new Characteristic<LightWaiting>("d166790b-9531-44fd-8314-14f303280de1", "Light Waiting", LightWaiting.class);
+	public static final Characteristic<Login> LOGIN = new Characteristic<Login>("aa040e1b-5b57-486f-afd9-d4edc48a2f1e", "Login", Login.class);
 	public static final Characteristic<MeasurementEnabled> MEASUREMENT_ENABLED = new Characteristic<MeasurementEnabled>("f89edec7-f7e0-94f2-747d-ee7acaa6d412", "Measurement Enabled", MeasurementEnabled.class);
 	public static final Characteristic<MeasurementStartTime> MEASUREMENT_START_TIME = new Characteristic<MeasurementStartTime>("2d81487d-08f7-47e1-a060-0659d9b4b766", "Measurement Start Time", MeasurementStartTime.class);
 	public static final Characteristic<MeasurementStatus> MEASUREMENT_STATUS = new Characteristic<MeasurementStatus>("66f1e70e-54ab-489c-8f5d-0008b67553c7", "Measurement Status", MeasurementStatus.class);
@@ -57,8 +59,10 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<RmssdBuffered, RmssdData> RMSSD_BUFFERED = new BufferedCharacteristic<RmssdBuffered, RmssdData>("1bc36d57-595b-499e-8f2a-fa2275bcabc3", "Rmssd Buffered", 5, RmssdBuffered.class);
 	public static final Characteristic<RmssdWaiting> RMSSD_WAITING = new Characteristic<RmssdWaiting>("f89edec0-b569-ee0d-9589-e4abd1f42693", "Rmssd Waiting", RmssdWaiting.class);
 	public static final Characteristic<SaveEnergy> SAVE_ENERGY = new Characteristic<SaveEnergy>("f89edebf-9b5b-486d-054f-b3ce3e226d42", "Save Energy", SaveEnergy.class);
+	public static final Characteristic<SealSensor> SEAL_SENSOR = new Characteristic<SealSensor>("c0a8dff0-bdcd-4497-8b32-706b23e8db99", "Seal Sensor", SealSensor.class);
 	public static final Characteristic<SendBufferedData> SEND_BUFFERED_DATA = new Characteristic<SendBufferedData>("8b7446a0-372a-4841-aa5e-3b97d30a45b3", "Send Buffered Data", SendBufferedData.class);
 	public static final Characteristic<SensorLocation> SENSOR_LOCATION = new Characteristic<SensorLocation>("1ffb6b9d-52a7-4de2-a3bb-58ee97facd59", "Sensor Location", SensorLocation.class);
+	public static final Characteristic<SensorSealed> SENSOR_SEALED = new Characteristic<SensorSealed>("d18cbddc-270c-4e6c-a53f-528636034187", "Sensor Sealed", SensorSealed.class);
 	public static final Characteristic<SensorTemperature> SENSOR_TEMPERATURE = new Characteristic<SensorTemperature>("2c007893-37a4-473d-8c07-09c41324eea5", "Sensor Temperature", SensorTemperature.class);
 	public static final BufferedCharacteristic<SensorTemperatureBuffered, SensorTemperatureData> SENSOR_TEMPERATURE_BUFFERED = new BufferedCharacteristic<SensorTemperatureBuffered, SensorTemperatureData>("869c06de-f52a-4a90-9a3a-ca5fd35d6707", "Sensor Temperature Buffered", 23, SensorTemperatureBuffered.class);
 	public static final Characteristic<SensorTemperatureWaiting> SENSOR_TEMPERATURE_WAITING = new Characteristic<SensorTemperatureWaiting>("433a8af8-9839-4057-94aa-ef02fa0af106", "Sensor Temperature Waiting", SensorTemperatureWaiting.class);
@@ -71,10 +75,12 @@ public class MovisensCharacteristics
 	public static final Characteristic<Steps> STEPS = new Characteristic<Steps>("8ba3207b-6a87-424d-bde0-4f665f500f04", "Steps", Steps.class);
 	public static final BufferedCharacteristic<StepsBuffered, StepsData> STEPS_BUFFERED = new BufferedCharacteristic<StepsBuffered, StepsData>("58c6374e-9927-414a-b90e-475014af65ba", "Steps Buffered", 10, StepsBuffered.class);
 	public static final Characteristic<StepsWaiting> STEPS_WAITING = new Characteristic<StepsWaiting>("9b72b459-d1e5-48fe-9c91-2fb168261b21", "Steps Waiting", StepsWaiting.class);
+	public static final Characteristic<StopMeasurement> STOP_MEASUREMENT = new Characteristic<StopMeasurement>("8d9fb9cb-861c-4328-b42d-075efe8fa19f", "Stop Measurement", StopMeasurement.class);
 	public static final Characteristic<StorageLevel> STORAGE_LEVEL = new Characteristic<StorageLevel>("8be8b5f3-03fe-4598-96b8-994e41f33979", "Storage Level", StorageLevel.class);
 	public static final Characteristic<TapMarker> TAP_MARKER = new Characteristic<TapMarker>("207b171c-d7a5-48ef-8e60-6ccb5f0993f4", "Tap Marker", TapMarker.class);
 	public static final Characteristic<TimeZoneId> TIME_ZONE_ID = new Characteristic<TimeZoneId>("8c3adbfa-9218-419e-b809-6de9918ba8d5", "Time Zone Id", TimeZoneId.class);
 	public static final Characteristic<TimeZoneOffset> TIME_ZONE_OFFSET = new Characteristic<TimeZoneOffset>("b9b5bd3a-475c-43a6-b25e-bc706eb016ca", "Time Zone Offset", TimeZoneOffset.class);
+	public static final Characteristic<UnsealSensor> UNSEAL_SENSOR = new Characteristic<UnsealSensor>("bfb1a5c1-bbf0-4278-a7bd-dc366c4b8fb7", "Unseal Sensor", UnsealSensor.class);
 	public static final Characteristic<BodyPosition> BODY_POSITION = new Characteristic<BodyPosition>("2abf95be-7496-4e72-b880-f9f00aad553b", "Body Position", BodyPosition.class, com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_LOCATION);
 	public static final BufferedCharacteristic<BodyPositionBuffered, BodyPositionData> BODY_POSITION_BUFFERED = new BufferedCharacteristic<BodyPositionBuffered, BodyPositionData>("fda6f11e-a1d0-41da-b611-5ab3ec34f6ca", "Body Position Buffered", 12, BodyPositionBuffered.class, com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_LOCATION);
 	public static final Characteristic<Met> MET = new Characteristic<Met>("088133e4-bf36-4c10-943a-17e07734d4ba", "Met", Met.class, com.movisens.movisensgattlib.MovisensCharacteristics.AGE_FLOAT, com.movisens.smartgattlib.Characteristics.GENDER, com.movisens.smartgattlib.Characteristics.WEIGHT, com.movisens.smartgattlib.Characteristics.HEIGHT, com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_LOCATION);
@@ -105,6 +111,7 @@ public class MovisensCharacteristics
 		characteristics.put(EDA_SCL_MEAN);
 		characteristics.put(EDA_SCL_MEAN_BUFFERED);
 		characteristics.put(EDA_SCL_MEAN_WAITING);
+		characteristics.put(EVALUATION_EXPIRE_TIME);
 		characteristics.put(HR_MEAN);
 		characteristics.put(HR_MEAN_BUFFERED);
 		characteristics.put(HR_MEAN_WAITING);
@@ -120,6 +127,7 @@ public class MovisensCharacteristics
 		characteristics.put(LIGHT_RGB_BUFFERED);
 		characteristics.put(LIGHT_RGB_WAITING);
 		characteristics.put(LIGHT_WAITING);
+		characteristics.put(LOGIN);
 		characteristics.put(MEASUREMENT_ENABLED);
 		characteristics.put(MEASUREMENT_START_TIME);
 		characteristics.put(MEASUREMENT_STATUS);
@@ -137,8 +145,10 @@ public class MovisensCharacteristics
 		characteristics.put(RMSSD_BUFFERED);
 		characteristics.put(RMSSD_WAITING);
 		characteristics.put(SAVE_ENERGY);
+		characteristics.put(SEAL_SENSOR);
 		characteristics.put(SEND_BUFFERED_DATA);
 		characteristics.put(SENSOR_LOCATION);
+		characteristics.put(SENSOR_SEALED);
 		characteristics.put(SENSOR_TEMPERATURE);
 		characteristics.put(SENSOR_TEMPERATURE_BUFFERED);
 		characteristics.put(SENSOR_TEMPERATURE_WAITING);
@@ -151,10 +161,12 @@ public class MovisensCharacteristics
 		characteristics.put(STEPS);
 		characteristics.put(STEPS_BUFFERED);
 		characteristics.put(STEPS_WAITING);
+		characteristics.put(STOP_MEASUREMENT);
 		characteristics.put(STORAGE_LEVEL);
 		characteristics.put(TAP_MARKER);
 		characteristics.put(TIME_ZONE_ID);
 		characteristics.put(TIME_ZONE_OFFSET);
+		characteristics.put(UNSEAL_SENSOR);
 	}
 	
 	/**

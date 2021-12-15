@@ -10,7 +10,14 @@ public enum EnumCommandResult
 	NOT_STARTED_MEASUREMENT_ON    ((short)5, "not_started_measurement_on"),
 	NOT_STOPPED_MEASUREMENT_OFF   ((short)6, "not_stopped_measurement_off"),
 	NOT_ACTIVATED_PARTICIPANT_INFO_MISSING((short)7, "not_activated_participant_info_missing"),
-	INVALID                       ((short)8, "invalid");
+	NOT_STARTED_DEMO_TRIAL_PERIOD_EXPIRED((short)8, "NOT_STARTED_DEMO_TRIAL_PERIOD_EXPIRED"),
+	INVALID_CALL_PARAMETERS       ((short)9, "INVALID_CALL_PARAMETERS"),
+	UNEXPECTED_EXCEPTION          ((short)10, "UNEXPECTED_EXCEPTION"),
+	SENSOR_RUNLEVEL_TOO_LOW       ((short)11, "SENSOR_RUNLEVEL_TOO_LOW"),
+	LOGIN_KEY_INVALID             ((short)12, "LOGIN_KEY_INVALID"),
+	ACCESS_DENIED                 ((short)13, "ACCESS_DENIED"),
+	EVALUATION_PERIOD_EXPIRED     ((short)14, "EVALUATION_PERIOD_EXPIRED"),
+	INVALID                       ((short)15, "invalid");
 
 	private final short value;
 	private final String name;
@@ -51,6 +58,20 @@ public enum EnumCommandResult
 				return EnumCommandResult.NOT_STOPPED_MEASUREMENT_OFF;
 			case 7:
 				return EnumCommandResult.NOT_ACTIVATED_PARTICIPANT_INFO_MISSING;
+			case 8:
+				return EnumCommandResult.NOT_STARTED_DEMO_TRIAL_PERIOD_EXPIRED;
+			case 9:
+				return EnumCommandResult.INVALID_CALL_PARAMETERS;
+			case 10:
+				return EnumCommandResult.UNEXPECTED_EXCEPTION;
+			case 11:
+				return EnumCommandResult.SENSOR_RUNLEVEL_TOO_LOW;
+			case 12:
+				return EnumCommandResult.LOGIN_KEY_INVALID;
+			case 13:
+				return EnumCommandResult.ACCESS_DENIED;
+			case 14:
+				return EnumCommandResult.EVALUATION_PERIOD_EXPIRED;
 			default:
 				return EnumCommandResult.INVALID;
 		}
