@@ -4,8 +4,9 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
-public class SensorSealed extends AbstractReadAttribute
+public class SensorSealed extends AbstractReadAttribute implements PlainTextAttribute
 {
 
 	public static final Characteristic<SensorSealed> CHARACTERISTIC = MovisensCharacteristics.SENSOR_SEALED;

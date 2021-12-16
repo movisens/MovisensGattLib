@@ -1,11 +1,11 @@
 package com.movisens.movisensgattlib.attributes;
 
-import com.movisens.movisensdevgattlib.security.CryptoManagerProvider;
-import com.movisens.movisensdevgattlib.security.KeyGenerator;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.security.CryptoManagerProvider;
+import com.movisens.smartgattlib.security.KeyGenerator;
 
 public class Login extends AbstractWriteAttribute
 {
@@ -28,7 +28,7 @@ public class Login extends AbstractWriteAttribute
         GattByteBuffer bb = GattByteBuffer.allocate(16);
         bb.putInt64(key[0]);
 
-        data = CryptoManagerProvider.get().processBeforeSend(bb.array());
+        data = bb.array();
     }
 
     @Override

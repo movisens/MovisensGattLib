@@ -32,7 +32,7 @@ public class CharacteristicsTest {
     public void testAgeFloat() {
         Double testAge = 12.5D;
         AgeFloat ageFloat = new AgeFloat(testAge);
-        AgeFloat converted = new AgeFloat(ageFloat.getBytes());
+        AgeFloat converted = new AgeFloat(ageFloat.getRawData());
         assertTrue(converted.getAge().equals(testAge));
     }
 
@@ -52,7 +52,7 @@ public class CharacteristicsTest {
         for (short i = 0; i <= 11; i++) {
             EnumSensorLocation location = EnumSensorLocation.getByValue(i);
             SensorLocation sensorLocation = new SensorLocation(location);
-            SensorLocation copySensorLocation = new SensorLocation(sensorLocation.getBytes());
+            SensorLocation copySensorLocation = new SensorLocation(sensorLocation.getRawData());
             assertEquals(location, copySensorLocation.getSensorLocation());
         }
     }

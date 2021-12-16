@@ -1,13 +1,14 @@
 package com.movisens.movisensgattlib.attributes;
 
-import com.movisens.movisensdevgattlib.security.CryptoManagerProvider;
-import com.movisens.movisensdevgattlib.security.KeyGenerator;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.helper.PlainTextAttribute;
+import com.movisens.smartgattlib.security.CryptoManagerProvider;
+import com.movisens.smartgattlib.security.KeyGenerator;
 
-public class SealSensor extends AbstractWriteAttribute
+public class SealSensor extends AbstractWriteAttribute implements PlainTextAttribute
 {
 
     public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
@@ -22,6 +23,7 @@ public class SealSensor extends AbstractWriteAttribute
     public SealSensor(String password)
     {
         this.key = KeyGenerator.createKey(password);
+        
         GattByteBuffer bb = GattByteBuffer.allocate(16);
         bb.putInt64(key[0]);
         bb.putInt64(key[1]);

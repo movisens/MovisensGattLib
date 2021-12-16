@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.movisens.movisensdevgattlib.security.CryptoManagerProvider;
+import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.smartgattlib.security.CryptoManagerProvider;
 
 
 public class AgeFloatTest
@@ -18,7 +19,7 @@ public class AgeFloatTest
         double ageOutput = 13.2;
         AgeFloat ageFloatOutput = new AgeFloat(ageOutput);
         
-        AgeFloat ageFloatInput = new AgeFloat(ageFloatOutput.getBytes());
+        AgeFloat ageFloatInput = (AgeFloat) MovisensCharacteristics.AGE_FLOAT.createAttribute(ageFloatOutput.getOutgoingData());
         
         assertEquals(ageOutput, ageFloatInput.getAge().doubleValue(), 0.00001);
     }

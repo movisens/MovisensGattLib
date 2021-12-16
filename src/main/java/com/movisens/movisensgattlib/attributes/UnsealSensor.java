@@ -1,10 +1,10 @@
 package com.movisens.movisensgattlib.attributes;
 
-import com.movisens.movisensdevgattlib.security.CryptoManagerProvider;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.security.CryptoManagerProvider;
 
 public class UnsealSensor extends AbstractWriteAttribute
 {
