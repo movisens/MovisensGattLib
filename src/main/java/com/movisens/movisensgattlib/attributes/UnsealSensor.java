@@ -18,7 +18,7 @@ public class UnsealSensor extends AbstractWriteAttribute
         this.data = bb.array();
 
         /* after this command the sensor is no longer protected and attributes are not encrypted */
-        CryptoManagerProvider.get().removePassword();
+        CryptoManagerProvider.get().disableEncryption();
     }
 
     @Override
