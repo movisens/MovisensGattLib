@@ -26,9 +26,11 @@ public class MovisensCharacteristics
 	public static final Characteristic<CustomData> CUSTOM_DATA = new Characteristic<CustomData>("0086b101-7f7d-4249-bfae-1999065a68c2", "Custom Data", CustomData.class);
 	public static final Characteristic<DataAvailable> DATA_AVAILABLE = new Characteristic<DataAvailable>("10847e7a-d43f-4b9e-b2f2-3e8546215c3c", "Data Available", DataAvailable.class);
 	public static final Characteristic<DeleteData> DELETE_DATA = new Characteristic<DeleteData>("f89edec2-9fc2-c29e-ff29-da323b327e44", "Delete Data", DeleteData.class);
+	public static final Characteristic<DisableEncryption> DISABLE_ENCRYPTION = new Characteristic<DisableEncryption>("de1d3039-69a3-4e4b-bfe2-6ffd4b46c8cb", "Disable Encryption", DisableEncryption.class);
 	public static final Characteristic<EdaSclMean> EDA_SCL_MEAN = new Characteristic<EdaSclMean>("a884dc4b-62d6-44ee-bcbf-d0f725d95213", "Eda Scl Mean", EdaSclMean.class);
 	public static final BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData> EDA_SCL_MEAN_BUFFERED = new BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData>("663af1bc-2fa0-43c0-b452-2b8c1efb7f9d", "Eda Scl Mean Buffered", 18, EdaSclMeanBuffered.class);
 	public static final Characteristic<EdaSclMeanWaiting> EDA_SCL_MEAN_WAITING = new Characteristic<EdaSclMeanWaiting>("47755955-966e-4b75-b79b-ef5c839cb191", "Eda Scl Mean Waiting", EdaSclMeanWaiting.class);
+	public static final Characteristic<EncryptionEnabled> ENCRYPTION_ENABLED = new Characteristic<EncryptionEnabled>("4d2ac3ec-5ae7-4d15-8f7c-3c1bd052c7a1", "Encryption Enabled", EncryptionEnabled.class);
 	public static final Characteristic<EvaluationExpireTime> EVALUATION_EXPIRE_TIME = new Characteristic<EvaluationExpireTime>("8738ddd8-7937-43a0-848a-3a91b264e3b5", "Evaluation Expire Time", EvaluationExpireTime.class);
 	public static final Characteristic<HrMean> HR_MEAN = new Characteristic<HrMean>("3b999d71-751b-48fa-8817-b7131f47c2da", "Hr Mean", HrMean.class);
 	public static final BufferedCharacteristic<HrMeanBuffered, HrMeanData> HR_MEAN_BUFFERED = new BufferedCharacteristic<HrMeanBuffered, HrMeanData>("1d9533d1-8c6e-4b6a-b242-d0713be204f0", "Hr Mean Buffered", 6, HrMeanBuffered.class);
@@ -39,6 +41,10 @@ public class MovisensCharacteristics
 	public static final Characteristic<Inclination> INCLINATION = new Characteristic<Inclination>("e165b5d0-d83f-4a5c-86a6-306ca1ddf0ef", "Inclination", Inclination.class);
 	public static final BufferedCharacteristic<InclinationBuffered, InclinationData> INCLINATION_BUFFERED = new BufferedCharacteristic<InclinationBuffered, InclinationData>("f89edebf-9b5b-486d-054f-b3ce3e226d49", "Inclination Buffered", 15, InclinationBuffered.class);
 	public static final Characteristic<InclinationWaiting> INCLINATION_WAITING = new Characteristic<InclinationWaiting>("f89edeb8-dda5-770a-e42d-005ed49f5e29", "Inclination Waiting", InclinationWaiting.class);
+	public static final Characteristic<KeyExchangeRequest1> KEY_EXCHANGE_REQUEST_1 = new Characteristic<KeyExchangeRequest1>("5bdea581-d3da-421e-8e2c-99d10c227b79", "Key Exchange Request 1", KeyExchangeRequest1.class);
+	public static final Characteristic<KeyExchangeRequest2> KEY_EXCHANGE_REQUEST_2 = new Characteristic<KeyExchangeRequest2>("a613ee21-61f8-42e4-b82c-95b5a20f4eab", "Key Exchange Request 2", KeyExchangeRequest2.class);
+	public static final Characteristic<KeyExchangeResponse1> KEY_EXCHANGE_RESPONSE_1 = new Characteristic<KeyExchangeResponse1>("43aafc84-8866-45fa-8dff-ff94935e82bd", "Key Exchange Response 1", KeyExchangeResponse1.class);
+	public static final Characteristic<KeyExchangeResponse2> KEY_EXCHANGE_RESPONSE_2 = new Characteristic<KeyExchangeResponse2>("783e0b3c-7ad2-4e2e-bfb3-2e246c4e63d9", "Key Exchange Response 2", KeyExchangeResponse2.class);
 	public static final Characteristic<Light> LIGHT = new Characteristic<Light>("375bf82c-41e8-4ca1-9b95-f8634b1ba2f8", "Light", Light.class);
 	public static final BufferedCharacteristic<LightBuffered, LightData> LIGHT_BUFFERED = new BufferedCharacteristic<LightBuffered, LightData>("7e5dd77b-67b7-42dd-be7a-822373391b2f", "Light Buffered", 19, LightBuffered.class);
 	public static final Characteristic<LightRgb> LIGHT_RGB = new Characteristic<LightRgb>("db32d0ca-fda0-4298-9d2f-1b109eb95a2f", "Light RGB", LightRgb.class);
@@ -108,9 +114,11 @@ public class MovisensCharacteristics
 		characteristics.put(CUSTOM_DATA);
 		characteristics.put(DATA_AVAILABLE);
 		characteristics.put(DELETE_DATA);
+		characteristics.put(DISABLE_ENCRYPTION);
 		characteristics.put(EDA_SCL_MEAN);
 		characteristics.put(EDA_SCL_MEAN_BUFFERED);
 		characteristics.put(EDA_SCL_MEAN_WAITING);
+		characteristics.put(ENCRYPTION_ENABLED);
 		characteristics.put(EVALUATION_EXPIRE_TIME);
 		characteristics.put(HR_MEAN);
 		characteristics.put(HR_MEAN_BUFFERED);
@@ -121,6 +129,10 @@ public class MovisensCharacteristics
 		characteristics.put(INCLINATION);
 		characteristics.put(INCLINATION_BUFFERED);
 		characteristics.put(INCLINATION_WAITING);
+		characteristics.put(KEY_EXCHANGE_REQUEST_1);
+		characteristics.put(KEY_EXCHANGE_REQUEST_2);
+		characteristics.put(KEY_EXCHANGE_RESPONSE_1);
+		characteristics.put(KEY_EXCHANGE_RESPONSE_2);
 		characteristics.put(LIGHT);
 		characteristics.put(LIGHT_BUFFERED);
 		characteristics.put(LIGHT_RGB);

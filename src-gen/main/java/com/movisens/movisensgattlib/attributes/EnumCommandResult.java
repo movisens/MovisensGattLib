@@ -17,7 +17,8 @@ public enum EnumCommandResult
 	LOGIN_KEY_INVALID             ((short)12, "LOGIN_KEY_INVALID"),
 	ACCESS_DENIED                 ((short)13, "ACCESS_DENIED"),
 	EVALUATION_PERIOD_EXPIRED     ((short)14, "EVALUATION_PERIOD_EXPIRED"),
-	INVALID                       ((short)15, "invalid");
+	KEY_EXCHANGE_FAILED           ((short)15, "KEY_EXCHANGE_FAILED"),
+	INVALID                       ((short)16, "invalid");
 
 	private final short value;
 	private final String name;
@@ -72,6 +73,8 @@ public enum EnumCommandResult
 				return EnumCommandResult.ACCESS_DENIED;
 			case 14:
 				return EnumCommandResult.EVALUATION_PERIOD_EXPIRED;
+			case 15:
+				return EnumCommandResult.KEY_EXCHANGE_FAILED;
 			default:
 				return EnumCommandResult.INVALID;
 		}

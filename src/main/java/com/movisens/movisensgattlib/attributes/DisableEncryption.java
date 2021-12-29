@@ -4,13 +4,14 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
-public class UnsealSensor extends AbstractWriteAttribute
+public class DisableEncryption extends AbstractWriteAttribute implements PlainTextAttribute
 {
 
-    public static final Characteristic<UnsealSensor> CHARACTERISTIC = MovisensCharacteristics.UNSEAL_SENSOR;
+    public static final Characteristic<DisableEncryption> CHARACTERISTIC = MovisensCharacteristics.DISABLE_ENCRYPTION;
 
-    public UnsealSensor()
+    public DisableEncryption()
     {
         GattByteBuffer bb = GattByteBuffer.allocate(1);
         bb.putInt8((byte) 0);
@@ -18,7 +19,7 @@ public class UnsealSensor extends AbstractWriteAttribute
     }
 
     @Override
-    public Characteristic<UnsealSensor> getCharacteristic()
+    public Characteristic<DisableEncryption> getCharacteristic()
     {
         return CHARACTERISTIC;
     }
@@ -26,6 +27,7 @@ public class UnsealSensor extends AbstractWriteAttribute
     @Override
     public String toString()
     {
-        return "UNSEAL_SENSOR";
+        return "DISABLE_ENCRYPTION";
     }
+
 }

@@ -18,9 +18,12 @@ import com.movisens.smartgattlib.Characteristics;
 import com.movisens.smartgattlib.attributes.DefaultAttribute;
 import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
+import com.movisens.smartgattlib.security.CryptoManager;
 
 public class Example
 {
+    static CryptoManager cryptoManager = new CryptoManager();
+    
     public static class DataModel
     {
         private Iterable<AbstractData> attributes;
@@ -56,7 +59,7 @@ public class Example
         /* TODO: receive attributes from remote */
         UUID uuid = null;
         byte[] value = null;
-        AbstractAttribute ap = MovisensCharacteristics.lookup(uuid).createAttribute(value);
+        AbstractAttribute ap = MovisensCharacteristics.lookup(uuid).createAttribute(cryptoManager, value);
 
         /* store all buffered attributes */
         if (ap instanceof AbstractBufferedAttribute<?>)
@@ -136,7 +139,7 @@ public class Example
         UUID uuid = null; // TODO: Fill with the received uuid
         byte[] data = null; // TODO: Fill with the received bytes
 
-        AbstractAttribute a = Characteristics.lookup(uuid).createAttribute(data);
+        AbstractAttribute a = Characteristics.lookup(uuid).createAttribute(cryptoManager, data);
         if (a instanceof MovementAcceleration)
         {
             MovementAcceleration movementAcceleration = ((MovementAcceleration) a);

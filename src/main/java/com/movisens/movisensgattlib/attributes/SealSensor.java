@@ -5,7 +5,7 @@ import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
-import com.movisens.smartgattlib.security.CryptoManagerProvider;
+import com.movisens.smartgattlib.security.CryptoManager;
 import com.movisens.smartgattlib.security.KeyGenerator;
 
 public class SealSensor extends AbstractWriteAttribute implements PlainTextAttribute
@@ -20,17 +20,20 @@ public class SealSensor extends AbstractWriteAttribute implements PlainTextAttri
         return key;
     }
 
-    public SealSensor(String password)
+    public SealSensor(CryptoManager cryptoManager, String password)
     {
-        this.key = KeyGenerator.createKey(password);
-        
-        GattByteBuffer bb = GattByteBuffer.allocate(16);
-        bb.putInt64(key[0]);
-        bb.putInt64(key[1]);
-        this.data = bb.array();
+        if (cryptoManager.encryptionEnabled())
+        {
+            this.key = KeyGenerator.createKey(password);
 
-        /* after this command the sensor is protected and attributes are encrypted */
-        CryptoManagerProvider.get().setPassword(password);
+            GattByteBuffer bb = GattByteBuffer.allocate(8);
+            bb.putInt64(key[0]);
+            this.data = bb.array();
+        }
+        else
+        {
+            throw new RuntimeException("login needs encrypted connection");
+        }
     }
 
     @Override
