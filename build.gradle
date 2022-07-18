@@ -1,11 +1,12 @@
 apply plugin: 'java-library'
+apply plugin: 'maven-publish'
 
 compileJava.options.encoding = 'Cp1252'
 
 group = 'com.github.movisens'
 
-targetCompatibility = 1.6
-sourceCompatibility = 1.6
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
 
 version = '3.0.0-SNAPSHOT'
 
@@ -37,5 +38,12 @@ jar {
                 'Bundle-Version': project.version,
                 'Export-Package': 'com.movisens.movisensgattlib'
         )
+    }
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
     }
 }
