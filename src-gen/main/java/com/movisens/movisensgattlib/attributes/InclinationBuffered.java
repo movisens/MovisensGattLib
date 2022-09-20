@@ -42,7 +42,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"°", "°", "°"};
+		String[] names = {"Â°", "Â°", "Â°"};
 		return names;
 	}
 	
@@ -69,7 +69,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	
 	public String getXUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public Double[] getY()
@@ -79,7 +79,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	
 	public String getYUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public Double[] getZ()
@@ -89,7 +89,7 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 	
 	public String getZUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public InclinationBuffered(byte[] data)

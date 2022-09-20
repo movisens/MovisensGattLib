@@ -40,7 +40,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"µS"};
+		String[] names = {"ÂµS"};
 		return names;
 	}
 	
@@ -65,7 +65,7 @@ public class EdaSclMeanBuffered extends AbstractBufferedAttribute<EdaSclMeanData
 	
 	public String getEdaSclMeanUnit()
 	{
-		return "µS";
+		return "ÂµS";
 	}
 	
 	public EdaSclMeanBuffered(byte[] data)

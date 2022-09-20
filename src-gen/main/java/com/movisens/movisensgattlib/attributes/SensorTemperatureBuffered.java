@@ -40,7 +40,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	@Override
 	public String[] getValueUnits()
 	{
-		String[] names = {"°C"};
+		String[] names = {"Â°C"};
 		return names;
 	}
 	
@@ -65,7 +65,7 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	
 	public String getTemperatureUnit()
 	{
-		return "°C";
+		return "Â°C";
 	}
 	
 	public SensorTemperatureBuffered(byte[] data)

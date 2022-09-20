@@ -19,7 +19,7 @@ public class SensorTemperature extends AbstractReadAttribute
 	
 	public String getTemperatureUnit()
 	{
-		return "°C";
+		return "Â°C";
 	}
 	
 	public SensorTemperature(byte[] data)

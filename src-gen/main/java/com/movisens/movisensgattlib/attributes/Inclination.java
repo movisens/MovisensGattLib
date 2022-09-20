@@ -21,7 +21,7 @@ public class Inclination extends AbstractReadAttribute
 	
 	public String getXUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public Double getY()
@@ -31,7 +31,7 @@ public class Inclination extends AbstractReadAttribute
 	
 	public String getYUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public Double getZ()
@@ -41,7 +41,7 @@ public class Inclination extends AbstractReadAttribute
 	
 	public String getZUnit()
 	{
-		return "°";
+		return "Â°";
 	}
 	
 	public Inclination(byte[] data)

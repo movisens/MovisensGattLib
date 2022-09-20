@@ -19,7 +19,7 @@ public class EdaSclMean extends AbstractReadAttribute
 	
 	public String getEdaSclMeanUnit()
 	{
-		return "µS";
+		return "ÂµS";
 	}
 	
 	public EdaSclMean(byte[] data)

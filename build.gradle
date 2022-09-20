@@ -1,7 +1,8 @@
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
-compileJava.options.encoding = 'Cp1252'
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 group = 'com.github.movisens'
 
