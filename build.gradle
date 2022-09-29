@@ -48,7 +48,3 @@ publishing {
         }
     }
 }
-
-task writeProperties(){
-	
-}
