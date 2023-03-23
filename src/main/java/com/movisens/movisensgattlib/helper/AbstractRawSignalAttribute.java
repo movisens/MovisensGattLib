@@ -12,5 +12,5 @@ public abstract class AbstractRawSignalAttribute extends AbstractAttribute {
 
     abstract public String[] getValueUnits();
 
-    abstract public double[] getValues();
+    abstract public double[][] getValues();
 }
