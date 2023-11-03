@@ -16,6 +16,9 @@ public class MovisensCharacteristics
 	public static final Characteristic<AgeFloat> AGE_FLOAT = new Characteristic<AgeFloat>("7562060b-4aff-4422-aec7-77770d2a0530", "Age Float", AgeFloat.class);
 	public static final BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> BATTERY_LEVEL_BUFFERED = new BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData>("c7538ae7-b2ec-4905-8ebc-4a0581df4335", "Battery Level Buffered", 0, BatteryLevelBuffered.class);
 	public static final Characteristic<BatteryLevelWaiting> BATTERY_LEVEL_WAITING = new Characteristic<BatteryLevelWaiting>("f84adb7d-a503-44d4-88ba-8583b981b5b2", "Battery Level Waiting", BatteryLevelWaiting.class);
+	public static final Characteristic<BatteryVoltage> BATTERY_VOLTAGE = new Characteristic<BatteryVoltage>("a66a585f-1cb5-4522-86c0-3e7334a75709", "Battery Voltage", BatteryVoltage.class);
+	public static final BufferedCharacteristic<BatteryVoltageBuffered, BatteryVoltageData> BATTERY_VOLTAGE_BUFFERED = new BufferedCharacteristic<BatteryVoltageBuffered, BatteryVoltageData>("ec82cbdb-4375-4da3-9e90-c6362e4f86fd", "Battery Voltage Buffered", 26, BatteryVoltageBuffered.class);
+	public static final Characteristic<BatteryVoltageWaiting> BATTERY_VOLTAGE_WAITING = new Characteristic<BatteryVoltageWaiting>("b6db466f-e17d-4d0b-ab3e-728aaf23fc87", "Battery Voltage Waiting", BatteryVoltageWaiting.class);
 	public static final Characteristic<BodyPositionWaiting> BODY_POSITION_WAITING = new Characteristic<BodyPositionWaiting>("8fbffb12-23ed-498b-b19c-9c9a67f14b75", "Body Position Waiting", BodyPositionWaiting.class);
 	public static final Characteristic<Charging> CHARGING = new Characteristic<Charging>("d34f2d52-5fcd-491c-b782-6b84e439687e", "Charging", Charging.class);
 	public static final BufferedCharacteristic<ChargingBuffered, ChargingData> CHARGING_BUFFERED = new BufferedCharacteristic<ChargingBuffered, ChargingData>("601d030e-b067-4f80-9a36-09aa9fb21670", "Charging Buffered", 2, ChargingBuffered.class);
@@ -102,6 +105,9 @@ public class MovisensCharacteristics
 		characteristics.put(AGE_FLOAT);
 		characteristics.put(BATTERY_LEVEL_BUFFERED);
 		characteristics.put(BATTERY_LEVEL_WAITING);
+		characteristics.put(BATTERY_VOLTAGE);
+		characteristics.put(BATTERY_VOLTAGE_BUFFERED);
+		characteristics.put(BATTERY_VOLTAGE_WAITING);
 		characteristics.put(BODY_POSITION);
 		characteristics.put(BODY_POSITION_BUFFERED);
 		characteristics.put(BODY_POSITION_WAITING);
