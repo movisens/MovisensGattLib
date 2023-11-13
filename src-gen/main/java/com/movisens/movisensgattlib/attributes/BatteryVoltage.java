@@ -26,7 +26,7 @@ public class BatteryVoltage extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		batteryLevel = new Double(bb.getUint32());
+		batteryLevel = new Double(bb.getUint16());
 	}
 
 	@Override

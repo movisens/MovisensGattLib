@@ -30,6 +30,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<DataAvailable> DATA_AVAILABLE = new Characteristic<DataAvailable>("10847e7a-d43f-4b9e-b2f2-3e8546215c3c", "Data Available", DataAvailable.class);
 	public static final Characteristic<DeleteData> DELETE_DATA = new Characteristic<DeleteData>("f89edec2-9fc2-c29e-ff29-da323b327e44", "Delete Data", DeleteData.class);
 	public static final Characteristic<DisableEncryption> DISABLE_ENCRYPTION = new Characteristic<DisableEncryption>("de1d3039-69a3-4e4b-bfe2-6ffd4b46c8cb", "Disable Encryption", DisableEncryption.class);
+	public static final Characteristic<EdaLola> EDA_LOLA = new Characteristic<EdaLola>("ae8cfefd-2b6f-417d-999f-b315f3b1e15c", "Eda Lola", EdaLola.class);
 	public static final Characteristic<EdaSclMean> EDA_SCL_MEAN = new Characteristic<EdaSclMean>("a884dc4b-62d6-44ee-bcbf-d0f725d95213", "Eda Scl Mean", EdaSclMean.class);
 	public static final BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData> EDA_SCL_MEAN_BUFFERED = new BufferedCharacteristic<EdaSclMeanBuffered, EdaSclMeanData>("663af1bc-2fa0-43c0-b452-2b8c1efb7f9d", "Eda Scl Mean Buffered", 18, EdaSclMeanBuffered.class);
 	public static final Characteristic<EdaSclMeanWaiting> EDA_SCL_MEAN_WAITING = new Characteristic<EdaSclMeanWaiting>("47755955-966e-4b75-b79b-ef5c839cb191", "Eda Scl Mean Waiting", EdaSclMeanWaiting.class);
@@ -121,6 +122,7 @@ public class MovisensCharacteristics
 		characteristics.put(DATA_AVAILABLE);
 		characteristics.put(DELETE_DATA);
 		characteristics.put(DISABLE_ENCRYPTION);
+		characteristics.put(EDA_LOLA);
 		characteristics.put(EDA_SCL_MEAN);
 		characteristics.put(EDA_SCL_MEAN_BUFFERED);
 		characteristics.put(EDA_SCL_MEAN_WAITING);
