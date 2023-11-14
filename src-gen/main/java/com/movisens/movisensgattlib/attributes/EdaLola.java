@@ -36,8 +36,8 @@ public class EdaLola extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		values = new Short[4];
-		for (int i = 0; i < 4; i++)
+		values = new Short[2];
+		for (int i = 0; i < 2; i++)
 		{
 			values[i] = bb.getInt16();
 		}
