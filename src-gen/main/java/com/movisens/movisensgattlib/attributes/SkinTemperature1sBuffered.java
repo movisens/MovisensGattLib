@@ -16,7 +16,7 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	
 	public static final int periodLength = 1;
 	private long time;
-	private Double temperature[];
+	private Double skinTemperature[];
 	
 	@Override
 	public Date getTime()
@@ -33,7 +33,7 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	@Override
 	public String[] getValueNames()
 	{
-		String[] names = {"temperature"};
+		String[] names = {"skinTemperature"};
 		return names;
 	}
 
@@ -47,23 +47,23 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	@Override
 	public double[][] getValues()
 	{
-		int numSamples = temperature.length;
+		int numSamples = skinTemperature.length;
 		double[][] data = new double[numSamples][1];
 		
 		for(int i=0; i<numSamples; i++)
 		{
-			data[i][0] = temperature[i];
+			data[i][0] = skinTemperature[i];
 		}
 		
 		return data;
 	}
 
-	public Double[] getTemperature()
+	public Double[] getSkinTemperature()
 	{
-		return temperature;
+		return skinTemperature;
 	}
 	
-	public String getTemperatureUnit()
+	public String getSkinTemperatureUnit()
 	{
 		return "°C";
 	}
@@ -76,11 +76,11 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		temperature = new Double[numValues];
+		skinTemperature = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			temperature[i] = ((double)bb.getInt16()) * 0.01;
+			skinTemperature[i] = ((double)bb.getInt16()) * 0.01;
 		}
 	}
 
@@ -94,9 +94,9 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	public String toString()
 	{
 		String result = "";
-		for(int i=0; i<temperature.length; i++)
+		for(int i=0; i<skinTemperature.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getTemperature()[i].toString() + getTemperatureUnit() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getSkinTemperature()[i].toString() + getSkinTemperatureUnit() + " \r\n";
 		}
 		return result;
 	}
@@ -107,9 +107,9 @@ public class SkinTemperature1sBuffered extends AbstractBufferedAttribute<SkinTem
 	    Vector<SkinTemperature1sData> datas = new Vector<SkinTemperature1sData>();
 	    long now = new Date().getTime();
 	    
-	    for(int i=0; i<temperature.length; i++)
+	    for(int i=0; i<skinTemperature.length; i++)
 	    {
-	        datas.add(new SkinTemperature1sData(now, (time + (periodLength * i)) * 1000, periodLength, getTemperature()[i]));
+	        datas.add(new SkinTemperature1sData(now, (time + (periodLength * i)) * 1000, periodLength, getSkinTemperature()[i]));
 	    }
 	    
 	    return datas;

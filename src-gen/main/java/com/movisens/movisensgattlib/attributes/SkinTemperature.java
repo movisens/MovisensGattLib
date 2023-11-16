@@ -10,14 +10,14 @@ public class SkinTemperature extends AbstractReadAttribute
 
 	public static final Characteristic<SkinTemperature> CHARACTERISTIC = MovisensCharacteristics.SKIN_TEMPERATURE;
 	
-	private Double temperature;
+	private Double skinTemperature;
 	
-	public Double getTemperature()
+	public Double getSkinTemperature()
 	{
-		return temperature;
+		return skinTemperature;
 	}
 	
-	public String getTemperatureUnit()
+	public String getSkinTemperatureUnit()
 	{
 		return "°C";
 	}
@@ -26,7 +26,7 @@ public class SkinTemperature extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		temperature = ((double)bb.getInt16()) * 0.01;
+		skinTemperature = ((double)bb.getInt16()) * 0.01;
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class SkinTemperature extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getTemperature().toString() + getTemperatureUnit();
+		return getSkinTemperature().toString() + getSkinTemperatureUnit();
 	}
 }
