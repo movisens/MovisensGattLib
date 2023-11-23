@@ -5,7 +5,6 @@ import com.movisens.smartgattlib.helper.AbstractReadWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
-@Deprecated
 public class MeasurementEnabled extends AbstractReadWriteAttribute
 {
 
