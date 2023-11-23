@@ -18,8 +18,8 @@ There is also a complete [example project](https://github.com/movisens/MovisensG
 	    maven { url "https://jitpack.io" }
 	}
 	dependencies {
-	    compile 'com.github.movisens:SmartGattLib:3.0.0'
-	    compile 'com.github.movisens:MovisensGattLib:2.0.0'
+	    compile 'com.github.movisens:SmartGattLib:3.6.0'
+	    compile 'com.github.movisens:MovisensGattLib:2.15.0'
 	}
   ```
   or download the latest .jar file from the [MovsiensGattLib releases](https://github.com/movisens/MovisensGattLib/releases) and the [SmartGattLib releases](https://github.com/movisens/SmartGattLib/releases) and place it in your Android app’s libs/ folder.
