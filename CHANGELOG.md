@@ -9,6 +9,18 @@
 - added characteristic EdaLola to stream eda data with low lattency
 - added characteristic to handle sensor evaluation
 
+## [2.13.0]
+
+- added command resutls for measurement start
+
+## [2.12.0]
+
+- added possibility to set required characteristics (eg. met needs weight to be set)
+
+## [2.11.0]
+
+- added command result
+
 ## [2.9.0]
 
 - added characteristic MeasurementStatus
