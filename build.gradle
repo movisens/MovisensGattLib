@@ -9,7 +9,7 @@ group = 'com.github.movisens'
 targetCompatibility = 1.8
 sourceCompatibility = 1.8
 
-version = '2.15.0'
+version = '2.16.0'
 
 repositories {
 	mavenLocal()
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    api 'com.github.movisens:SmartGattLib:4.0.0-SNAPSHOT'
+    api 'com.github.movisens:SmartGattLib:3.6.1'
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
     testImplementation group: 'junit', name: 'junit', version: '4.11'
 }

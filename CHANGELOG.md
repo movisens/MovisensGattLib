@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.16.0] (2026-03-24)
+
+- added BLE session authentication for sealed sensors
+- introduced `AUTH_CONFIRM` and extended the BLE login flow so applications can verify that the sensor participated in the authenticated session
+- improved protection of sealed BLE sessions against man-in-the-middle attacks while keeping the normal application workflow unchanged after login
+
 ## [2.14.0]
 
 - added characteristics for application level encryption
