@@ -35,8 +35,13 @@ public class KeyExchangeManager
     
     public static final int ATTR_LEN_1 = 20;
     public static final int ATTR_LEN_2 = PUBLIC_KEY_LEN - ATTR_LEN_1;
+
+    public static final int SENSOR_CHALLENGE_LEN = BleMitmProofs.SENSOR_CHALLENGE_LEN;
    
     KeyPair keyPair;
+    private byte[] localPublicKey;
+    private byte[] peerPublicKey;
+    private byte[] sensorChallenge = new byte[SENSOR_CHALLENGE_LEN];
 
     static
     {
@@ -54,7 +59,8 @@ public class KeyExchangeManager
     {
         createLocalKeyPair();
         ECPublicKey eckey = (ECPublicKey) keyPair.getPublic();
-        return eckey.getQ().getEncoded(true);
+        localPublicKey = eckey.getQ().getEncoded(true);
+        return Arrays.clone(localPublicKey);
     }
 
     private byte[] calculateSecret(byte[] peerPublicKeyData) throws GeneralSecurityException
@@ -93,11 +99,36 @@ public class KeyExchangeManager
     
     public byte[] getAesKey(AbstractReadAttribute[] response) throws GeneralSecurityException {
         
-        byte[] peerPublicKey = new byte[KeyExchangeManager.PUBLIC_KEY_LEN];
+        peerPublicKey = new byte[KeyExchangeManager.PUBLIC_KEY_LEN];
          
         System.arraycopy(response[0].getRawData(), 0, peerPublicKey, 0, ATTR_LEN_1);
         System.arraycopy(response[1].getRawData(), 0, peerPublicKey, ATTR_LEN_1, ATTR_LEN_2);
 
+        byte[] response2 = response[1].getRawData();
+        if (response2.length >= ATTR_LEN_2 + SENSOR_CHALLENGE_LEN) {
+            System.arraycopy(response2, ATTR_LEN_2, sensorChallenge, 0, SENSOR_CHALLENGE_LEN);
+        } else {
+            java.util.Arrays.fill(sensorChallenge, (byte) 0);
+        }
+
         return calculateAesKey(peerPublicKey);
+    }
+
+    public byte[] getClientPublicKey() {
+        return Arrays.clone(localPublicKey);
+    }
+
+    public byte[] getSensorPublicKey() {
+        return Arrays.clone(peerPublicKey);
+    }
+
+    public byte[] getSensorChallenge() {
+        return Arrays.clone(sensorChallenge);
+    }
+
+    public void setSessionContext(byte[] clientPublicKey, byte[] sensorPublicKey, byte[] sensorChallenge) {
+        this.localPublicKey = Arrays.clone(clientPublicKey);
+        this.peerPublicKey = Arrays.clone(sensorPublicKey);
+        this.sensorChallenge = Arrays.clone(sensorChallenge);
     }
 }

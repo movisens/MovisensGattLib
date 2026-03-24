@@ -14,6 +14,7 @@ public class MovisensCharacteristics
 
 	public static final Characteristic<ActivatedBufferedCharacteristics> ACTIVATED_BUFFERED_CHARACTERISTICS = new Characteristic<ActivatedBufferedCharacteristics>("f1cc0780-95e8-4a93-a1d1-6cfac6641b24", "Activated Buffered Characteristics", ActivatedBufferedCharacteristics.class);
 	public static final Characteristic<AgeFloat> AGE_FLOAT = new Characteristic<AgeFloat>("7562060b-4aff-4422-aec7-77770d2a0530", "Age Float", AgeFloat.class);
+	public static final Characteristic<AuthConfirm> AUTH_CONFIRM = new Characteristic<AuthConfirm>("1dbd99be-a4df-421a-a50b-ac80af9a6f13", "Auth Confirm", AuthConfirm.class);
 	public static final BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> BATTERY_LEVEL_BUFFERED = new BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData>("c7538ae7-b2ec-4905-8ebc-4a0581df4335", "Battery Level Buffered", 0, BatteryLevelBuffered.class);
 	public static final Characteristic<BatteryLevelWaiting> BATTERY_LEVEL_WAITING = new Characteristic<BatteryLevelWaiting>("f84adb7d-a503-44d4-88ba-8583b981b5b2", "Battery Level Waiting", BatteryLevelWaiting.class);
 	public static final Characteristic<BatteryVoltage> BATTERY_VOLTAGE = new Characteristic<BatteryVoltage>("a66a585f-1cb5-4522-86c0-3e7334a75709", "Battery Voltage", BatteryVoltage.class);
@@ -104,6 +105,7 @@ public class MovisensCharacteristics
 	{
 		characteristics.put(ACTIVATED_BUFFERED_CHARACTERISTICS);
 		characteristics.put(AGE_FLOAT);
+		characteristics.put(AUTH_CONFIRM);
 		characteristics.put(BATTERY_LEVEL_BUFFERED);
 		characteristics.put(BATTERY_LEVEL_WAITING);
 		characteristics.put(BATTERY_VOLTAGE);
