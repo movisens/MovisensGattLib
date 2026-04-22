@@ -1,23 +1,11 @@
 package com.movisens.movisensgattlib.security;
 
 import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
-import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.Security;
-import java.security.spec.ECGenParameterSpec;
-
-import javax.crypto.KeyAgreement;
-
-import org.bouncycastle.jce.ECNamedCurveTable;
-import org.bouncycastle.jce.interfaces.ECPublicKey;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.jce.spec.ECParameterSpec;
-import org.bouncycastle.jce.spec.ECPublicKeySpec;
-import org.bouncycastle.util.Arrays;
+import java.security.interfaces.ECPublicKey;
+import java.util.Arrays;
 
 import com.movisens.movisensgattlib.attributes.KeyExchangeRequest1;
 import com.movisens.movisensgattlib.attributes.KeyExchangeRequest2;
@@ -26,50 +14,33 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 
 public class KeyExchangeManager
 {
-
-    //final static String CURVE = "SECP192R1";
-    //public final static int PUBLIC_KEY_LEN = 25;
-    
-    final static String CURVE = "SECP256R1";
-    public final static int PUBLIC_KEY_LEN = 33;
-    
+    public static final int PUBLIC_KEY_LEN = 33;
     public static final int ATTR_LEN_1 = 20;
     public static final int ATTR_LEN_2 = PUBLIC_KEY_LEN - ATTR_LEN_1;
+
+    public static final int SENSOR_CHALLENGE_LEN = BleMitmProofs.SENSOR_CHALLENGE_LEN;
    
     KeyPair keyPair;
+    private byte[] localPublicKey;
+    private byte[] peerPublicKey;
+    private byte[] sensorChallenge = new byte[SENSOR_CHALLENGE_LEN];
 
-    static
+    private void createLocalKeyPair() throws GeneralSecurityException
     {
-        Security.addProvider(new BouncyCastleProvider());
-    }
-
-    void createLocalKeyPair() throws GeneralSecurityException
-    {
-        KeyPairGenerator kpgen = KeyPairGenerator.getInstance("ECDH", "BC");
-        kpgen.initialize(new ECGenParameterSpec(CURVE), new SecureRandom());
-        keyPair = kpgen.generateKeyPair();
+        keyPair = Secp256r1Support.generateKeyPair(new SecureRandom());
     }
 
     public byte[] getLocalPublicKey() throws GeneralSecurityException
     {
         createLocalKeyPair();
-        ECPublicKey eckey = (ECPublicKey) keyPair.getPublic();
-        return eckey.getQ().getEncoded(true);
+        ECPublicKey publicKey = (ECPublicKey) keyPair.getPublic();
+        localPublicKey = Secp256r1PointCodec.encodeCompressed(publicKey);
+        return cloneBytes(localPublicKey);
     }
 
     private byte[] calculateSecret(byte[] peerPublicKeyData) throws GeneralSecurityException
     {
-        ECParameterSpec params = ECNamedCurveTable.getParameterSpec(CURVE);
-        ECPublicKeySpec pubKey = new ECPublicKeySpec(params.getCurve().decodePoint(peerPublicKeyData), params);
-        
-        KeyFactory kf = KeyFactory.getInstance("ECDH", "BC");
-        PublicKey  peerPublicKey = kf.generatePublic(pubKey);
-
-        KeyAgreement ka = KeyAgreement.getInstance("ECDH", "BC");
-        ka.init(keyPair.getPrivate());
-        ka.doPhase(peerPublicKey, true);
-        
-        return ka.generateSecret();
+        return Secp256r1Support.calculateSecret(keyPair.getPrivate(), peerPublicKeyData);
     }
     
     public byte[] calculateAesKey(byte[] peerPublicKeyData) throws GeneralSecurityException {
@@ -93,11 +64,41 @@ public class KeyExchangeManager
     
     public byte[] getAesKey(AbstractReadAttribute[] response) throws GeneralSecurityException {
         
-        byte[] peerPublicKey = new byte[KeyExchangeManager.PUBLIC_KEY_LEN];
+        peerPublicKey = new byte[PUBLIC_KEY_LEN];
          
         System.arraycopy(response[0].getRawData(), 0, peerPublicKey, 0, ATTR_LEN_1);
         System.arraycopy(response[1].getRawData(), 0, peerPublicKey, ATTR_LEN_1, ATTR_LEN_2);
 
+        byte[] response2 = response[1].getRawData();
+        if (response2.length >= ATTR_LEN_2 + SENSOR_CHALLENGE_LEN) {
+            System.arraycopy(response2, ATTR_LEN_2, sensorChallenge, 0, SENSOR_CHALLENGE_LEN);
+        } else {
+            Arrays.fill(sensorChallenge, (byte) 0);
+        }
+
         return calculateAesKey(peerPublicKey);
+    }
+
+    public byte[] getClientPublicKey() {
+        return cloneBytes(localPublicKey);
+    }
+
+    public byte[] getSensorPublicKey() {
+        return cloneBytes(peerPublicKey);
+    }
+
+    public byte[] getSensorChallenge() {
+        return cloneBytes(sensorChallenge);
+    }
+
+    public void setSessionContext(byte[] clientPublicKey, byte[] sensorPublicKey, byte[] sensorChallenge) {
+        this.localPublicKey = cloneBytes(clientPublicKey);
+        this.peerPublicKey = cloneBytes(sensorPublicKey);
+        this.sensorChallenge = cloneBytes(sensorChallenge);
+    }
+
+    private static byte[] cloneBytes(byte[] value)
+    {
+        return value == null ? null : Arrays.copyOf(value, value.length);
     }
 }
