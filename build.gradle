@@ -16,7 +16,7 @@ version = '2.16.0'
 repositories {
 	mavenLocal()
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    maven { url = "https://jitpack.io" }
 }
 
 dependencies {
