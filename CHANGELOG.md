@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.0] (2026-04-23)
+
+- upgraded the public SmartGattLib dependency to `4.0.0`
+- added BLE login support for the temporary 6-symbol color pairing code on unsealed sensors
+- adjusted sealing and BLE login key derivation to the current `KeyGenerator.createKey(String)` signature
+
 ## [2.16.0] (2026-03-24)
 
 - added BLE session authentication for sealed sensors

@@ -107,7 +107,7 @@ public class Login extends AbstractWriteAttribute
         {
             try
             {
-                long generatedKey = KeyGenerator.createKey(password);
+                long generatedKey = createSealingKey(password);
                 initialize(
                     generatedKey,
                     keyExchangeManager.getClientPublicKey(),
@@ -124,6 +124,11 @@ public class Login extends AbstractWriteAttribute
         {
             throw new RuntimeException("login needs encrypted connection");
         }
+    }
+
+    private static long createSealingKey(String password)
+    {
+        return KeyGenerator.createKey(password);
     }
 
     private void initialize(
