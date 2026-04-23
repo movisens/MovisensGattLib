@@ -70,9 +70,9 @@ if (a instanceof MovementAcceleration) {
 }
 ```
 
-### Sealed Sensor Security ###
+### BLE Security For Sealed And Unsealed Sensors ###
 
-If a sensor is sealed, protected BLE characteristics are no longer accessible immediately after connect.
+If a sensor is already sealed, protected BLE characteristics are no longer accessible immediately after connect.
 
 At application level, the mechanism is meant to do two things:
 
@@ -84,24 +84,34 @@ What this means for an application:
 1. Connect to the sensor as usual.
 2. Check whether the sensor is sealed.
 3. Start the secure BLE session.
-4. If the sensor is sealed, ask the user for the sealing password and authenticate the session.
-5. Continue reading and writing protected attributes like before.
+4. If the sensor is already sealed, ask the user for the sealing password and authenticate the session.
+5. If the sensor is not sealed yet, complete the temporary LED pairing-code authentication and then seal the sensor over BLE.
+6. Continue with the normal protected workflow for the current state.
 
 From the user's point of view in an app such as SensorManager, the flow is simply:
 
 - connect to sensor
-- if the sensor is sealed, prompt for password
-- after successful authentication, continue with the normal workflow
+- if the sensor is already sealed, prompt for password
+- if the sensor is not sealed yet, complete the temporary LED pairing-code step before sealing
+- after successful authentication or sealing, continue with the normal workflow
 
 The important point is that application code should establish the secure session once after connect. After that, normal attribute access continues unchanged.
 
-Minimal example (stack-agnostic Java integration example):
+There are two application-level flows after the key exchange:
+
+- Already sealed sensor:
+  authenticate with the persistent sealing password by writing `LOGIN`, then read `AUTH_CONFIRM` and verify it before treating the BLE session as authenticated.
+- Not sealed yet:
+  complete the temporary LED pairing-code verification first, again read and verify `AUTH_CONFIRM`, and only then write `SEAL_SENSOR` with the new persistent sealing password/key.
+
+Minimal example for both cases (stack-agnostic Java integration example):
 
 ```java
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.attributes.AuthConfirm;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
 import com.movisens.movisensgattlib.attributes.Login;
+import com.movisens.movisensgattlib.attributes.SealSensor;
 import com.movisens.movisensgattlib.attributes.SensorSealed;
 import com.movisens.movisensgattlib.attributes.TimeZoneId;
 import com.movisens.movisensgattlib.security.KeyExchangeManager;
@@ -142,10 +152,41 @@ if (sensorSealed.getValue()) {
     if (!login.isAuthConfirmValid(authConfirm.getRawData())) {
         throw new IllegalStateException("sensor auth confirmation does not match the negotiated session");
     }
+} else {
+    // The user must read the current 6-symbol LED pairing code from the sensor.
+    // Digit mapping is: 0=red, 1=green, 2=blue, 3=white, 4=yellow.
+    int[] pairingCodeDigits = readPairingCodeFromUser();
+
+    Login pairingLogin = new Login(cryptoManager, keyExchangeManager, pairingCodeDigits);
+    EnumCommandResult pairingLoginResult = bleConnection.setAttribute(pairingLogin);
+    if (pairingLoginResult != EnumCommandResult.OK) {
+        throw new IllegalStateException("BLE pairing-code login failed: " + pairingLoginResult);
+    }
+
+    AuthConfirm authConfirm = bleConnection.getAttribute(MovisensCharacteristics.AUTH_CONFIRM);
+    if (!pairingLogin.isAuthConfirmValid(authConfirm.getRawData())) {
+        throw new IllegalStateException("sensor auth confirmation does not match the negotiated session");
+    }
+
+    EnumCommandResult sealResult = bleConnection.setAttribute(new SealSensor(cryptoManager, "secret"));
+    if (sealResult != EnumCommandResult.OK) {
+        throw new IllegalStateException("BLE sealing failed: " + sealResult);
+    }
 }
 
 // Protected attributes can now be used normally.
 bleConnection.setAttribute(new TimeZoneId("Europe/Berlin"));
 ```
 
-If you already use one of our existing BLE connection wrappers, transport-level encryption handling is typically already wired in. In that case the application only has to establish the secure session after connect and, for sealed sensors, handle the password prompt and login step.
+For a sensor that is not sealed yet, the flow is different after the key exchange:
+
+1. The sensor starts a temporary 6-symbol LED pairing-code blinker.
+2. The application reads that code from the user.
+3. The application creates `Login` from the pairing-code digits instead of the persistent password.
+4. The application writes `LOGIN`.
+5. The application reads `AUTH_CONFIRM` and verifies it with `login.isAuthConfirmValid(...)`.
+6. Only after that temporary MITM verification succeeds, the application writes `SEAL_SENSOR` with the new persistent sealing password/key.
+
+The temporary pairing-code login uses the same transcript-bound proof format as the sealed-sensor login. A successful temporary pairing proof does not yet mean that the sensor is sealed. It only authorizes the current BLE session to perform the sealing step.
+
+If you already use one of our existing BLE connection wrappers, transport-level encryption handling is typically already wired in. In that case the application only has to establish the secure session after connect and then either handle the sealed-sensor password login or the unsealed-sensor pairing-plus-sealing flow.
