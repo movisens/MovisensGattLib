@@ -18,7 +18,7 @@ public class KeyExchangeManager
     public static final int ATTR_LEN_1 = 20;
     public static final int ATTR_LEN_2 = PUBLIC_KEY_LEN - ATTR_LEN_1;
 
-    public static final int SENSOR_CHALLENGE_LEN = BleMitmProofs.SENSOR_CHALLENGE_LEN;
+    public static final int SENSOR_CHALLENGE_LEN = BleLoginCrypto.SENSOR_CHALLENGE_LEN;
    
     KeyPair keyPair;
     private byte[] localPublicKey;

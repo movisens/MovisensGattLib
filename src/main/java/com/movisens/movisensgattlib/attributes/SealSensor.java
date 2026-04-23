@@ -13,9 +13,9 @@ public class SealSensor extends AbstractWriteAttribute implements PlainTextAttri
 
     public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
 
-    private long[] key;
+    private long key;
 
-    public long[] getKey()
+    public long getKey()
     {
         return key;
     }
@@ -27,7 +27,7 @@ public class SealSensor extends AbstractWriteAttribute implements PlainTextAttri
             this.key = KeyGenerator.createKey(password);
 
             GattByteBuffer bb = GattByteBuffer.allocate(8);
-            bb.putInt64(key[0]);
+            bb.putInt64(key);
             this.data = bb.array();
         }
         else
@@ -45,6 +45,6 @@ public class SealSensor extends AbstractWriteAttribute implements PlainTextAttri
     @Override
     public String toString()
     {
-        return getKey().toString();
+        return Long.toString(getKey());
     }
 }
