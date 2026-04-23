@@ -50,9 +50,10 @@ public class Login extends AbstractWriteAttribute
     /**
      * Creates a BLE login write from the temporary 6-digit LED pairing code.
      *
-     * <p>The pairing code must contain exactly 6 digits and each digit must be in the range {@code 0..4}.
-     * The constructor derives the temporary pairing key from those digits and builds the encrypted
-     * {@code LOGIN} payload for the current key-exchange session.</p>
+     * <p>The pairing code must contain exactly 6 digits and each digit must be in the range
+     * {@code 0..4}. The constructor derives the temporary pairing key from those digits and uses
+     * it to build the {@code LOGIN} proof for the current key-exchange session. The write is sent
+     * over the active encrypted BLE connection managed by {@code cryptoManager}.</p>
      *
      * <p>Color mapping: {@code 0=red}, {@code 1=green}, {@code 2=blue}, {@code 3=white},
      * {@code 4=yellow}.</p>
@@ -90,8 +91,10 @@ public class Login extends AbstractWriteAttribute
     /**
      * Creates a BLE login write from the persistent sealing password.
      *
-     * <p>The password is converted to the sealing key via the normal password-based key derivation
-     * and then used to build the encrypted {@code LOGIN} payload for the current key-exchange session.</p>
+     * <p>The password is converted to the persistent sealing key via the normal password-based key
+     * derivation and that sealing key is then used to build the {@code LOGIN} proof for the
+     * current key-exchange session. The write is sent over the active encrypted BLE connection
+     * managed by {@code cryptoManager}.</p>
      *
      * @param cryptoManager active BLE crypto context; encryption must already be enabled
      * @param keyExchangeManager completed BLE key-exchange context for the current session
