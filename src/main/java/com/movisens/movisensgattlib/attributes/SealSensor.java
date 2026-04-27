@@ -8,7 +8,7 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
 import com.movisens.smartgattlib.security.CryptoManager;
 import com.movisens.smartgattlib.security.KeyGenerator;
 
-public class SealSensor extends AbstractWriteAttribute implements PlainTextAttribute
+public class SealSensor extends AbstractWriteAttribute
 {
 
     public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
