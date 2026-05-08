@@ -80,7 +80,7 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			level[i] = new Double(bb.getUint16());
+			level[i] = (double) bb.getUint16();
 		}
 	}
 

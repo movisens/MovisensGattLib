@@ -103,7 +103,7 @@ public class CharacteristicsTest {
         Double lsbValue = 1.0 / 256; // [g]
         Double acc = 0.75;
         GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
-        gattByteBuffer.putUint16(new Double(acc / lsbValue).intValue());
+        gattByteBuffer.putUint16((int) (acc / lsbValue));
         MovementAcceleration movementAcceleration = new MovementAcceleration(gattByteBuffer.array());
         assertEquals(acc, movementAcceleration.getMovementAcceleration());
     }

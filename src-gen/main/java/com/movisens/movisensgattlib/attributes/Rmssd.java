@@ -26,7 +26,7 @@ public class Rmssd extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		rmssd = new Double(bb.getInt16());
+		rmssd = (double) bb.getInt16();
 	}
 
 	@Override

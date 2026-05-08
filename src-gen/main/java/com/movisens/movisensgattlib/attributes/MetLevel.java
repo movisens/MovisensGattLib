@@ -59,10 +59,10 @@ public class MetLevel extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		sedentary = new Double(bb.getUint8());
-		light = new Double(bb.getUint8());
-		moderate = new Double(bb.getUint8());
-		vigorous = new Double(bb.getUint8());
+		sedentary = (double) bb.getUint8();
+		light = (double) bb.getUint8();
+		moderate = (double) bb.getUint8();
+		vigorous = (double) bb.getUint8();
 	}
 
 	@Override

@@ -80,7 +80,7 @@ public class RmssdBuffered extends AbstractBufferedAttribute<RmssdData>
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			rmssd[i] = new Double(bb.getInt16());
+			rmssd[i] = (double) bb.getInt16();
 		}
 	}
 

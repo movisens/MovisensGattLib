@@ -80,7 +80,7 @@ public class HrMeanBuffered extends AbstractBufferedAttribute<HrMeanData>
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			hrMean[i] = new Double(bb.getInt16());
+			hrMean[i] = (double) bb.getInt16();
 		}
 	}
 

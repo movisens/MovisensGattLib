@@ -119,10 +119,10 @@ public class MetLevelBuffered extends AbstractBufferedAttribute<MetLevelData>
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			sedentary[i] = new Double(bb.getUint8());
-			light[i] = new Double(bb.getUint8());
-			moderate[i] = new Double(bb.getUint8());
-			vigorous[i] = new Double(bb.getUint8());
+			sedentary[i] = (double) bb.getUint8();
+			light[i] = (double) bb.getUint8();
+			moderate[i] = (double) bb.getUint8();
+			vigorous[i] = (double) bb.getUint8();
 		}
 	}
 

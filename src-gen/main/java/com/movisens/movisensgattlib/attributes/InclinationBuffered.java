@@ -106,9 +106,9 @@ public class InclinationBuffered extends AbstractBufferedAttribute<InclinationDa
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			x[i] = new Double(bb.getUint8());
-			y[i] = new Double(bb.getUint8());
-			z[i] = new Double(bb.getUint8());
+			x[i] = (double) bb.getUint8();
+			y[i] = (double) bb.getUint8();
+			z[i] = (double) bb.getUint8();
 		}
 	}
 

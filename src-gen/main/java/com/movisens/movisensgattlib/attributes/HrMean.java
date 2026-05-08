@@ -26,7 +26,7 @@ public class HrMean extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		hrMean = new Double(bb.getInt16());
+		hrMean = (double) bb.getInt16();
 	}
 
 	@Override

@@ -57,6 +57,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<LightRgbWaiting> LIGHT_RGB_WAITING = new Characteristic<LightRgbWaiting>("c758f5a6-516d-4125-b8de-ae3ebcabeabc", "Light RGB waiting", LightRgbWaiting.class);
 	public static final Characteristic<LightWaiting> LIGHT_WAITING = new Characteristic<LightWaiting>("d166790b-9531-44fd-8314-14f303280de1", "Light Waiting", LightWaiting.class);
 	public static final Characteristic<Login> LOGIN = new Characteristic<Login>("aa040e1b-5b57-486f-afd9-d4edc48a2f1e", "Login", Login.class);
+	@SuppressWarnings("deprecation")
 	public static final Characteristic<MeasurementEnabled> MEASUREMENT_ENABLED = new Characteristic<MeasurementEnabled>("f89edec7-f7e0-94f2-747d-ee7acaa6d412", "Measurement Enabled", MeasurementEnabled.class);
 	public static final Characteristic<MeasurementStartTime> MEASUREMENT_START_TIME = new Characteristic<MeasurementStartTime>("2d81487d-08f7-47e1-a060-0659d9b4b766", "Measurement Start Time", MeasurementStartTime.class);
 	public static final Characteristic<MeasurementStatus> MEASUREMENT_STATUS = new Characteristic<MeasurementStatus>("66f1e70e-54ab-489c-8f5d-0008b67553c7", "Measurement Status", MeasurementStatus.class);

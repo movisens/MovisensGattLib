@@ -48,9 +48,9 @@ public class Inclination extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		x = new Double(bb.getUint8());
-		y = new Double(bb.getUint8());
-		z = new Double(bb.getUint8());
+		x = (double) bb.getUint8();
+		y = (double) bb.getUint8();
+		z = (double) bb.getUint8();
 	}
 
 	@Override

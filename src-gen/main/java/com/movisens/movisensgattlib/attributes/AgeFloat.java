@@ -42,7 +42,7 @@ public class AgeFloat extends AbstractReadWriteAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		age = new Double(bb.getFloat32());
+		age = (double) bb.getFloat32();
 	}
 
 	@Override

@@ -80,7 +80,7 @@ public class BatteryLevelBuffered extends AbstractBufferedAttribute<BatteryLevel
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			level[i] = new Double(bb.getUint8());
+			level[i] = (double) bb.getUint8();
 		}
 	}
 
