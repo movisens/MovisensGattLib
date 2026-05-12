@@ -11,7 +11,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-version = '3.0.0'
+def releaseVersionOverride = providers.gradleProperty('releaseVersion').orNull
+version = releaseVersionOverride ?: '3.0.0'
 
 repositories {
 	mavenLocal()
