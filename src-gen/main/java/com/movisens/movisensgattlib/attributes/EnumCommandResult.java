@@ -18,7 +18,15 @@ public enum EnumCommandResult
 	ACCESS_DENIED                 ((short)13, "ACCESS_DENIED"),
 	EVALUATION_PERIOD_EXPIRED     ((short)14, "EVALUATION_PERIOD_EXPIRED"),
 	KEY_EXCHANGE_FAILED           ((short)15, "KEY_EXCHANGE_FAILED"),
-	INVALID                       ((short)16, "invalid");
+	NOT_IMPLEMENTED               ((short)16, "NOT_IMPLEMENTED"),
+	UNSUPPORTED_SECURITY_VERSION  ((short)17, "UNSUPPORTED_SECURITY_VERSION"),
+	INVALID_PAKE_STATE            ((short)18, "INVALID_PAKE_STATE"),
+	INVALID_POINT                 ((short)19, "INVALID_POINT"),
+	INVALID_TRANSCRIPT            ((short)20, "INVALID_TRANSCRIPT"),
+	KEY_CONFIRMATION_FAILED       ((short)21, "KEY_CONFIRMATION_FAILED"),
+	WRONG_CODE                    ((short)22, "WRONG_CODE"),
+	RETRY_REQUIRED_NEW_SESSION    ((short)23, "RETRY_REQUIRED_NEW_SESSION"),
+	INVALID                       ((short)24, "invalid");
 
 	private final short value;
 	private final String name;
@@ -75,6 +83,22 @@ public enum EnumCommandResult
 				return EnumCommandResult.EVALUATION_PERIOD_EXPIRED;
 			case 15:
 				return EnumCommandResult.KEY_EXCHANGE_FAILED;
+			case 16:
+				return EnumCommandResult.NOT_IMPLEMENTED;
+			case 17:
+				return EnumCommandResult.UNSUPPORTED_SECURITY_VERSION;
+			case 18:
+				return EnumCommandResult.INVALID_PAKE_STATE;
+			case 19:
+				return EnumCommandResult.INVALID_POINT;
+			case 20:
+				return EnumCommandResult.INVALID_TRANSCRIPT;
+			case 21:
+				return EnumCommandResult.KEY_CONFIRMATION_FAILED;
+			case 22:
+				return EnumCommandResult.WRONG_CODE;
+			case 23:
+				return EnumCommandResult.RETRY_REQUIRED_NEW_SESSION;
 			default:
 				return EnumCommandResult.INVALID;
 		}
