@@ -13,6 +13,8 @@ import com.movisens.movisensgattlib.security.KeyExchangeManager;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.security.CryptoManager;
 
+// Login ist @Deprecated; LoginTest deckt den Altpfad ab, bis Login mit dem Altpfad gelöscht wird.
+@SuppressWarnings("deprecation")
 public class LoginTest
 {
 

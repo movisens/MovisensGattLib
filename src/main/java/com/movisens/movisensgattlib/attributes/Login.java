@@ -12,6 +12,15 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.security.CryptoManager;
 import com.movisens.smartgattlib.security.KeyGenerator;
 
+/**
+ * Teil des alten ECDH-Schlüsselaustausch-/HMAC-Login-Protokolls
+ * ({@code KeyExchangeManager} + {@code Login} + {@code AUTH_CONFIRM}). Ersetzt durch den
+ * balanced-SPAKE2-Handshake ({@link com.movisens.movisensgattlib.security.SpakeManager}),
+ * dessen Key-Confirmation die separate Login-Prüfung übernimmt. Die Konstruktoren sind
+ * {@code @Deprecated}; die Klasse wird mit dem Altpfad entfernt. (Die Annotation sitzt auf
+ * den Konstruktoren, nicht auf der Klasse, damit die generierte {@code MovisensCharacteristics}
+ * den Typ {@code Login} ohne Deprecation-Warning referenzieren kann.)
+ */
 public class Login extends AbstractWriteAttribute
 {
 
@@ -62,7 +71,10 @@ public class Login extends AbstractWriteAttribute
      * @param keyExchangeManager completed BLE key-exchange context for the current session
      * @param pairingCodeDigits pairing color code as 6 digits in the range {@code 0..4}
      * @throws RuntimeException if encryption is not enabled or the login proof cannot be created
+     * @deprecated Altpfad — durch den SPAKE2-Handshake
+     *             ({@link com.movisens.movisensgattlib.security.SpakeManager}) ersetzt.
      */
+    @Deprecated
     public Login(CryptoManager cryptoManager, KeyExchangeManager keyExchangeManager, int[] pairingCodeDigits)
     {
         if (cryptoManager.encryptionEnabled())
@@ -100,7 +112,10 @@ public class Login extends AbstractWriteAttribute
      * @param keyExchangeManager completed BLE key-exchange context for the current session
      * @param password persistent sealing password
      * @throws RuntimeException if encryption is not enabled or the login proof cannot be created
+     * @deprecated Altpfad — durch den SPAKE2-Handshake
+     *             ({@link com.movisens.movisensgattlib.security.SpakeManager}) ersetzt.
      */
+    @Deprecated
     public Login(CryptoManager cryptoManager, KeyExchangeManager keyExchangeManager, String password)
     {
         if (cryptoManager.encryptionEnabled())
