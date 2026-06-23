@@ -8,9 +8,9 @@ import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 
 /**
- * Balanced-SPAKE2 counterpart of {@link KeyExchangeManager}: a flat,
+ * Balanced-SPAKE2 counterpart of the removed legacy {@code KeyExchangeManager}: a flat,
  * attribute-array facade over {@link SpakePairingClient} for callers that drive a
- * GATT session the {@code KeyExchangeManager} way — the request attributes to write
+ * GATT session the old key-exchange way — the request attributes to write
  * are returned by the corresponding methods, and the responses are handed back in as
  * the {@link AbstractReadAttribute} instances that were read.
  *

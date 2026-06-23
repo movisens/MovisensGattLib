@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'java-test-fixtures'
 apply plugin: 'maven-publish'
 
 compileJava.options.encoding = 'UTF-8'

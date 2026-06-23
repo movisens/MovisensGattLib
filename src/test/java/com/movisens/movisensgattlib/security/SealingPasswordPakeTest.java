@@ -89,7 +89,9 @@ public class SealingPasswordPakeTest
     {
         // Same identities, two different secrets (colour code vs sealing password)
         // must yield independent session keys — the two PAKE runs are not linkable.
-        byte[] colourCode = {0, 1, 2, 2, 4, 3};
+        byte[] colourCode = PairingColour.toSecret(java.util.Arrays.asList(
+            PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
+            PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE));
         byte[] sealingPassword = password("Tr0ub4dor&3");
 
         byte[] onboardingKey = run(colourCode);

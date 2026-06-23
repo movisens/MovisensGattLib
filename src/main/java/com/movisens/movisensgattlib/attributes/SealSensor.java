@@ -1,5 +1,7 @@
 package com.movisens.movisensgattlib.attributes;
 
+import java.security.GeneralSecurityException;
+
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
@@ -20,11 +22,24 @@ public class SealSensor extends AbstractWriteAttribute
         return key;
     }
 
-    public SealSensor(CryptoManager cryptoManager, String password)
+    /**
+     * @param cryptoManager active BLE crypto context; encryption must already be enabled
+     * @param password      the sealing password
+     * @param serial        the sensor serial number; the PBKDF2 salt, so the same
+     *                      {@code (password, serial)} yields the same key on USB and BLE
+     */
+    public SealSensor(CryptoManager cryptoManager, String password, String serial)
     {
         if (cryptoManager.encryptionEnabled())
         {
-            this.key = KeyGenerator.createKey(password);
+            try
+            {
+                this.key = KeyGenerator.createKey(password, serial);
+            }
+            catch (GeneralSecurityException e)
+            {
+                throw new RuntimeException("failed to derive sealing key", e);
+            }
 
             GattByteBuffer bb = GattByteBuffer.allocate(8);
             bb.putInt64(key);

@@ -33,9 +33,12 @@ import com.movisens.smartgattlib.security.CryptoManager;
  */
 public class SpakeManagerBleSchemeTest
 {
-    private static final byte[] CLIENT_ID = "client".getBytes(StandardCharsets.US_ASCII);
+    private static final byte[] CLIENT_ID = SpakeIdentities.clientId();
     private static final byte[] SEALING_PASSWORD = "Tr0ub4dor&3".getBytes(StandardCharsets.US_ASCII);
-    private static final byte[] COLOUR_CODE = {0, 1, 2, 2, 4, 3}; // 6-symbol LED code
+    // 6-symbol LED code, encoded one byte per colour (PairingColour values 1..3 = red/green/blue).
+    private static final byte[] COLOUR_CODE = PairingColour.toSecret(Arrays.asList(
+        PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
+        PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE));
     private static final String ADVERTISED_NAME = "movisens Sensor 1234567890";
 
     private final SecureRandom rng = new SecureRandom();
