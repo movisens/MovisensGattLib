@@ -11,7 +11,7 @@ import java.security.SecureRandom;
  * <p>The mock holds the "blinked" colour code and runs the sensor side of the
  * handshake with {@link Spake2Role}.</p>
  */
-final class MockSpake2Sensor
+final class MockedSpakeSensor
 {
     /** GATT characteristics that form the wire interface (map to {@code pake_*}). */
     enum Attr
@@ -26,7 +26,7 @@ final class MockSpake2Sensor
     private byte[] sensorShare;
     private boolean clientConfirmed;
 
-    MockSpake2Sensor(byte[] colourCode, byte[] idA, byte[] idB, SecureRandom rng) throws GeneralSecurityException
+    MockedSpakeSensor(byte[] colourCode, byte[] idA, byte[] idB, SecureRandom rng) throws GeneralSecurityException
     {
         // The sensor is party A (uses M); the app/client is party B.
         this.role = Spake2Role.forColourCode(Spake2Role.Role.A, idA, idB, colourCode, rng);

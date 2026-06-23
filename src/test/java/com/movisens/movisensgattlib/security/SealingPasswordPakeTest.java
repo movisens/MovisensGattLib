@@ -9,7 +9,7 @@ import java.security.SecureRandom;
 
 import org.junit.Test;
 
-import com.movisens.movisensgattlib.security.MockSpake2Sensor.Attr;
+import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
 
 /**
  * Exercises the second PAKE use case from the sealing design: the same
@@ -42,7 +42,7 @@ public class SealingPasswordPakeTest
         byte[] sealingPassword = password("Tr0ub4dor&3");
 
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, sealingPassword, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(sealingPassword, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(sealingPassword, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));
@@ -57,7 +57,7 @@ public class SealingPasswordPakeTest
     public void wrongSealingPasswordIsRejectedAndKeyIsWithheld() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, password("correct horse"), rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(password("wrong horse"), SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(password("wrong horse"), SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));
@@ -106,7 +106,7 @@ public class SealingPasswordPakeTest
     private byte[] run(byte[] secret) throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, secret, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(secret, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(secret, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));

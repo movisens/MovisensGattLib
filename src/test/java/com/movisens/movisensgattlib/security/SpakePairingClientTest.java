@@ -14,11 +14,11 @@ import com.movisens.movisensgattlib.attributes.PakeSensorConfirm1;
 import com.movisens.movisensgattlib.attributes.PakeSensorConfirm2;
 import com.movisens.movisensgattlib.attributes.PakeSensorShare1;
 import com.movisens.movisensgattlib.attributes.PakeSensorShare2;
-import com.movisens.movisensgattlib.security.MockSpake2Sensor.Attr;
+import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
 
 /**
  * Drives the production-facing {@link SpakePairingClient} through the full pairing
- * against {@link MockSpake2Sensor}. The only coupling is the GATT attribute interface.
+ * against {@link MockedSpakeSensor}. The only coupling is the GATT attribute interface.
  */
 public class SpakePairingClientTest
 {
@@ -33,7 +33,7 @@ public class SpakePairingClientTest
     public void pairsWithCorrectCode() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(CODE, SENSOR_ID, CLIENT_ID, rng);
 
         byte[] clientShare = client.clientShare();
         sensor.write(Attr.CLIENT_SHARE, clientShare);
@@ -55,7 +55,7 @@ public class SpakePairingClientTest
     public void pairsViaTypedAttributeObjects() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(CODE, SENSOR_ID, CLIENT_ID, rng);
 
         byte[] cs1 = client.clientShare1().getRawData();
         byte[] cs2 = client.clientShare2().getRawData();
@@ -92,7 +92,7 @@ public class SpakePairingClientTest
     public void tamperedSensorShareIsRejected() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(CODE, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         byte[] sensorShare = sensor.read(Attr.SENSOR_SHARE);
@@ -112,7 +112,7 @@ public class SpakePairingClientTest
     public void sensorWithholdsConfirmBeforeClientConfirm() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(CODE, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));
@@ -131,7 +131,7 @@ public class SpakePairingClientTest
     public void wrongCodeIsRejectedAndKeyIsWithheld() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(WRONG_CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(WRONG_CODE, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));
@@ -162,7 +162,7 @@ public class SpakePairingClientTest
     public void secondSensorShareAfterVerificationIsRejected() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
-        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(CODE, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         byte[] sensorShare = sensor.read(Attr.SENSOR_SHARE);
