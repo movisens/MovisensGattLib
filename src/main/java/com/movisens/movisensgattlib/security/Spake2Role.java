@@ -12,9 +12,10 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * One side of a SPAKE2 handshake (non-augmented, RFC 9382, ciphersuite
+ * Package-private low-level side of a SPAKE2 handshake (non-augmented, RFC 9382, ciphersuite
  * P256-SHA256-HKDF-HMAC). The same class drives both parties; party {@code A}
- * uses the seed point M, party {@code B} uses N.
+ * uses the seed point M, party {@code B} uses N. Production callers should use
+ * {@link SpakePairingClient}, which enforces the GATT state machine and key-confirmation gate.
  *
  * <p>Follows RFC 9382 exactly so the implementation is anchored by the Appendix B
  * test vectors (see {@code Spake2Rfc9382VectorTest}):</p>
@@ -29,10 +30,10 @@ import javax.crypto.spec.SecretKeySpec;
  * <p>BouncyCastle-free (uses {@link P256} + JCE HMAC). The point arithmetic is not
  * constant-time; acceptable on the smartphone side.</p>
  */
-public final class Spake2Role
+final class Spake2Role
 {
     /** A uses M, B uses N (RFC 9382 role assignment). */
-    public enum Role
+    enum Role
     {
         A, B
     }
@@ -56,28 +57,38 @@ public final class Spake2Role
     private byte[] sessionKey;
     private byte[] ownConfirmKey;
     private byte[] peerConfirmKey;
+    private boolean peerConfirmed;
 
     /** Constructs a role with the password integer {@code w} given directly (RFC vectors). */
-    public Spake2Role(Role role, byte[] idA, byte[] idB, BigInteger w, SecureRandom rng)
+    Spake2Role(Role role, byte[] idA, byte[] idB, BigInteger w, SecureRandom rng) throws GeneralSecurityException
     {
+        if (role == null || idA == null || idB == null || w == null || rng == null)
+        {
+            throw new PakeException("INVALID_PAKE_STATE: role inputs must not be null");
+        }
+        BigInteger reducedW = w.mod(P256.N);
+        if (reducedW.signum() == 0)
+        {
+            throw new PakeException("INVALID_SCALAR: w must not be zero");
+        }
         this.role = role;
         this.idA = idA.clone();
         this.idB = idB.clone();
-        this.w = w.mod(P256.N);
+        this.w = reducedW;
         this.ownMask = role == Role.A ? P256.M : P256.N_POINT;
         this.peerMask = role == Role.A ? P256.N_POINT : P256.M;
         this.rng = rng;
     }
 
     /** Convenience for the colour-code pairing: {@code w = SHA-256(code) mod n}. */
-    public static Spake2Role forColourCode(Role role, byte[] idA, byte[] idB, byte[] code, SecureRandom rng)
+    static Spake2Role forColourCode(Role role, byte[] idA, byte[] idB, byte[] code, SecureRandom rng)
         throws GeneralSecurityException
     {
         return new Spake2Role(role, idA, idB, P256.hashToScalar(code), rng);
     }
 
     /** Computes this side's share with a fresh random scalar. */
-    public byte[] createShare() throws GeneralSecurityException
+    byte[] createShare() throws GeneralSecurityException
     {
         return createShareWithScalar(randomScalar());
     }
@@ -85,20 +96,30 @@ public final class Spake2Role
     /** Computes this side's share with a caller-supplied scalar (test/KAT use only). */
     byte[] createShareWithScalar(BigInteger scalar) throws GeneralSecurityException
     {
+        clearExchangeState();
+        if (scalar == null)
+        {
+            throw new PakeException("INVALID_SCALAR: ephemeral must not be null");
+        }
         ephemeral = scalar.mod(P256.N);
+        if (ephemeral.signum() == 0)
+        {
+            throw new PakeException("INVALID_SCALAR: ephemeral must not be zero");
+        }
         ECPoint share = P256.add(P256.scalarMul(ephemeral, P256.G), P256.scalarMul(w, ownMask));
         ownShare = P256.encode(share);
         return ownShare.clone();
     }
 
     /** Consumes the peer share, derives {@code K} and the session/confirmation keys. */
-    public void setPeerShare(byte[] peerShareEncoded) throws GeneralSecurityException
+    void setPeerShare(byte[] peerShareEncoded) throws GeneralSecurityException
     {
         if (ownShare == null)
         {
             throw new PakeException("INVALID_PAKE_STATE: createShare() must run first");
         }
 
+        clearDerivedState();
         ECPoint peerPoint = P256.decode(peerShareEncoded); // validates on-curve / not infinity
         ECPoint unmasked = P256.add(peerPoint, P256.negate(P256.scalarMul(w, peerMask)));
         ECPoint k = P256.scalarMul(ephemeral, unmasked); // cofactor 1 on P-256
@@ -112,23 +133,32 @@ public final class Spake2Role
     }
 
     /** This side's confirmation MAC: {@code cA} for role A, {@code cB} for role B. */
-    public byte[] ownConfirm()
+    byte[] ownConfirm()
     {
         requireKeys();
         return hmac(ownConfirmKey, transcript);
     }
 
     /** Verifies the peer's confirmation MAC in constant time. */
-    public boolean verifyPeerConfirm(byte[] peerConfirm)
+    boolean verifyPeerConfirm(byte[] peerConfirm)
     {
         requireKeys();
-        return MessageDigest.isEqual(hmac(peerConfirmKey, transcript), peerConfirm);
+        boolean ok = peerConfirm != null && MessageDigest.isEqual(hmac(peerConfirmKey, transcript), peerConfirm);
+        if (ok)
+        {
+            peerConfirmed = true;
+        }
+        return ok;
     }
 
     /** The negotiated 16-byte AES session key {@code Ke}. */
-    public byte[] sessionKey()
+    byte[] sessionKey()
     {
         requireKeys();
+        if (!peerConfirmed)
+        {
+            throw new IllegalStateException("session key requested before peer confirmation verified");
+        }
         return sessionKey.clone();
     }
 
@@ -193,6 +223,23 @@ public final class Spake2Role
         {
             throw new IllegalStateException("keys not derived yet; call setPeerShare() first");
         }
+    }
+
+    private void clearExchangeState()
+    {
+        ephemeral = null;
+        ownShare = null;
+        clearDerivedState();
+    }
+
+    private void clearDerivedState()
+    {
+        transcript = null;
+        sharedPoint = null;
+        sessionKey = null;
+        ownConfirmKey = null;
+        peerConfirmKey = null;
+        peerConfirmed = false;
     }
 
     /** HKDF-SHA256 with output length <= 32 (single expand block). salt=nil -> zero-filled. */

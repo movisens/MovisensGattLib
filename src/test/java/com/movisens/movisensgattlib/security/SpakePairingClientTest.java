@@ -159,6 +159,32 @@ public class SpakePairingClientTest
     }
 
     @Test
+    public void secondSensorShareAfterVerificationIsRejected() throws Exception
+    {
+        SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);
+        MockSpake2Sensor sensor = new MockSpake2Sensor(CODE, SENSOR_ID, CLIENT_ID, rng);
+
+        sensor.write(Attr.CLIENT_SHARE, client.clientShare());
+        byte[] sensorShare = sensor.read(Attr.SENSOR_SHARE);
+        client.setSensorShare(sensorShare);
+        sensor.write(Attr.CLIENT_CONFIRM, client.clientConfirm());
+        client.verifySensorConfirm(sensor.read(Attr.SENSOR_CONFIRM));
+        byte[] verifiedKey = client.sessionKey();
+
+        try
+        {
+            client.setSensorShare(sensorShare);
+            fail("verified client must reject a second sensor share");
+        }
+        catch (PakeException expected)
+        {
+            assertEquals("INVALID_PAKE_STATE: sensor share already consumed", expected.getMessage());
+        }
+
+        assertArrayEquals(verifiedKey, client.sessionKey());
+    }
+
+    @Test
     public void confirmBeforeSensorShareIsRejected() throws Exception
     {
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, CODE, rng);

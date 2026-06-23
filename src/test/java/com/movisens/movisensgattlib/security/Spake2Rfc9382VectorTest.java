@@ -2,6 +2,7 @@ package com.movisens.movisensgattlib.security;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -53,13 +54,48 @@ public class Spake2Rfc9382VectorTest
 
         assertArrayEquals("K (A)", hex(K), a.sharedSecretPoint());
         assertArrayEquals("K (B)", hex(K), b.sharedSecretPoint());
-        assertArrayEquals("Ke (A)", hex(KE), a.sessionKey());
-        assertArrayEquals("Ke (B)", hex(KE), b.sessionKey());
+
+        try
+        {
+            a.sessionKey();
+            fail("session key must be withheld until peer confirmation succeeds");
+        }
+        catch (IllegalStateException expected)
+        {
+        }
+
         assertArrayEquals("cA", hex(CA), a.ownConfirm());
         assertArrayEquals("cB", hex(CB), b.ownConfirm());
 
         assertTrue(a.verifyPeerConfirm(b.ownConfirm()));
         assertTrue(b.verifyPeerConfirm(a.ownConfirm()));
+        assertArrayEquals("Ke (A)", hex(KE), a.sessionKey());
+        assertArrayEquals("Ke (B)", hex(KE), b.sessionKey());
+    }
+
+    @Test
+    public void rejectsZeroPasswordAndEphemeralScalars() throws Exception
+    {
+        SecureRandom rng = new SecureRandom();
+
+        try
+        {
+            new Spake2Role(Spake2Role.Role.A, ID_A, ID_B, BigInteger.ZERO, rng);
+            fail("zero password scalar must be rejected");
+        }
+        catch (PakeException expected)
+        {
+        }
+
+        Spake2Role role = new Spake2Role(Spake2Role.Role.A, ID_A, ID_B, BigInteger.ONE, rng);
+        try
+        {
+            role.createShareWithScalar(BigInteger.ZERO);
+            fail("zero ephemeral scalar must be rejected");
+        }
+        catch (PakeException expected)
+        {
+        }
     }
 
     private static byte[] hex(String value)

@@ -79,6 +79,10 @@ public final class SpakePairingClient
         {
             throw new PakeException("INVALID_PAKE_STATE: clientShare() must be sent first");
         }
+        if (sensorShareConsumed)
+        {
+            throw new PakeException("INVALID_PAKE_STATE: sensor share already consumed");
+        }
         role.setPeerShare(P256.decompress(sensorShare));
         sensorShareConsumed = true;
     }
