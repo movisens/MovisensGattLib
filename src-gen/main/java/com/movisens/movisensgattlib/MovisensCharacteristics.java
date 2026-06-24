@@ -74,6 +74,7 @@ public class MovisensCharacteristics
 	public static final Characteristic<PakeSensorConfirm2> PAKE_SENSOR_CONFIRM_2 = new Characteristic<PakeSensorConfirm2>("29d34971-15a8-441f-af3d-a78621cdac49", "Pake Sensor Confirm 2", PakeSensorConfirm2.class);
 	public static final Characteristic<PakeSensorShare1> PAKE_SENSOR_SHARE_1 = new Characteristic<PakeSensorShare1>("e44e24fb-a2c1-40ab-acaf-4e91bf5c74f8", "Pake Sensor Share 1", PakeSensorShare1.class);
 	public static final Characteristic<PakeSensorShare2> PAKE_SENSOR_SHARE_2 = new Characteristic<PakeSensorShare2>("bde1750c-976a-490f-a6a6-55527afe5a8d", "Pake Sensor Share 2", PakeSensorShare2.class);
+	public static final Characteristic<PakeStart> PAKE_START = new Characteristic<PakeStart>("1ca6f840-d6f8-4c5e-a66a-0d0d8e53b6e1", "Pake Start", PakeStart.class);
 	public static final Characteristic<RespiratoryMovement> RESPIRATORY_MOVEMENT = new Characteristic<RespiratoryMovement>("aaabeb9a-abed-4a17-a764-0aaf0ac808fe", "Respiratory Movement", RespiratoryMovement.class);
 	public static final Characteristic<Rmssd> RMSSD = new Characteristic<Rmssd>("f89edec1-9fea-e145-f614-8ff69aa7da66", "Rmssd", Rmssd.class);
 	public static final BufferedCharacteristic<RmssdBuffered, RmssdData> RMSSD_BUFFERED = new BufferedCharacteristic<RmssdBuffered, RmssdData>("1bc36d57-595b-499e-8f2a-fa2275bcabc3", "Rmssd Buffered", 5, RmssdBuffered.class);
@@ -180,6 +181,7 @@ public class MovisensCharacteristics
 		characteristics.put(PAKE_SENSOR_CONFIRM_2);
 		characteristics.put(PAKE_SENSOR_SHARE_1);
 		characteristics.put(PAKE_SENSOR_SHARE_2);
+		characteristics.put(PAKE_START);
 		characteristics.put(RESPIRATORY_MOVEMENT);
 		characteristics.put(RMSSD);
 		characteristics.put(RMSSD_BUFFERED);

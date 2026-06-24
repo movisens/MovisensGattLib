@@ -3,15 +3,16 @@ package com.movisens.movisensgattlib.security;
 import java.security.GeneralSecurityException;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.attributes.PakeStart;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
 import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 
 /**
  * Drives the balanced-SPAKE2 handshake over a {@link SpakeGattConnection} and returns the
- * negotiated AES session key. This is the one place that performs the two write/read round
- * trips described by {@link SpakeManager}; the threaded tests and the GUI used to duplicate
- * this sequence.
+ * negotiated AES session key. This is the one place that performs the explicit PAKE start plus
+ * the two write/read round trips described by {@link SpakeManager}; the threaded tests and the
+ * GUI used to duplicate this sequence.
  *
  * <p>The handshake's key confirmation <em>is</em> the authentication — there is no separate
  * login step. The session key is only returned after the sensor confirmation has verified
@@ -26,8 +27,15 @@ public final class SpakeSession
     {
     }
 
+    /** Starts a fresh sensor-side PAKE session (blink colour code on unsealed sensors, arm sealed login). */
+    public static void start(SpakeGattConnection connection) throws GeneralSecurityException
+    {
+        requireOk(connection.setAttribute(new PakeStart(Boolean.TRUE)));
+    }
+
     /**
-     * Runs the full handshake and returns the 16-byte AES session key.
+     * Starts a fresh PAKE session on the sensor, runs the full handshake and returns the 16-byte
+     * AES session key.
      *
      * @param connection   the GATT read/write seam to drive
      * @param sensorId     SPAKE2 party A identity (sensor serial bytes from the advertised name)
@@ -39,6 +47,19 @@ public final class SpakeSession
      */
     public static byte[] run(SpakeGattConnection connection, byte[] sensorId, byte[] clientId, byte[] sharedSecret)
         throws GeneralSecurityException
+    {
+        start(connection);
+        return runExistingSession(connection, sensorId, clientId, sharedSecret);
+    }
+
+    /**
+     * Continues a PAKE session that was already started explicitly via {@link #start(SpakeGattConnection)}.
+     * This is used by onboarding UIs that must first trigger the sensor to blink the colour code,
+     * wait for the user to read it, and only then send the SPAKE shares.
+     */
+    public static byte[] runExistingSession(
+        SpakeGattConnection connection, byte[] sensorId, byte[] clientId, byte[] sharedSecret
+    ) throws GeneralSecurityException
     {
         SpakeManager manager = new SpakeManager(sensorId, clientId, sharedSecret);
 

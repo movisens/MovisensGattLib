@@ -57,6 +57,7 @@ public final class SpakeSensorEmulator
     // Per-PAKE-session state.
     private MockedSpakeSensor session;
     private boolean clientConfirmed;
+    private boolean sessionStarted;
 
     public SpakeSensorEmulator(byte[] secret, byte[] sensorId, byte[] clientId, boolean sealed,
                                SecureRandom rng, SensorClock clock)
@@ -87,7 +88,23 @@ public final class SpakeSensorEmulator
     }
 
     /**
-     * Begins a new PAKE session from the client share. Returns OK, or the active
+     * Explicitly starts a new PAKE session. Returns OK, or the active {@code PAKE_RATE_LIMITED_*}
+     * code if a lockout is in effect.
+     */
+    public EnumCommandResult startPairing()
+    {
+        if (isLockedOut())
+        {
+            return activeLockoutCode();
+        }
+        session = null;
+        clientConfirmed = false;
+        sessionStarted = true;
+        return EnumCommandResult.OK;
+    }
+
+    /**
+     * Begins the active PAKE session from the client share. Returns OK, or the active
      * {@code PAKE_RATE_LIMITED_*} code if a lockout is in effect.
      */
     public EnumCommandResult onClientShare(byte[] clientShare) throws GeneralSecurityException
@@ -95,6 +112,10 @@ public final class SpakeSensorEmulator
         if (isLockedOut())
         {
             return activeLockoutCode();
+        }
+        if (!sessionStarted)
+        {
+            return EnumCommandResult.INVALID_PAKE_STATE;
         }
         // Fresh session: a new role each time so a previous (failed) attempt cannot be resumed.
         session = new MockedSpakeSensor(secret, sensorId, clientId, rng);

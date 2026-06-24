@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
+import com.movisens.movisensgattlib.attributes.PakeStart;
 import com.movisens.movisensgattlib.attributes.SealSensor;
 import com.movisens.movisensgattlib.attributes.UnsealSensor;
 import com.movisens.smartgattlib.helper.AbstractAttribute;
@@ -67,6 +68,10 @@ public final class MockSpakeBleConnection implements SpakeGattConnection
         Characteristic<?> characteristic = attribute.getCharacteristic();
         byte[] raw = attribute.getRawData();
 
+        if (characteristic == MovisensCharacteristics.PAKE_START || attribute instanceof PakeStart)
+        {
+            return record(emulator.startPairing());
+        }
         if (characteristic == MovisensCharacteristics.PAKE_CLIENT_SHARE_1)
         {
             pendingClientShare1 = raw;
