@@ -86,7 +86,7 @@ public class SpakeSessionEmulatorTest
     }
 
     @Test
-    public void rateLimitLocksAfterAFailureAndReleasesWhenTheClockAdvances() throws Exception
+    public void rateLimitLocksAfterThreeFailuresAndReleasesWhenTheClockAdvances() throws Exception
     {
         byte[] emulatorSecret = sealingSecret("correct horse");
         byte[] wrong = sealingSecret("wrong horse");
@@ -94,14 +94,16 @@ public class SpakeSessionEmulatorTest
         SensorClock.Mutable clock = new SensorClock.Mutable();
         SpakeSensorEmulator emulator = emulator(emulatorSecret, true, clock);
 
-        // One wrong attempt -> KEY_CONFIRMATION_FAILED, then a 60-min lockout is armed.
+        // The first two wrong attempts are counted but grant free retries: no lockout yet.
+        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+        // The 3rd wrong attempt arms the 60-min lockout.
         expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
 
         // While locked, even the correct secret is refused with the tier's rate-limit code.
         expectFailure(emulator, right, EnumCommandResult.PAKE_RATE_LIMITED_60_MIN);
 
-        // After the lockout expires the correct secret succeeds (counter not reset by expiry,
-        // but a success resets it).
+        // After the lockout expires the correct secret succeeds (a success resets the counter).
         clock.advance(60L * 60_000 + 1);
         MockSpakeBleConnection connection = new MockSpakeBleConnection(emulator, ADVERTISED_NAME);
         byte[] aesKey = SpakeSession.run(connection, connection.getSensorSerial(), CLIENT_ID, right);
@@ -116,30 +118,32 @@ public class SpakeSessionEmulatorTest
         SensorClock.Mutable clock = new SensorClock.Mutable();
         SpakeSensorEmulator emulator = emulator(secret, true, clock);
 
-        EnumCommandResult[] expectedTierAfterFailure = {
-            EnumCommandResult.PAKE_RATE_LIMITED_60_MIN, // failure 1 (tier 1-3)
-            EnumCommandResult.PAKE_RATE_LIMITED_60_MIN, // failure 2
-            EnumCommandResult.PAKE_RATE_LIMITED_60_MIN, // failure 3
-            EnumCommandResult.PAKE_RATE_LIMITED_2_H,    // failure 4 (tier 4-6)
-            EnumCommandResult.PAKE_RATE_LIMITED_4_H     // failure 7 boundary checked below
+        // Each tier is armed by the 3rd failure of its block (two free retries precede it); the
+        // 24-h cap then repeats for every further block of 3 failures.
+        EnumCommandResult[] tierCode = {
+            EnumCommandResult.PAKE_RATE_LIMITED_60_MIN,
+            EnumCommandResult.PAKE_RATE_LIMITED_2_H,
+            EnumCommandResult.PAKE_RATE_LIMITED_4_H,
+            EnumCommandResult.PAKE_RATE_LIMITED_8_H,
+            EnumCommandResult.PAKE_RATE_LIMITED_24_H,
+            EnumCommandResult.PAKE_RATE_LIMITED_24_H // cap repeats
+        };
+        long[] tierMillis = {
+            60L * 60_000, 2L * 60L * 60_000, 4L * 60L * 60_000, 8L * 60L * 60_000,
+            24L * 60L * 60_000, 24L * 60L * 60_000
         };
 
-        long[] tierDurations = {60L * 60_000, 60L * 60_000, 60L * 60_000, 2L * 60L * 60_000};
-
-        for (int i = 0; i < 4; i++)
+        for (int tier = 0; tier < tierCode.length; tier++)
         {
+            // Two free retries, then the 3rd failure of the block arms this tier's lockout.
             expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
-            // Immediately retrying is blocked with the tier code for the current failure count.
-            expectFailure(emulator, wrong, expectedTierAfterFailure[i]);
-            clock.advance(tierDurations[i] + 1); // wait out the lockout for the next failure
+            expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+            expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+            // Now locked: any further start is refused with this tier's code.
+            expectFailure(emulator, wrong, tierCode[tier]);
+            // Wait out the lockout so the next block of failures can proceed.
+            clock.advance(tierMillis[tier] + 1);
         }
-        // After 6 failures we are in the 2-h tier; push to the 7th to reach the 4-h tier.
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED); // 5
-        clock.advance(2L * 60L * 60_000 + 1);
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED); // 6
-        clock.advance(2L * 60L * 60_000 + 1);
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED); // 7
-        expectFailure(emulator, wrong, EnumCommandResult.PAKE_RATE_LIMITED_4_H);
     }
 
     @Test

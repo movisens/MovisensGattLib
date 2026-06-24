@@ -133,8 +133,9 @@ public final class SpakeSensorEmulator
     /**
      * Verifies the client confirm. A wrong confirm is reported as
      * {@link EnumCommandResult#KEY_CONFIRMATION_FAILED} and registers a failure (which raises the
-     * counter and arms the next lockout tier); a correct confirm returns OK and resets the counter.
-     * If a lockout is active the matching {@code PAKE_RATE_LIMITED_*} code is returned instead.
+     * counter and, on every 3rd failure, arms the next lockout tier); a correct confirm returns OK
+     * and resets the counter. If a lockout is active the matching {@code PAKE_RATE_LIMITED_*} code is
+     * returned instead.
      */
     public EnumCommandResult onClientConfirm(byte[] clientConfirm) throws GeneralSecurityException
     {
@@ -194,7 +195,13 @@ public final class SpakeSensorEmulator
     private void registerFailure()
     {
         failureCount++;
-        lockedUntilMillis = clock.nowMillis() + TIER_DURATIONS_MS[tierIndex(failureCount)];
+        // Lock only after every 3rd failure (2 free retries before each lockout, and again after each
+        // lockout elapses); the tier escalates with the running count. Mirrors the firmware
+        // BlePairingAuthenticator::registerPakeFailure.
+        if (failureCount % 3 == 0)
+        {
+            lockedUntilMillis = clock.nowMillis() + TIER_DURATIONS_MS[tierIndex(failureCount)];
+        }
     }
 
     /** Maps the failure count to a tier index: failures 1-3 -> 0, 4-6 -> 1, ..., 13+ -> 4. */
