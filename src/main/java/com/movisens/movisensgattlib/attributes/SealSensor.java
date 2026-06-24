@@ -25,16 +25,14 @@ public class SealSensor extends AbstractWriteAttribute
     /**
      * @param cryptoManager active BLE crypto context; encryption must already be enabled
      * @param password      the sealing password
-     * @param serial        the sensor serial number; the PBKDF2 salt, so the same
-     *                      {@code (password, serial)} yields the same key on USB and BLE
      */
-    public SealSensor(CryptoManager cryptoManager, String password, String serial)
+    public SealSensor(CryptoManager cryptoManager, String password)
     {
         if (cryptoManager.encryptionEnabled())
         {
             try
             {
-                this.key = KeyGenerator.createKey(password, serial);
+                this.key = KeyGenerator.createKey(password);
             }
             catch (GeneralSecurityException e)
             {

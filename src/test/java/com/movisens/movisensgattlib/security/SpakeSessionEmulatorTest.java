@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
 import com.movisens.movisensgattlib.attributes.SealSensor;
+import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.security.CryptoManager;
 
 /**
@@ -158,14 +159,14 @@ public class SpakeSessionEmulatorTest
         // A protected SealSensor write before any handshake is denied.
         cryptoManager.setKey(new byte[16]); // SealSensor requires an encrypted session to build
         assertEquals(EnumCommandResult.ACCESS_DENIED,
-            connection.setAttribute(new SealSensor(cryptoManager, "newpw", "1234567890")));
+            connection.setAttribute(new SealSensor(cryptoManager, "newpw")));
         assertFalse(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
 
         // After a successful handshake the protected write is accepted and seals the sensor.
         byte[] aesKey = SpakeSession.run(connection, connection.getSensorSerial(), CLIENT_ID, secret);
         cryptoManager.setKey(aesKey);
         assertEquals(EnumCommandResult.OK,
-            connection.setAttribute(new SealSensor(cryptoManager, "newpw", "1234567890")));
+            connection.setAttribute(new SealSensor(cryptoManager, "newpw")));
         assertTrue(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
     }
 
@@ -189,13 +190,7 @@ public class SpakeSessionEmulatorTest
     /** Sealing-password secret: the 8 bytes of the derived key (same bytes used by both sides). */
     private static byte[] sealingSecret(String password) throws Exception
     {
-        long key = com.movisens.smartgattlib.security.KeyGenerator.createKey(password, "1234567890");
-        byte[] secret = new byte[8];
-        for (int i = 7; i >= 0; i--)
-        {
-            secret[i] = (byte) (key & 0xFF);
-            key >>>= 8;
-        }
-        return secret;
+        long key = com.movisens.smartgattlib.security.KeyGenerator.createKey(password);
+        return GattByteBuffer.allocate(8).putInt64(key).array();
     }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0
+
+- breaking API change: `SealSensor` now derives the sealing key via `SmartGattLib` without a sensor serial number
+
 ## 3.0.1
 
 - `SealSensor` now uses the encrypted BLE session instead of the plain-text path.
