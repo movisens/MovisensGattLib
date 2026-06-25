@@ -1,192 +1,257 @@
-MovisensGattLib
-===============
+# MovisensGattLib
 
-<a href="https://jitpack.io/#movisens/MovisensGattLib/"><img src="https://img.shields.io/github/tag/movisens/MovisensGattLib.svg?label=Maven%20on%20JitPack" /></a>
+MovisensGattLib ist eine Java-11-Bibliothek für movisens BLE-GATT-Daten. Sie
+enthält die movisens Service- und Characteristic-UUIDs, typisierte Attribute zum
+Lesen und Schreiben der Rohdaten und die Security-Helfer für SPAKE2, Pairing und
+Sealing.
 
-MovisensGattLib is a Java library that simplifies the work with [movisens **Bluetooth SMART** sensors](http://www.movisens.com/en/products/) (a.k.a. **Bluetooth Low Energy** in Bluetooth 4.0). It provides all UUIDs of the movisens sensors and an convenient way to interpret the characteristics (e.g. MovementAcceleration, RMSS).
+Die Bibliothek ist kein BLE-Stack. Scannen, Verbinden, Service Discovery, Reads,
+Writes und Notifications kommen aus der Anwendung.
 
-This library is build on the [SmartGattLib](https://github.com/movisens/SmartGattLib). Please read the documentation there as well.
+## Dependency
 
-There is also a complete [example project](https://github.com/movisens/MovisensGattSensorExample) on how to connect to the movisens Sensors.
-
-### Set up ###
-
-1. Add the JitPack repository and the dependency to your build file:
-
-  ```gradle
-	repositories {
-	    maven { url "https://jitpack.io" }
-	}
-	dependencies {
-	    compile 'com.github.movisens:SmartGattLib:5.0.0'
-	    compile 'com.github.movisens:MovisensGattLib:4.0.0'
-	}
-  ```
-  or download the latest .jar file from the [MovsiensGattLib releases](https://github.com/movisens/MovisensGattLib/releases) and the [SmartGattLib releases](https://github.com/movisens/SmartGattLib/releases) and place it in your Android app’s libs/ folder.
-2. Use the example below to identifiy services and characteristics and interpret their data
-
-### Example Usage ###
-```java
-import com.movisens.smartgattlib.*;
-import com.movisens.smartgattlib.attributes.*;
-import com.movisens.smartgattlib.helper.*;
-import com.movisens.movisensgattlib.attributes.*;
-
-// onConnected
-// TODO: iterate over available services
-UUID serviceUuid = null;// service.getUuid();
-if (MovisensServices.PHYSICAL_ACTIVITY_SERVICE.equals(serviceUuid)) {
-
-	// TODO: iterate over characteristics
-	UUID characteristicUuid = null;// characteristic.getUuid();
-	if (MovisensCharacteristics.MOVEMENT_ACCELERATION.equals(characteristicUuid)) {
-		// TODO: Enable notification of characteristic MovisensCharacteristics.MOVEMENT_ACCELERATION
-	}
-}else if (MovisensServices.SENSOR_CONTROL_SERVICE.equals(serviceUuid)) {
-	byte[] enable = GattByteBuffer.allocate(1).putBoolean(true).array();
-	
-    // TODO: iterate over characteristics
-    UUID characteristicUuid = null;// characteristic.getUuid();
-    if (MovisensCharacteristics.CURRENT_TIME.equals(characteristicUuid)) {
-        // TODO: Write getLocalTime() to characteristic MovisensCharacteristic.CURRENT_TIME to sync time
-    }else if (MovisensCharacteristics.MEASUREMENT_ENABLED.equals(characteristicUuid)) {
-        // TODO: Write enable to characteristic MovisensCharacteristic.MEASUREMENT_ENABLED to enable measurement
-    }else if (MovisensCharacteristics.SAVE_ENERGY.equals(characteristicUuid)) {
-        // TODO: Write enable to characteristic MovisensCharacteristic.characteristic to go into energy saving mode
-    }
-}else{
-	System.out.println("Found unused Service: " + MovisensServices.lookup(serviceUuid, "unknown"));
+```gradle
+repositories {
+    maven { url "https://jitpack.io" }
 }
 
-
-// onCharacteristicChanged
-UUID uuid = null; // TODO: Fill with the received uuid
-byte[] data = null; // TODO: Fill with the received bytes
-
-AbstractAttribute a = Characteristics.lookup(uuid).createAttribute(data);
-if (a instanceof MovementAcceleration) {
-    MovementAcceleration movementAcceleration = ((MovementAcceleration) a);
-    System.out.println("Received MovementAcceleration: " + movementAcceleration.getMovementAcceleration());
+dependencies {
+    implementation "com.github.movisens:MovisensGattLib:4.0.0"
 }
 ```
 
-### BLE Security For Sealed And Unsealed Sensors ###
+`SmartGattLib` ist eine transitive Dependency und liefert die gemeinsamen
+Basisklassen wie `AbstractAttribute`, `Characteristic` und `CryptoManager`.
 
-If a sensor is already sealed, protected BLE characteristics are no longer accessible immediately after connect.
+## BLE-Stack-Grenze
 
-At application level, the mechanism is meant to do two things:
-
-- protect sensitive BLE reads and writes against unauthorized access
-- protect the application-level BLE session against passive eavesdropping and, for sealed sensors, against a man-in-the-middle between app and sensor
-
-What this means for an application:
-
-1. Connect to the sensor as usual.
-2. Check whether the sensor is sealed.
-3. Start the secure BLE session.
-4. If the sensor is already sealed, ask the user for the sealing password and authenticate the session.
-5. If the sensor is not sealed yet, complete the temporary LED pairing-code authentication and then seal the sensor over BLE.
-6. Continue with the normal protected workflow for the current state.
-
-From the user's point of view in an app such as SensorManager, the flow is simply:
-
-- connect to sensor
-- if the sensor is already sealed, prompt for password
-- if the sensor is not sealed yet, complete the temporary LED pairing-code step before sealing
-- after successful authentication or sealing, continue with the normal workflow
-
-The important point is that application code should establish the secure session once after connect. After that, normal attribute access continues unchanged.
-
-There are two application-level flows after the key exchange:
-
-- Already sealed sensor:
-  authenticate with the persistent sealing password by writing `LOGIN`, then read `AUTH_CONFIRM` and verify it before treating the BLE session as authenticated.
-- Not sealed yet:
-  complete the temporary LED pairing-code verification first, again read and verify `AUTH_CONFIRM`, and only then write `SEAL_SENSOR` with the new persistent sealing password/key.
-
-Minimal example for both cases (stack-agnostic Java integration example):
+Diese README setzt voraus, dass der unbekannte BLE-Stack über diese drei
+Methoden angebunden wird:
 
 ```java
+String getAdvertizedName();
+AbstractAttribute processIncomingAttribute(UUID uuid, byte[] rawAttributeData);
+void writeOutgoingAttribute(UUID uuid, byte[] rawAttributeData);
+```
+
+Die movisens Library kennt den Stack nicht direkt. Die Anwendung kapselt den
+Stack in einem Adapter und übersetzt dort zwischen BLE-Rohdaten und typisierten
+Attributen:
+
+```java
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 import com.movisens.movisensgattlib.MovisensCharacteristics;
-import com.movisens.movisensgattlib.attributes.AuthConfirm;
-import com.movisens.movisensgattlib.attributes.EnumCommandResult;
-import com.movisens.movisensgattlib.attributes.Login;
-import com.movisens.movisensgattlib.attributes.SealSensor;
-import com.movisens.movisensgattlib.attributes.SensorSealed;
-import com.movisens.movisensgattlib.attributes.TimeZoneId;
-import com.movisens.movisensgattlib.security.KeyExchangeManager;
 import com.movisens.smartgattlib.helper.AbstractAttribute;
-import com.movisens.smartgattlib.helper.AbstractReadAttribute;
+import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.security.CryptoManager;
 
-// bleConnection is an application-specific BLE transport wrapper.
-// This is not tied to a specific platform such as Android or desktop Java.
-// It should use the provided CryptoManager when reading and writing attributes.
+public abstract class MovisensBleAdapter {
+    protected final CryptoManager cryptoManager = new CryptoManager();
 
-CryptoManager cryptoManager = new CryptoManager();
-cryptoManager.initialize();
-
-SensorSealed sensorSealed = bleConnection.getAttribute(MovisensCharacteristics.SENSOR_SEALED);
-
-// Start the secure BLE session.
-KeyExchangeManager keyExchangeManager = new KeyExchangeManager();
-for (AbstractAttribute request : keyExchangeManager.getRequestAttributes()) {
-    bleConnection.setAttribute(request);
-}
-
-AbstractReadAttribute[] response = new AbstractReadAttribute[] {
-    bleConnection.getAttribute(MovisensCharacteristics.KEY_EXCHANGE_RESPONSE_1),
-    bleConnection.getAttribute(MovisensCharacteristics.KEY_EXCHANGE_RESPONSE_2)
-};
-
-cryptoManager.setKey(keyExchangeManager.getAesKey(response));
-
-if (sensorSealed.getValue()) {
-    Login login = new Login(cryptoManager, keyExchangeManager, "secret");
-    EnumCommandResult loginResult = bleConnection.setAttribute(login);
-    if (loginResult != EnumCommandResult.OK) {
-        throw new IllegalStateException("BLE login failed: " + loginResult);
+    protected MovisensBleAdapter() {
+        cryptoManager.initialize();
     }
 
-    AuthConfirm authConfirm = bleConnection.getAttribute(MovisensCharacteristics.AUTH_CONFIRM);
-    if (!login.isAuthConfirmValid(authConfirm.getRawData())) {
-        throw new IllegalStateException("sensor auth confirmation does not match the negotiated session");
-    }
-} else {
-    // The user must read the current 6-symbol LED pairing code from the sensor.
-    // Digit mapping is: 0=red, 1=green, 2=blue, 3=white, 4=yellow.
-    int[] pairingCodeDigits = readPairingCodeFromUser();
+    public abstract String getAdvertizedName();
 
-    Login pairingLogin = new Login(cryptoManager, keyExchangeManager, pairingCodeDigits);
-    EnumCommandResult pairingLoginResult = bleConnection.setAttribute(pairingLogin);
-    if (pairingLoginResult != EnumCommandResult.OK) {
-        throw new IllegalStateException("BLE pairing-code login failed: " + pairingLoginResult);
-    }
+    public abstract void writeOutgoingAttribute(
+        UUID uuid,
+        byte[] rawAttributeData
+    );
 
-    AuthConfirm authConfirm = bleConnection.getAttribute(MovisensCharacteristics.AUTH_CONFIRM);
-    if (!pairingLogin.isAuthConfirmValid(authConfirm.getRawData())) {
-        throw new IllegalStateException("sensor auth confirmation does not match the negotiated session");
+    public AbstractAttribute processIncomingAttribute(UUID uuid, byte[] rawAttributeData) {
+        Characteristic<? extends AbstractAttribute> characteristic =
+            MovisensCharacteristics.lookup(uuid);
+
+        AbstractAttribute attribute =
+            characteristic.createAttribute(cryptoManager, rawAttributeData);
+
+        return attribute;
     }
 
-    EnumCommandResult sealResult = bleConnection.setAttribute(new SealSensor(cryptoManager, "secret"));
-    if (sealResult != EnumCommandResult.OK) {
-        throw new IllegalStateException("BLE sealing failed: " + sealResult);
+    public void writeAttribute(AbstractAttribute attribute) {
+        UUID uuid = attribute.getCharacteristic().getUuid();
+        byte[] rawAttributeData = attribute.getOutgoingData(cryptoManager);
+        writeOutgoingAttribute(uuid, rawAttributeData);
+    }
+
+    protected byte[] sensorIdFromAdvertizedName() {
+        String name = getAdvertizedName();
+        String serial = name.substring(name.lastIndexOf(' ') + 1);
+        return serial.getBytes(StandardCharsets.US_ASCII);
     }
 }
-
-// Protected attributes can now be used normally.
-bleConnection.setAttribute(new TimeZoneId("Europe/Berlin"));
 ```
 
-For a sensor that is not sealed yet, the flow is different after the key exchange:
+`processIncomingAttribute` wird für jedes BLE-Read-Result und jede Notification
+aufgerufen. `MovisensCharacteristics.lookup(uuid)` findet movisens
+Characteristics und fällt bei Standard-BLE-Characteristics auf `SmartGattLib`
+zurück. `createAttribute(cryptoManager, rawAttributeData)` entschlüsselt
+automatisch, sobald `cryptoManager` einen Session-Key hat.
 
-1. The sensor starts a temporary 6-symbol LED pairing-code blinker.
-2. The application reads that code from the user.
-3. The application creates `Login` from the pairing-code digits instead of the persistent password.
-4. The application writes `LOGIN`.
-5. The application reads `AUTH_CONFIRM` and verifies it with `login.isAuthConfirmValid(...)`.
-6. Only after that temporary MITM verification succeeds, the application writes `SEAL_SENSOR` with the new persistent sealing password/key.
+`writeAttribute` ist die Gegenrichtung: Ein typisiertes Attribut erzeugt über
+`getOutgoingData(cryptoManager)` die Bytes, die der BLE-Stack an die UUID
+schreibt. Auch hier wird automatisch verschlüsselt, sobald ein Session-Key
+gesetzt ist. Plaintext-Attribute wie PAKE-Daten bleiben Plaintext.
 
-The temporary pairing-code login uses the same transcript-bound proof format as the sealed-sensor login. A successful temporary pairing proof does not yet mean that the sensor is sealed. It only authorizes the current BLE session to perform the sealing step.
+`writeOutgoingAttribute(...)` ist nur der BLE-Write. Es ist kein Sensor-
+`CommandResult`. Wenn die Anwendung den Sensorstatus eines Kommandos braucht,
+liest oder empfängt sie `MovisensCharacteristics.COMMAND_RESULT` separat und
+wertet das daraus erzeugte `CommandResult`-Attribut aus.
 
-If you already use one of our existing BLE connection wrappers, transport-level encryption handling is typically already wired in. In that case the application only has to establish the secure session after connect and then either handle the sealed-sensor password login or the unsealed-sensor pairing-plus-sealing flow.
+## Services und Characteristics
+
+Bei Service Discovery vergleichst du die UUIDs mit den Konstanten:
+
+```java
+if (MovisensServices.PHYSICAL_ACTIVITY.equals(serviceUuid)) {
+    // Notifications für Messwerte aktivieren, z. B. MOVEMENT_ACCELERATION.
+}
+
+if (MovisensCharacteristics.MOVEMENT_ACCELERATION.equals(characteristicUuid)) {
+    // Notification für diese Characteristic aktivieren.
+}
+```
+
+Eingehende Werte werden typisiert:
+
+```java
+AbstractAttribute attribute = processIncomingAttribute(uuid, rawAttributeData);
+
+if (attribute instanceof MovementAcceleration) {
+    MovementAcceleration movement = (MovementAcceleration) attribute;
+    double valueInG = movement.getMovementAcceleration();
+}
+```
+
+Ausgehende Werte werden als Attribut erstellt und geschrieben:
+
+```java
+writeAttribute(new CurrentTimeMs(new Date()));
+writeAttribute(new TimeZoneId(ZoneId.systemDefault().getId()));
+writeAttribute(new StartMeasurement(3600L));
+```
+
+## Security, Pairing und Sealing
+
+Geschützte BLE-Attribute werden erst nach einer erfolgreichen SPAKE2-Session
+nutzbar. `SpakeSession` arbeitet mit `SpakeGattConnection`. Diese Schnittstelle
+ist eine zusätzliche Brücke für den PAKE-Flow, nicht die allgemeine
+Schreib-API: `setAttribute(...)` muss den Sensor-`CommandResult` für den
+geschriebenen PAKE-Schritt liefern.
+
+Ein Adapter kann das so anbinden:
+
+```java
+import java.util.UUID;
+
+import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.attributes.CommandResult;
+import com.movisens.movisensgattlib.attributes.EnumCommandResult;
+import com.movisens.movisensgattlib.security.SpakeGattConnection;
+import com.movisens.smartgattlib.helper.AbstractAttribute;
+import com.movisens.smartgattlib.helper.Characteristic;
+
+public final class SpakeBleConnection implements SpakeGattConnection {
+    private final MovisensBleAdapter adapter;
+
+    public SpakeBleConnection(MovisensBleAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    @Override
+    public EnumCommandResult setAttribute(AbstractAttribute attribute) {
+        adapter.writeAttribute(attribute);
+        return readCommandResult();
+    }
+
+    @Override
+    public <T extends AbstractAttribute> T getAttribute(Characteristic<T> characteristic) {
+        byte[] rawAttributeData = readAttributeWithBleStack(characteristic.getUuid());
+        return cast(adapter.processIncomingAttribute(characteristic.getUuid(), rawAttributeData));
+    }
+
+    private EnumCommandResult readCommandResult() {
+        byte[] rawAttributeData =
+            readAttributeWithBleStack(MovisensCharacteristics.COMMAND_RESULT.getUuid());
+        CommandResult result = (CommandResult) adapter.processIncomingAttribute(
+            MovisensCharacteristics.COMMAND_RESULT.getUuid(),
+            rawAttributeData
+        );
+        return result.getError();
+    }
+
+    private byte[] readAttributeWithBleStack(UUID uuid) {
+        // Stack-spezifischer BLE-Read. Das gelesene Ergebnis geht danach durch
+        // adapter.processIncomingAttribute(uuid, rawAttributeData).
+        throw new UnsupportedOperationException("connect this to your BLE stack");
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends AbstractAttribute> T cast(AbstractAttribute attribute) {
+        return (T) attribute;
+    }
+}
+```
+
+Die `sensorId` für SPAKE2 ist die Seriennummer aus dem BLE Advertized Name. Sie
+muss bytegenau zur Firmware passen. In den üblichen movisens Advertized Names
+ist sie der letzte Leerzeichen-getrennte Token des Namens.
+
+### Sealed Sensor
+
+Bei einem bereits sealed Sensor ist das Secret aus dem Benutzerpasswort
+abgeleitet:
+
+```java
+byte[] sensorId = sensorIdFromAdvertizedName();
+byte[] clientId = SpakeIdentities.clientId();
+byte[] secret = SealingPassword.toSecret(password);
+
+SpakeBleConnection spakeConnection = new SpakeBleConnection(this);
+byte[] aesKey = SpakeSession.run(spakeConnection, sensorId, clientId, secret);
+cryptoManager.setKey(aesKey);
+```
+
+Wenn das Passwort falsch ist oder der Sensor wegen zu vieler Fehlversuche
+limitiert, wirft `SpakeSession.run(...)` eine `PakeException`. Der enthaltene
+`EnumCommandResult` beschreibt den Sensorfehler, z. B. `WRONG_CODE` oder
+`PAKE_RATE_LIMITED_60_MIN`.
+
+### Unsealed Sensor
+
+Bei einem unsealed Sensor startet die App zuerst die PAKE-Session, damit der
+Sensor den Farbcode anzeigen kann. Danach wird der vom Benutzer gelesene Code in
+Secret-Bytes übersetzt:
+
+```java
+SpakeBleConnection spakeConnection = new SpakeBleConnection(this);
+SpakeSession.start(spakeConnection);
+
+List<PairingColour> colours = Arrays.asList(
+    PairingColour.RED,
+    PairingColour.GREEN,
+    PairingColour.BLUE,
+    PairingColour.RED,
+    PairingColour.GREEN,
+    PairingColour.BLUE
+);
+
+byte[] sensorId = sensorIdFromAdvertizedName();
+byte[] aesKey = SpakeSession.runExistingSession(
+    spakeConnection,
+    sensorId,
+    SpakeIdentities.clientId(),
+    PairingColour.toSecret(colours)
+);
+cryptoManager.setKey(aesKey);
+```
+
+Nach `cryptoManager.setKey(aesKey)` ist der verschlüsselte BLE-Kanal aktiv. Erst
+dann kann die App den Sensor mit einem persistenten Passwort sealen:
+
+```java
+writeAttribute(new SealSensor(cryptoManager, password));
+```
