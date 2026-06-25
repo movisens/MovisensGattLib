@@ -8,19 +8,16 @@ import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 
 /**
- * Balanced-SPAKE2 counterpart of the removed legacy {@code KeyExchangeManager}: a flat,
- * attribute-array facade over {@link SpakePairingClient} for callers that drive a
- * GATT session the old key-exchange way — the request attributes to write
- * are returned by the corresponding methods, and the responses are handed back in as
- * the {@link AbstractReadAttribute} instances that were read.
+ * Balanced-SPAKE2 attribute-array facade over {@link SpakePairingClient}. The request
+ * attributes to write are returned by the corresponding methods, and the responses are
+ * handed back in as the {@link AbstractReadAttribute} instances that were read.
  *
  * <p>The handshake is secret-agnostic, so the same manager covers both PAKE use cases
  * from the sealing design: the {@code sharedSecret} is the onboarding colour code on an
- * unsealed sensor, or the stored sealing password for sealed access. Either way it is
+ * unsealed sensor, or the derived sealing-key bytes for sealed access. Either way it is
  * just {@code byte[]}; the byte encoding must match the firmware.</p>
  *
- * <p>Unlike the single round trip of the old ECDH key exchange, SPAKE2 needs two
- * write/read round trips, so the request/response pair is doubled:</p>
+ * <p>SPAKE2 needs two write/read round trips:</p>
  *
  * <pre>{@code
  * SpakeManager manager = new SpakeManager(sensorId, clientId, sharedSecret);
@@ -67,8 +64,8 @@ public class SpakeManager
      *                    not a secret. The agreed value is the constant ASCII string
      *                    {@code "client"} for every client; it provides role/domain separation
      *                    only and must match the firmware byte-for-byte.
-     * @param sharedSecret the SPAKE2 password: the onboarding colour code (unsealed sensor)
-     *                    or the sealing password (sealed access), as agreed with the firmware.
+     * @param sharedSecret the SPAKE2 password bytes: the onboarding colour code (unsealed sensor)
+     *                    or the derived sealing-key bytes (sealed access), as agreed with the firmware.
      */
     public SpakeManager(byte[] sensorId, byte[] clientId, byte[] sharedSecret)
         throws GeneralSecurityException

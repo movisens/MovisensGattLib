@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
 import com.movisens.movisensgattlib.attributes.SealSensor;
-import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.security.CryptoManager;
 
 /**
@@ -190,7 +189,6 @@ public class SpakeSessionEmulatorTest
     /** Sealing-password secret: the 8 bytes of the derived key (same bytes used by both sides). */
     private static byte[] sealingSecret(String password) throws Exception
     {
-        long key = com.movisens.smartgattlib.security.KeyGenerator.createKey(password);
-        return GattByteBuffer.allocate(8).putInt64(key).array();
+        return SealingPassword.toSecret(password);
     }
 }

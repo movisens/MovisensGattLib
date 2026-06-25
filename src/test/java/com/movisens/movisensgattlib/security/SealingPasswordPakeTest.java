@@ -13,33 +13,25 @@ import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
 
 /**
  * Exercises the second PAKE use case from the sealing design: the same
- * balanced-SPAKE2 handshake, but with the stored <em>sealing password</em> as the
+ * balanced-SPAKE2 handshake, but with the derived <em>sealing-key bytes</em> as the
  * shared secret instead of the onboarding colour code.
  *
  * <p>The crypto path ({@link SpakePairingClient} / {@link Spake2Role}) is secret-agnostic
  * — the secret is just {@code byte[]} — so these tests confirm that a sealing-password
  * secret pairs end-to-end over the GATT attribute interface and that a wrong password is
  * rejected with the session key withheld.</p>
- *
- * <p>The password→bytes encoding used here (US-ASCII) is the test's own convention; the
- * production encoding must be agreed byte-for-byte with the firmware (open point).</p>
  */
 public class SealingPasswordPakeTest
 {
     private static final byte[] SENSOR_ID = "sensor".getBytes(StandardCharsets.US_ASCII);
-    private static final byte[] CLIENT_ID = "client".getBytes(StandardCharsets.US_ASCII);
-
-    private static byte[] password(String s)
-    {
-        return s.getBytes(StandardCharsets.US_ASCII);
-    }
+    private static final byte[] CLIENT_ID = SpakeIdentities.clientId();
 
     private final SecureRandom rng = new SecureRandom();
 
     @Test
     public void pairsWithCorrectSealingPassword() throws Exception
     {
-        byte[] sealingPassword = password("Tr0ub4dor&3");
+        byte[] sealingPassword = SealingPassword.toSecret("Tr0ub4dor&3");
 
         SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, sealingPassword, rng);
         MockedSpakeSensor sensor = new MockedSpakeSensor(sealingPassword, SENSOR_ID, CLIENT_ID, rng);
@@ -56,8 +48,10 @@ public class SealingPasswordPakeTest
     @Test
     public void wrongSealingPasswordIsRejectedAndKeyIsWithheld() throws Exception
     {
-        SpakePairingClient client = new SpakePairingClient(SENSOR_ID, CLIENT_ID, password("correct horse"), rng);
-        MockedSpakeSensor sensor = new MockedSpakeSensor(password("wrong horse"), SENSOR_ID, CLIENT_ID, rng);
+        SpakePairingClient client = new SpakePairingClient(
+            SENSOR_ID, CLIENT_ID, SealingPassword.toSecret("correct horse"), rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(
+            SealingPassword.toSecret("wrong horse"), SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, client.clientShare());
         client.setSensorShare(sensor.read(Attr.SENSOR_SHARE));
@@ -92,7 +86,7 @@ public class SealingPasswordPakeTest
         byte[] colourCode = PairingColour.toSecret(java.util.Arrays.asList(
             PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
             PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE));
-        byte[] sealingPassword = password("Tr0ub4dor&3");
+        byte[] sealingPassword = SealingPassword.toSecret("Tr0ub4dor&3");
 
         byte[] onboardingKey = run(colourCode);
         byte[] sealingKey = run(sealingPassword);

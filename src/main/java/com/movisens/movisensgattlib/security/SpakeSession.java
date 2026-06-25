@@ -14,8 +14,8 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
  * the two write/read round trips described by {@link SpakeManager}; the threaded tests and the
  * GUI used to duplicate this sequence.
  *
- * <p>The handshake's key confirmation <em>is</em> the authentication — there is no separate
- * login step. The session key is only returned after the sensor confirmation has verified
+ * <p>The handshake's key confirmation <em>is</em> the authentication. The session key is only
+ * returned after the sensor confirmation has verified
  * (MITM-checked). A rejected client confirm or an active rate-limit lockout surfaces as a
  * {@link PakeException} carrying the sensor's {@link EnumCommandResult}; the caller maps the
  * code to a user message (e.g. a {@code PAKE_RATE_LIMITED_*} wait time) and must not start an
@@ -27,7 +27,7 @@ public final class SpakeSession
     {
     }
 
-    /** Starts a fresh sensor-side PAKE session (blink colour code on unsealed sensors, arm sealed login). */
+    /** Starts a fresh sensor-side PAKE session (blink colour code on unsealed sensors, arm sealed access). */
     public static void start(SpakeGattConnection connection) throws GeneralSecurityException
     {
         requireOk(connection.setAttribute(new PakeStart(Boolean.TRUE)));

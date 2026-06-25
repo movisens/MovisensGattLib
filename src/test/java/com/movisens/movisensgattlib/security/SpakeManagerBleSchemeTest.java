@@ -21,20 +21,19 @@ import com.movisens.smartgattlib.security.CryptoManager;
 
 /**
  * Drives {@link SpakeManager} through a {@link MockedBleConnection} wrapper around
- * {@link MockedSpakeSensor}, exactly the way an application drives the old key exchange /
- * login: {@code bleConnection.setAttribute(...)} to write request attributes and
+ * {@link MockedSpakeSensor}, the way an application drives the PAKE GATT flow:
+ * {@code bleConnection.setAttribute(...)} to write request attributes and
  * {@code bleConnection.getAttribute(characteristic)} to read responses.
  *
  * <p>In the SPAKE2 scheme the handshake's key confirmation is itself the authentication,
- * so it replaces both the ECDH key exchange and the separate {@code Login}/{@code AuthConfirm}
- * step: a wrong secret or a MITM surfaces as a non-OK command result / a withheld key, with no
- * extra round trip. The {@code sealingPassword} (sealed sensor) and the onboarding colour code
- * (unsealed sensor) are the same kind of {@code byte[]} secret, so one flow covers both.</p>
+ * so a wrong secret or a MITM surfaces as a non-OK command result / a withheld key. The
+ * derived sealing-key bytes (sealed sensor) and the onboarding colour code (unsealed sensor)
+ * are the same kind of {@code byte[]} secret, so one flow covers both.</p>
  */
 public class SpakeManagerBleSchemeTest
 {
     private static final byte[] CLIENT_ID = SpakeIdentities.clientId();
-    private static final byte[] SEALING_PASSWORD = "Tr0ub4dor&3".getBytes(StandardCharsets.US_ASCII);
+    private static final byte[] SEALING_SECRET = SealingPassword.toSecret("Tr0ub4dor&3");
     // 6-symbol LED code, encoded one byte per colour (PairingColour values 1..3 = red/green/blue).
     private static final byte[] COLOUR_CODE = PairingColour.toSecret(Arrays.asList(
         PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
@@ -48,9 +47,9 @@ public class SpakeManagerBleSchemeTest
     @Test
     public void sealedAccessThroughBleConnection() throws Exception
     {
-        MockedBleConnection bleConnection = sealedConnectionWith(SEALING_PASSWORD);
+        MockedBleConnection bleConnection = sealedConnectionWith(SEALING_SECRET);
 
-        byte[] aesKey = runApplicationScheme(bleConnection, true, SEALING_PASSWORD);
+        byte[] aesKey = runApplicationScheme(bleConnection, true, SEALING_SECRET);
 
         assertEquals(16, aesKey.length);
         assertArrayEquals(bleConnection.sensorSessionKey(), aesKey);
@@ -72,10 +71,10 @@ public class SpakeManagerBleSchemeTest
     @Test
     public void wrongSealingPasswordSurfacesAsCommandResult() throws Exception
     {
-        MockedBleConnection bleConnection = sealedConnectionWith(SEALING_PASSWORD);
+        MockedBleConnection bleConnection = sealedConnectionWith(SEALING_SECRET);
         byte[] sensorId = bleConnection.getSensorSerial();
         SpakeManager spakeManager =
-            new SpakeManager(sensorId, CLIENT_ID, "wrong password".getBytes(StandardCharsets.US_ASCII), rng);
+            new SpakeManager(sensorId, CLIENT_ID, SealingPassword.toSecret("wrong password"), rng);
 
         for (AbstractAttribute request : spakeManager.getShareRequestAttributes())
         {

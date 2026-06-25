@@ -16,8 +16,8 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 
 /**
- * Drives the {@code KeyExchangeManager}-style {@link SpakeManager} facade through the full
- * two-round-trip handshake against {@link MockedSpakeSensor}, exercising the
+ * Drives the {@link SpakeManager} facade through the full two-round-trip handshake against
+ * {@link MockedSpakeSensor}, exercising the
  * {@link AbstractAttribute}{@code []} / {@link AbstractReadAttribute}{@code []} interface a
  * caller actually uses. Identities follow the agreed convention: {@code sensorId} = serial
  * number bytes, {@code clientId} = the constant {@code "client"}.
@@ -25,8 +25,8 @@ import com.movisens.smartgattlib.helper.Characteristic;
 public class SpakeManagerTest
 {
     private static final byte[] SENSOR_ID = "1234567890".getBytes(StandardCharsets.US_ASCII); // serial number
-    private static final byte[] CLIENT_ID = "client".getBytes(StandardCharsets.US_ASCII);
-    private static final byte[] SEALING_PASSWORD = "Tr0ub4dor&3".getBytes(StandardCharsets.US_ASCII);
+    private static final byte[] CLIENT_ID = SpakeIdentities.clientId();
+    private static final byte[] SEALING_SECRET = SealingPassword.toSecret("Tr0ub4dor&3");
 
     private static final int PART1_LEN = 20; // matches SpakePairingClient split
 
@@ -35,8 +35,8 @@ public class SpakeManagerTest
     @Test
     public void derivesSessionKeyThroughAttributeFacade() throws Exception
     {
-        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_PASSWORD, rng);
-        MockedSpakeSensor sensor = new MockedSpakeSensor(SEALING_PASSWORD, SENSOR_ID, CLIENT_ID, rng);
+        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_SECRET, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(SEALING_SECRET, SENSOR_ID, CLIENT_ID, rng);
 
         // Round 1: write the client share, read back the sensor share.
         sensor.write(Attr.CLIENT_SHARE, concatRequest(manager.getShareRequestAttributes()));
@@ -53,9 +53,9 @@ public class SpakeManagerTest
     @Test
     public void wrongPasswordIsRejectedAndKeyIsWithheld() throws Exception
     {
-        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_PASSWORD, rng);
+        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_SECRET, rng);
         MockedSpakeSensor sensor = new MockedSpakeSensor(
-            "wrong password".getBytes(StandardCharsets.US_ASCII), SENSOR_ID, CLIENT_ID, rng);
+            SealingPassword.toSecret("wrong password"), SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, concatRequest(manager.getShareRequestAttributes()));
         manager.setSensorShareResponse(asResponse(sensor.read(Attr.SENSOR_SHARE)));
@@ -74,8 +74,8 @@ public class SpakeManagerTest
     @Test
     public void tamperedSensorConfirmIsRejected() throws Exception
     {
-        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_PASSWORD, rng);
-        MockedSpakeSensor sensor = new MockedSpakeSensor(SEALING_PASSWORD, SENSOR_ID, CLIENT_ID, rng);
+        SpakeManager manager = new SpakeManager(SENSOR_ID, CLIENT_ID, SEALING_SECRET, rng);
+        MockedSpakeSensor sensor = new MockedSpakeSensor(SEALING_SECRET, SENSOR_ID, CLIENT_ID, rng);
 
         sensor.write(Attr.CLIENT_SHARE, concatRequest(manager.getShareRequestAttributes()));
         manager.setSensorShareResponse(asResponse(sensor.read(Attr.SENSOR_SHARE)));

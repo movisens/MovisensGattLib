@@ -45,7 +45,7 @@ public class SealSensor extends AbstractWriteAttribute
         }
         else
         {
-            throw new RuntimeException("login needs encrypted connection");
+            throw new RuntimeException("sealing needs encrypted connection");
         }
     }
 

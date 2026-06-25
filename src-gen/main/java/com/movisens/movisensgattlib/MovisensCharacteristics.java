@@ -14,7 +14,6 @@ public class MovisensCharacteristics
 
 	public static final Characteristic<ActivatedBufferedCharacteristics> ACTIVATED_BUFFERED_CHARACTERISTICS = new Characteristic<ActivatedBufferedCharacteristics>("f1cc0780-95e8-4a93-a1d1-6cfac6641b24", "Activated Buffered Characteristics", ActivatedBufferedCharacteristics.class);
 	public static final Characteristic<AgeFloat> AGE_FLOAT = new Characteristic<AgeFloat>("7562060b-4aff-4422-aec7-77770d2a0530", "Age Float", AgeFloat.class);
-	public static final Characteristic<AuthConfirm> AUTH_CONFIRM = new Characteristic<AuthConfirm>("1dbd99be-a4df-421a-a50b-ac80af9a6f13", "Auth Confirm", AuthConfirm.class);
 	public static final BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData> BATTERY_LEVEL_BUFFERED = new BufferedCharacteristic<BatteryLevelBuffered, BatteryLevelData>("c7538ae7-b2ec-4905-8ebc-4a0581df4335", "Battery Level Buffered", 0, BatteryLevelBuffered.class);
 	public static final Characteristic<BatteryLevelWaiting> BATTERY_LEVEL_WAITING = new Characteristic<BatteryLevelWaiting>("f84adb7d-a503-44d4-88ba-8583b981b5b2", "Battery Level Waiting", BatteryLevelWaiting.class);
 	public static final Characteristic<BatteryVoltage> BATTERY_VOLTAGE = new Characteristic<BatteryVoltage>("a66a585f-1cb5-4522-86c0-3e7334a75709", "Battery Voltage", BatteryVoltage.class);
@@ -46,18 +45,12 @@ public class MovisensCharacteristics
 	public static final Characteristic<Inclination> INCLINATION = new Characteristic<Inclination>("e165b5d0-d83f-4a5c-86a6-306ca1ddf0ef", "Inclination", Inclination.class);
 	public static final BufferedCharacteristic<InclinationBuffered, InclinationData> INCLINATION_BUFFERED = new BufferedCharacteristic<InclinationBuffered, InclinationData>("f89edebf-9b5b-486d-054f-b3ce3e226d49", "Inclination Buffered", 15, InclinationBuffered.class);
 	public static final Characteristic<InclinationWaiting> INCLINATION_WAITING = new Characteristic<InclinationWaiting>("f89edeb8-dda5-770a-e42d-005ed49f5e29", "Inclination Waiting", InclinationWaiting.class);
-	public static final Characteristic<KeyExchangeRequest1> KEY_EXCHANGE_REQUEST_1 = new Characteristic<KeyExchangeRequest1>("5bdea581-d3da-421e-8e2c-99d10c227b79", "Key Exchange Request 1", KeyExchangeRequest1.class);
-	public static final Characteristic<KeyExchangeRequest2> KEY_EXCHANGE_REQUEST_2 = new Characteristic<KeyExchangeRequest2>("a613ee21-61f8-42e4-b82c-95b5a20f4eab", "Key Exchange Request 2", KeyExchangeRequest2.class);
-	public static final Characteristic<KeyExchangeResponse1> KEY_EXCHANGE_RESPONSE_1 = new Characteristic<KeyExchangeResponse1>("43aafc84-8866-45fa-8dff-ff94935e82bd", "Key Exchange Response 1", KeyExchangeResponse1.class);
-	public static final Characteristic<KeyExchangeResponse2> KEY_EXCHANGE_RESPONSE_2 = new Characteristic<KeyExchangeResponse2>("783e0b3c-7ad2-4e2e-bfb3-2e246c4e63d9", "Key Exchange Response 2", KeyExchangeResponse2.class);
 	public static final Characteristic<Light> LIGHT = new Characteristic<Light>("375bf82c-41e8-4ca1-9b95-f8634b1ba2f8", "Light", Light.class);
 	public static final BufferedCharacteristic<LightBuffered, LightData> LIGHT_BUFFERED = new BufferedCharacteristic<LightBuffered, LightData>("7e5dd77b-67b7-42dd-be7a-822373391b2f", "Light Buffered", 19, LightBuffered.class);
 	public static final Characteristic<LightRgb> LIGHT_RGB = new Characteristic<LightRgb>("db32d0ca-fda0-4298-9d2f-1b109eb95a2f", "Light RGB", LightRgb.class);
 	public static final BufferedCharacteristic<LightRgbBuffered, LightRgbData> LIGHT_RGB_BUFFERED = new BufferedCharacteristic<LightRgbBuffered, LightRgbData>("2c4abbf8-8da6-4e47-afcd-18034d67c5ee", "Light RGB buffered", 20, LightRgbBuffered.class);
 	public static final Characteristic<LightRgbWaiting> LIGHT_RGB_WAITING = new Characteristic<LightRgbWaiting>("c758f5a6-516d-4125-b8de-ae3ebcabeabc", "Light RGB waiting", LightRgbWaiting.class);
 	public static final Characteristic<LightWaiting> LIGHT_WAITING = new Characteristic<LightWaiting>("d166790b-9531-44fd-8314-14f303280de1", "Light Waiting", LightWaiting.class);
-	public static final Characteristic<Login> LOGIN = new Characteristic<Login>("aa040e1b-5b57-486f-afd9-d4edc48a2f1e", "Login", Login.class);
-	@SuppressWarnings("deprecation")
 	public static final Characteristic<MeasurementEnabled> MEASUREMENT_ENABLED = new Characteristic<MeasurementEnabled>("f89edec7-f7e0-94f2-747d-ee7acaa6d412", "Measurement Enabled", MeasurementEnabled.class);
 	public static final Characteristic<MeasurementStartTime> MEASUREMENT_START_TIME = new Characteristic<MeasurementStartTime>("2d81487d-08f7-47e1-a060-0659d9b4b766", "Measurement Start Time", MeasurementStartTime.class);
 	public static final Characteristic<MeasurementStatus> MEASUREMENT_STATUS = new Characteristic<MeasurementStatus>("66f1e70e-54ab-489c-8f5d-0008b67553c7", "Measurement Status", MeasurementStatus.class);
@@ -116,7 +109,6 @@ public class MovisensCharacteristics
 	{
 		characteristics.put(ACTIVATED_BUFFERED_CHARACTERISTICS);
 		characteristics.put(AGE_FLOAT);
-		characteristics.put(AUTH_CONFIRM);
 		characteristics.put(BATTERY_LEVEL_BUFFERED);
 		characteristics.put(BATTERY_LEVEL_WAITING);
 		characteristics.put(BATTERY_VOLTAGE);
@@ -150,17 +142,12 @@ public class MovisensCharacteristics
 		characteristics.put(INCLINATION);
 		characteristics.put(INCLINATION_BUFFERED);
 		characteristics.put(INCLINATION_WAITING);
-		characteristics.put(KEY_EXCHANGE_REQUEST_1);
-		characteristics.put(KEY_EXCHANGE_REQUEST_2);
-		characteristics.put(KEY_EXCHANGE_RESPONSE_1);
-		characteristics.put(KEY_EXCHANGE_RESPONSE_2);
 		characteristics.put(LIGHT);
 		characteristics.put(LIGHT_BUFFERED);
 		characteristics.put(LIGHT_RGB);
 		characteristics.put(LIGHT_RGB_BUFFERED);
 		characteristics.put(LIGHT_RGB_WAITING);
 		characteristics.put(LIGHT_WAITING);
-		characteristics.put(LOGIN);
 		characteristics.put(MEASUREMENT_ENABLED);
 		characteristics.put(MEASUREMENT_START_TIME);
 		characteristics.put(MEASUREMENT_STATUS);

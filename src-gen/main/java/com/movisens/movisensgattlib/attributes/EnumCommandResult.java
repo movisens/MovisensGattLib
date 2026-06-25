@@ -14,10 +14,8 @@ public enum EnumCommandResult
 	INVALID_CALL_PARAMETERS       ((short)9, "INVALID_CALL_PARAMETERS"),
 	UNEXPECTED_EXCEPTION          ((short)10, "UNEXPECTED_EXCEPTION"),
 	SENSOR_RUNLEVEL_TOO_LOW       ((short)11, "SENSOR_RUNLEVEL_TOO_LOW"),
-	LOGIN_KEY_INVALID             ((short)12, "LOGIN_KEY_INVALID"),
 	ACCESS_DENIED                 ((short)13, "ACCESS_DENIED"),
 	EVALUATION_PERIOD_EXPIRED     ((short)14, "EVALUATION_PERIOD_EXPIRED"),
-	KEY_EXCHANGE_FAILED           ((short)15, "KEY_EXCHANGE_FAILED"),
 	NOT_IMPLEMENTED               ((short)16, "NOT_IMPLEMENTED"),
 	UNSUPPORTED_SECURITY_VERSION  ((short)17, "UNSUPPORTED_SECURITY_VERSION"),
 	INVALID_PAKE_STATE            ((short)18, "INVALID_PAKE_STATE"),
@@ -80,14 +78,10 @@ public enum EnumCommandResult
 				return EnumCommandResult.UNEXPECTED_EXCEPTION;
 			case 11:
 				return EnumCommandResult.SENSOR_RUNLEVEL_TOO_LOW;
-			case 12:
-				return EnumCommandResult.LOGIN_KEY_INVALID;
 			case 13:
 				return EnumCommandResult.ACCESS_DENIED;
 			case 14:
 				return EnumCommandResult.EVALUATION_PERIOD_EXPIRED;
-			case 15:
-				return EnumCommandResult.KEY_EXCHANGE_FAILED;
 			case 16:
 				return EnumCommandResult.NOT_IMPLEMENTED;
 			case 17:
