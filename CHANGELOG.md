@@ -1,7 +1,9 @@
 # Changelog
 
-## 4.0.0
+## 5.0.0
 
+- replaced the legacy BLE Diffie-Hellman login with the balanced SPAKE2 PAKE pairing flow, including PAKE attributes, pairing-code and sealed-session helpers, and test fixtures
+- removed the old `LOGIN`, key-exchange, and `AUTH_CONFIRM` client-side implementation
 - breaking API change: `SealSensor` now derives the sealing key via `SmartGattLib` without a sensor serial number
 
 ## 3.0.1
