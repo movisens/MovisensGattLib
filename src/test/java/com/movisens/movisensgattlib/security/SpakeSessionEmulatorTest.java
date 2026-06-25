@@ -82,7 +82,7 @@ public class SpakeSessionEmulatorTest
         }
         catch (PakeException expected)
         {
-            assertEquals(EnumCommandResult.KEY_CONFIRMATION_FAILED, expected.getResult());
+            assertEquals(EnumCommandResult.WRONG_CODE, expected.getResult());
         }
     }
 
@@ -96,10 +96,10 @@ public class SpakeSessionEmulatorTest
         SpakeSensorEmulator emulator = emulator(emulatorSecret, true, clock);
 
         // The first two wrong attempts are counted but grant free retries: no lockout yet.
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
         // The 3rd wrong attempt arms the 60-min lockout.
-        expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
 
         // While locked, even the correct secret is refused with the tier's rate-limit code.
         expectFailure(emulator, right, EnumCommandResult.PAKE_RATE_LIMITED_60_MIN);
@@ -137,9 +137,9 @@ public class SpakeSessionEmulatorTest
         for (int tier = 0; tier < tierCode.length; tier++)
         {
             // Two free retries, then the 3rd failure of the block arms this tier's lockout.
-            expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
-            expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
-            expectFailure(emulator, wrong, EnumCommandResult.KEY_CONFIRMATION_FAILED);
+            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
             // Now locked: any further start is refused with this tier's code.
             expectFailure(emulator, wrong, tierCode[tier]);
             // Wait out the lockout so the next block of failures can proceed.

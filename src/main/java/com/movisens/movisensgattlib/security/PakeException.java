@@ -8,7 +8,7 @@ import com.movisens.movisensgattlib.attributes.EnumCommandResult;
  * Signals a failed or out-of-state balanced-SPAKE2 handshake step.
  *
  * <p>When the failure was reported by the sensor as a command result (e.g.
- * {@link EnumCommandResult#KEY_CONFIRMATION_FAILED} for a wrong secret, or one of the
+ * {@link EnumCommandResult#WRONG_CODE} for a rejected client confirm, or one of the
  * {@code PAKE_RATE_LIMITED_*} codes for an active lockout), that result is carried in
  * {@link #getResult()} so callers can branch on it (show the matching wait time, suppress
  * automatic retries) without parsing the message.</p>

@@ -16,7 +16,7 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
  *
  * <p>The handshake's key confirmation <em>is</em> the authentication — there is no separate
  * login step. The session key is only returned after the sensor confirmation has verified
- * (MITM-checked). A wrong secret or an active rate-limit lockout surfaces as a
+ * (MITM-checked). A rejected client confirm or an active rate-limit lockout surfaces as a
  * {@link PakeException} carrying the sensor's {@link EnumCommandResult}; the caller maps the
  * code to a user message (e.g. a {@code PAKE_RATE_LIMITED_*} wait time) and must not start an
  * automatic PAKE retry.</p>
@@ -41,7 +41,7 @@ public final class SpakeSession
      * @param sensorId     SPAKE2 party A identity (sensor serial bytes from the advertised name)
      * @param clientId     SPAKE2 party B identity (see {@link SpakeIdentities#clientId()})
      * @param sharedSecret the secret bytes (onboarding colour code or sealing-password key)
-     * @throws PakeException if the sensor rejects the confirmation (wrong secret) or a lockout is
+     * @throws PakeException if the sensor rejects the confirmation (wrong secret/code) or a lockout is
      *                       active; {@link PakeException#getResult()} carries the sensor result code
      * @throws GeneralSecurityException on any other crypto/handshake error
      */

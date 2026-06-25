@@ -15,7 +15,7 @@ import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
  * <ul>
  *   <li>holds the "blinked" secret (colour code or sealing-password key) as {@code byte[]};</li>
  *   <li>runs share/confirm and gates the session key on a correct client confirm
- *       (otherwise {@link EnumCommandResult#KEY_CONFIRMATION_FAILED});</li>
+ *       (otherwise {@link EnumCommandResult#WRONG_CODE});</li>
  *   <li>models the persistent PAKE failure counter and the 60-min / 2-h / 4-h / 8-h / 24-h
  *       lockout tiers, returning the matching {@code PAKE_RATE_LIMITED_*} code while locked.</li>
  * </ul>
@@ -79,12 +79,14 @@ public final class SpakeSensorEmulator
     public void seal()
     {
         this.sealed = true;
+        resetRateLimit();
     }
 
     /** Models a successful {@code UnsealSensor} write after an authenticated session. */
     public void unseal()
     {
         this.sealed = false;
+        resetRateLimit();
     }
 
     /**
@@ -132,7 +134,7 @@ public final class SpakeSensorEmulator
 
     /**
      * Verifies the client confirm. A wrong confirm is reported as
-     * {@link EnumCommandResult#KEY_CONFIRMATION_FAILED} and registers a failure (which raises the
+     * {@link EnumCommandResult#WRONG_CODE} and registers a failure (which raises the
      * counter and, on every 3rd failure, arms the next lockout tier); a correct confirm returns OK
      * and resets the counter. If a lockout is active the matching {@code PAKE_RATE_LIMITED_*} code is
      * returned instead.
@@ -152,7 +154,7 @@ public final class SpakeSensorEmulator
         {
             registerFailure();
             session = null;
-            return EnumCommandResult.KEY_CONFIRMATION_FAILED;
+            return EnumCommandResult.WRONG_CODE;
         }
         clientConfirmed = true;
         failureCount = 0;
@@ -202,6 +204,12 @@ public final class SpakeSensorEmulator
         {
             lockedUntilMillis = clock.nowMillis() + TIER_DURATIONS_MS[tierIndex(failureCount)];
         }
+    }
+
+    private void resetRateLimit()
+    {
+        failureCount = 0;
+        lockedUntilMillis = 0;
     }
 
     /** Maps the failure count to a tier index: failures 1-3 -> 0, 4-6 -> 1, ..., 13+ -> 4. */

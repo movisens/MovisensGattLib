@@ -92,7 +92,7 @@ public class SpakeManagerBleSchemeTest
         {
             result = bleConnection.setAttribute(request);
         }
-        assertEquals(EnumCommandResult.KEY_CONFIRMATION_FAILED, result);
+        assertEquals(EnumCommandResult.WRONG_CODE, result);
     }
 
     // --- helpers --------------------------------------------------------------------------
@@ -216,7 +216,7 @@ public class SpakeManagerBleSchemeTest
                 }
                 catch (PakeException rejected)
                 {
-                    return EnumCommandResult.KEY_CONFIRMATION_FAILED;
+                    return EnumCommandResult.WRONG_CODE;
                 }
                 return EnumCommandResult.OK;
             }
