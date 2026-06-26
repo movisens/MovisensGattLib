@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Ambient light (red, green, blue)
+ */
 public class LightRgb extends AbstractReadAttribute
 {
 

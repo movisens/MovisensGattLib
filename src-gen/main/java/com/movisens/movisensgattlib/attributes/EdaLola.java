@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * raw low latency eda signal
+ */
 public class EdaLola extends AbstractReadAttribute
 {
 

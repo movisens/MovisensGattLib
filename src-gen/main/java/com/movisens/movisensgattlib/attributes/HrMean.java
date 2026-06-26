@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * hr_mean
+ */
 public class HrMean extends AbstractReadAttribute
 {
 

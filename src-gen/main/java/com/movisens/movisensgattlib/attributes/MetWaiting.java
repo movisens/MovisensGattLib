@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Number of met samples waiting.
+ */
 public class MetWaiting extends AbstractReadAttribute
 {
 

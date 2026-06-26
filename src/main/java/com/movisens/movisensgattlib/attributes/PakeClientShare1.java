@@ -6,8 +6,16 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
- * First part (bytes 0..19) of the client balanced-SPAKE2 share pA, SEC1 compressed.
- * Plaintext bootstrap attribute; the session is encrypted only after key confirmation.
+ * First part of the client SPAKE2 share pA = x*G + w*M (SEC1 compressed, bytes 0..19).
+ * Requires an active PAKE session started via pake_start.
+ * This triggers a command_result notification.
+ * Possible results:
+ * - ok: the fragment was accepted.
+ * - INVALID_PAKE_STATE: no active PAKE session, failed PAKE state or invalid length.
+ * If pake_client_share_2 was already written and this write completes the share, the
+ * final result can also be:
+ * - INVALID_POINT: the assembled client share is not a valid point.
+ * - UNEXPECTED_EXCEPTION: asynchronous PAKE share computation failed.
  */
 public class PakeClientShare1 extends AbstractWriteAttribute implements PlainTextAttribute
 {

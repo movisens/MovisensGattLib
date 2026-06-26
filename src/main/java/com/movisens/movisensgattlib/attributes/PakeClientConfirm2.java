@@ -6,7 +6,16 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
- * Second part (bytes 20..31) of the client key-confirmation MAC (HMAC-SHA256).
+ * Second part of the client key-confirmation MAC (bytes 20..31).
+ * This triggers a command_result notification.
+ * Possible results:
+ * - ok: the fragment was accepted.
+ * - INVALID_PAKE_STATE: no active PAKE session, failed PAKE state or invalid length.
+ * If pake_client_confirm_1 was already written and this write completes the
+ * confirmation, the final result can also be:
+ * - INVALID_POINT: PAKE key derivation failed before confirmation verification.
+ * - WRONG_CODE: the client confirmation does not match the PAKE secret.
+ * - KEY_CONFIRMATION_FAILED: the sensor could not compute its confirmation or session key.
  */
 public class PakeClientConfirm2 extends AbstractWriteAttribute implements PlainTextAttribute
 {

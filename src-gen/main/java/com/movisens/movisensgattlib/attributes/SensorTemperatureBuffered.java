@@ -9,6 +9,9 @@ import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Buffered temperature measured inside the sensor housing
+ */
 public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorTemperatureData>
 {
 

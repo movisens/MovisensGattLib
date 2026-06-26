@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * The current level of storage used. 100% means that all free space is used (storage full) while 0% means that the whole storage capacity is available.
+ */
 public class StorageLevel extends AbstractReadAttribute
 {
 

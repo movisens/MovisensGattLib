@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Start time of the current measurement or 0 if no measurement is currently active. Time is given in UTC and is represented by milliseconds elapsed since 1 January 1970 00:00:00 UTC.
+ */
 public class MeasurementStartTime extends AbstractReadAttribute
 {
 

@@ -6,7 +6,7 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
- * First part (bytes 0..19) of the sensor key-confirmation MAC (HMAC-SHA256).
+ * First part of the sensor key-confirmation MAC HMAC-SHA256 (bytes 0..19).
  */
 public class PakeSensorConfirm1 extends AbstractReadAttribute implements PlainTextAttribute
 {

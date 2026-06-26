@@ -5,6 +5,14 @@ import com.movisens.smartgattlib.helper.AbstractReadWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Time zone offset in seconds from UTC in which the sensor was or will be started.
+ * See java.time.ZoneOffset ofTotalSeconds and getTotalSeconds.
+ * This triggers a command_result notification.
+ * Possible results:
+ * - ok: the value was accepted.
+ * - ACCESS_DENIED: the write is not allowed in the current security state.
+ */
 public class TimeZoneOffset extends AbstractReadWriteAttribute
 {
 

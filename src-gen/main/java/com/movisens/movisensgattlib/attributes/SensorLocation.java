@@ -5,6 +5,13 @@ import com.movisens.smartgattlib.helper.AbstractReadWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * The location at which the user wears the sensor.
+ * This triggers a command_result notification.
+ * Possible results:
+ * - ok: the value was accepted.
+ * - ACCESS_DENIED: the write is not allowed in the current security state.
+ */
 public class SensorLocation extends AbstractReadWriteAttribute
 {
 

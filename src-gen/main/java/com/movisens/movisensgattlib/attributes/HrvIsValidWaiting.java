@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Number of hrv_is_valid samples waiting.
+ */
 public class HrvIsValidWaiting extends AbstractReadAttribute
 {
 

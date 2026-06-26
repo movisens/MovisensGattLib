@@ -6,7 +6,7 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
- * First part (bytes 0..19) of the sensor balanced-SPAKE2 share pB, SEC1 compressed.
+ * First part of the sensor SPAKE2 share pB = y*G + w*N (SEC1 compressed, bytes 0..19).
  */
 public class PakeSensorShare1 extends AbstractReadAttribute implements PlainTextAttribute
 {

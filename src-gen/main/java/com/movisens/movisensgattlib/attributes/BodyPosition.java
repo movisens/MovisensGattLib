@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * the position of the users body. Needs characteristic sensor_location to be set in user_data service!
+ */
 public class BodyPosition extends AbstractReadAttribute
 {
 

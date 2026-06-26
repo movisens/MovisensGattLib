@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Returns true if measurement data is available on the sensor.
+ */
 public class DataAvailable extends AbstractReadAttribute
 {
 

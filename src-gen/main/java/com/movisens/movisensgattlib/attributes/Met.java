@@ -5,6 +5,11 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Current value of met (metabolic equivalent of task).
+ *
+ * Needs characteristics age, gender, weight, height and sensor_location to be set in user_data service!
+ */
 public class Met extends AbstractReadAttribute
 {
 

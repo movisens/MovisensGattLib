@@ -6,6 +6,10 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
+/**
+ * Result of the last command.
+ * See the writable characteristic documentation for the possible results of each write.
+ */
 public class CommandResult extends AbstractReadAttribute implements PlainTextAttribute
 {
 

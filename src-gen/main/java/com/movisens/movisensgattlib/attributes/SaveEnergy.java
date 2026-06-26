@@ -5,6 +5,13 @@ import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Must be set to 1 to put the connection into energy saving mode (Recommended after configuration is done). As soon as a new connection is established the save energy mode must be enabled again.
+ * This triggers a command_result notification.
+ * Possible results:
+ * - ok: the value was accepted.
+ * - ACCESS_DENIED: the write is not allowed in the current security state.
+ */
 public class SaveEnergy extends AbstractWriteAttribute
 {
 

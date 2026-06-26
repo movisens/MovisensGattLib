@@ -5,6 +5,11 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Number of seconds the users met value was at one of the met levels (sedentary, light, moderate, vigorous)
+ *
+ * Needs characteristics age, gender, weight, height and sensor_location to be set in user_data service!
+ */
 public class MetLevel extends AbstractReadAttribute
 {
 

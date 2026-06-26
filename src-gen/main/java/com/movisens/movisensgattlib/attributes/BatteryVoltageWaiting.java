@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Number of battery voltage values in the buffer.
+ */
 public class BatteryVoltageWaiting extends AbstractReadAttribute
 {
 

@@ -9,6 +9,9 @@ import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Buffered position of the users body. Needs characteristic sensor_location to be set in user_data service!
+ */
 public class BodyPositionBuffered extends AbstractBufferedAttribute<BodyPositionData>
 {
 

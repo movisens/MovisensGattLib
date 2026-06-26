@@ -9,6 +9,9 @@ import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Buffered battery level.
+ */
 public class BatteryLevelBuffered extends AbstractBufferedAttribute<BatteryLevelData>
 {
 

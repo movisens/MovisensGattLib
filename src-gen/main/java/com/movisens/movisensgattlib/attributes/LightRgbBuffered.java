@@ -9,6 +9,9 @@ import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Buffered ambient light (red, green, blue)
+ */
 public class LightRgbBuffered extends AbstractBufferedAttribute<LightRgbData>
 {
 

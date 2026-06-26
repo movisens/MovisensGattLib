@@ -9,6 +9,9 @@ import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * buffered movement_acceleration
+ */
 public class MovementAccelerationBuffered extends AbstractBufferedAttribute<MovementAccelerationData>
 {
 

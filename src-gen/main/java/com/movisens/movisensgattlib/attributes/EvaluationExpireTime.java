@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * End of evaluation period or 0 if no evaluation limit is set. Time is given in milliseconds since 1 January 1970 00:00:00 UTC.
+ */
 public class EvaluationExpireTime extends AbstractReadAttribute
 {
 

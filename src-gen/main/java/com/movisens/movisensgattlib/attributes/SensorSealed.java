@@ -6,6 +6,9 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
+/**
+ * Returns true if the given sensor is sealed.
+ */
 public class SensorSealed extends AbstractReadAttribute implements PlainTextAttribute
 {
 

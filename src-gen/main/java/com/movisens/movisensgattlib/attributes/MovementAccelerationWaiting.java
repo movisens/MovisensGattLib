@@ -5,6 +5,9 @@ import com.movisens.smartgattlib.helper.AbstractReadAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
+/**
+ * Number of movement_acceleration samples waiting.
+ */
 public class MovementAccelerationWaiting extends AbstractReadAttribute
 {
 
