@@ -18,7 +18,7 @@ import com.movisens.smartgattlib.security.CryptoManager;
 /**
  * Drives {@link SpakeSession} against the reusable {@link SpakeSensorEmulator} via
  * {@link MockSpakeBleConnection} — the template for the per-consumer emulator tests. Covers
- * onboarding, sealed access, a wrong secret, the rate-limit lockout tiers, and access control.
+ * onboarding, sealed access, a wrong secret, the rate-limit lockout, and access control.
  */
 public class SpakeSessionEmulatorTest
 {
@@ -86,7 +86,7 @@ public class SpakeSessionEmulatorTest
     }
 
     @Test
-    public void rateLimitLocksAfterThreeFailuresAndReleasesWhenTheClockAdvances() throws Exception
+    public void rateLimitLocksAfterTenFailuresAndReleasesWhenTheClockAdvances() throws Exception
     {
         byte[] emulatorSecret = sealingSecret("correct horse");
         byte[] wrong = sealingSecret("wrong horse");
@@ -94,13 +94,16 @@ public class SpakeSessionEmulatorTest
         SensorClock.Mutable clock = new SensorClock.Mutable();
         SpakeSensorEmulator emulator = emulator(emulatorSecret, true, clock);
 
-        // The first two wrong attempts are counted but grant free retries: no lockout yet.
-        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
-        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
-        // The 3rd wrong attempt arms the 60-min lockout.
+        // The first nine wrong attempts are counted but do not lock yet.
+        for (int attempt = 1; attempt < 10; attempt++)
+        {
+            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+        }
+
+        // The 10th wrong attempt arms the 60-min lockout.
         expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
 
-        // While locked, even the correct secret is refused with the tier's rate-limit code.
+        // While locked, even the correct secret is refused with the 60-min rate-limit code.
         expectFailure(emulator, right, EnumCommandResult.PAKE_RATE_LIMITED_60_MIN);
 
         // After the lockout expires the correct secret succeeds (a success resets the counter).
@@ -111,39 +114,28 @@ public class SpakeSessionEmulatorTest
     }
 
     @Test
-    public void rateLimitTiersEscalateEveryThreeFailures() throws Exception
+    public void rateLimitUsesTwentyFourHourTierAfterFirstLockout() throws Exception
     {
         byte[] secret = sealingSecret("correct horse");
         byte[] wrong = sealingSecret("wrong horse");
         SensorClock.Mutable clock = new SensorClock.Mutable();
         SpakeSensorEmulator emulator = emulator(secret, true, clock);
 
-        // Each tier is armed by the 3rd failure of its block (two free retries precede it); the
-        // 24-h cap then repeats for every further block of 3 failures.
-        EnumCommandResult[] tierCode = {
-            EnumCommandResult.PAKE_RATE_LIMITED_60_MIN,
-            EnumCommandResult.PAKE_RATE_LIMITED_2_H,
-            EnumCommandResult.PAKE_RATE_LIMITED_4_H,
-            EnumCommandResult.PAKE_RATE_LIMITED_8_H,
-            EnumCommandResult.PAKE_RATE_LIMITED_24_H,
-            EnumCommandResult.PAKE_RATE_LIMITED_24_H // cap repeats
-        };
-        long[] tierMillis = {
-            60L * 60_000, 2L * 60L * 60_000, 4L * 60L * 60_000, 8L * 60L * 60_000,
-            24L * 60L * 60_000, 24L * 60L * 60_000
-        };
-
-        for (int tier = 0; tier < tierCode.length; tier++)
+        for (int attempt = 1; attempt <= 10; attempt++)
         {
-            // Two free retries, then the 3rd failure of the block arms this tier's lockout.
             expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
-            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
-            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
-            // Now locked: any further start is refused with this tier's code.
-            expectFailure(emulator, wrong, tierCode[tier]);
-            // Wait out the lockout so the next block of failures can proceed.
-            clock.advance(tierMillis[tier] + 1);
         }
+        expectFailure(emulator, wrong, EnumCommandResult.PAKE_RATE_LIMITED_60_MIN);
+
+        clock.advance(60L * 60_000 + 1);
+
+        // After the first lockout, every further 5-failure block arms a 24-h lockout.
+        for (int attempt = 11; attempt < 15; attempt++)
+        {
+            expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+        }
+        expectFailure(emulator, wrong, EnumCommandResult.WRONG_CODE);
+        expectFailure(emulator, wrong, EnumCommandResult.PAKE_RATE_LIMITED_24_H);
     }
 
     @Test

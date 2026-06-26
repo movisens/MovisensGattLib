@@ -16,8 +16,8 @@ import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
  *   <li>holds the "blinked" secret (colour code or sealing-password key) as {@code byte[]};</li>
  *   <li>runs share/confirm and gates the session key on a correct client confirm
  *       (otherwise {@link EnumCommandResult#WRONG_CODE});</li>
- *   <li>models the persistent PAKE failure counter and the 60-min / 2-h / 4-h / 8-h / 24-h
- *       lockout tiers, returning the matching {@code PAKE_RATE_LIMITED_*} code while locked.</li>
+ *   <li>models the persistent PAKE failure counter and the 60-min / 24-h lockout tiers,
+ *       returning the matching {@code PAKE_RATE_LIMITED_*} code while locked.</li>
  * </ul>
  *
  * <p>This is the crypto/state core; {@link MockSpakeBleConnection} maps the GATT attributes onto
@@ -25,22 +25,10 @@ import com.movisens.movisensgattlib.security.MockedSpakeSensor.Attr;
  */
 public final class SpakeSensorEmulator
 {
-    /** Lockout durations per tier (failures 1-3, 4-6, 7-9, 10-12, 13+). */
-    private static final long[] TIER_DURATIONS_MS = {
-        60L * 60_000,        // 60 min
-        2L * 60L * 60_000,   // 2 h
-        4L * 60L * 60_000,   // 4 h
-        8L * 60L * 60_000,   // 8 h
-        24L * 60L * 60_000   // 24 h (cap)
-    };
-
-    private static final EnumCommandResult[] TIER_CODES = {
-        EnumCommandResult.PAKE_RATE_LIMITED_60_MIN,
-        EnumCommandResult.PAKE_RATE_LIMITED_2_H,
-        EnumCommandResult.PAKE_RATE_LIMITED_4_H,
-        EnumCommandResult.PAKE_RATE_LIMITED_8_H,
-        EnumCommandResult.PAKE_RATE_LIMITED_24_H
-    };
+    private static final int FIRST_LOCKOUT_FAILURE_COUNT = 10;
+    private static final int NEXT_LOCKOUT_FAILURE_INTERVAL = 5;
+    private static final long ONE_HOUR_MS = 60L * 60_000;
+    private static final long ONE_DAY_MS = 24L * 60L * 60_000;
 
     private final byte[] secret;
     private final byte[] sensorId;
@@ -135,9 +123,9 @@ public final class SpakeSensorEmulator
     /**
      * Verifies the client confirm. A wrong confirm is reported as
      * {@link EnumCommandResult#WRONG_CODE} and registers a failure (which raises the
-     * counter and, on every 3rd failure, arms the next lockout tier); a correct confirm returns OK
-     * and resets the counter. If a lockout is active the matching {@code PAKE_RATE_LIMITED_*} code is
-     * returned instead.
+     * counter; failure #10 arms a 60-minute lockout, later 5-failure blocks arm 24-hour lockouts);
+     * a correct confirm returns OK and resets the counter. If a lockout is active the matching
+     * {@code PAKE_RATE_LIMITED_*} code is returned instead.
      */
     public EnumCommandResult onClientConfirm(byte[] clientConfirm) throws GeneralSecurityException
     {
@@ -191,18 +179,21 @@ public final class SpakeSensorEmulator
 
     private EnumCommandResult activeLockoutCode()
     {
-        return TIER_CODES[tierIndex(failureCount)];
+        if (failureCount <= FIRST_LOCKOUT_FAILURE_COUNT)
+        {
+            return EnumCommandResult.PAKE_RATE_LIMITED_60_MIN;
+        }
+        return EnumCommandResult.PAKE_RATE_LIMITED_24_H;
     }
 
     private void registerFailure()
     {
         failureCount++;
-        // Lock only after every 3rd failure (2 free retries before each lockout, and again after each
-        // lockout elapses); the tier escalates with the running count. Mirrors the firmware
-        // BlePairingAuthenticator::registerPakeFailure.
-        if (failureCount % 3 == 0)
+        // Mirrors the firmware BlePairingAuthenticator::registerPakeFailure:
+        // failure #10 locks for 60 min; after that, every 5th further failure locks for 24 h.
+        if (shouldArmPakeLockout(failureCount))
         {
-            lockedUntilMillis = clock.nowMillis() + TIER_DURATIONS_MS[tierIndex(failureCount)];
+            lockedUntilMillis = clock.nowMillis() + lockoutDurationMs(failureCount);
         }
     }
 
@@ -212,14 +203,23 @@ public final class SpakeSensorEmulator
         lockedUntilMillis = 0;
     }
 
-    /** Maps the failure count to a tier index: failures 1-3 -> 0, 4-6 -> 1, ..., 13+ -> 4. */
-    private static int tierIndex(int failures)
+    private static boolean shouldArmPakeLockout(int failures)
     {
-        if (failures <= 0)
+        if (failures < FIRST_LOCKOUT_FAILURE_COUNT)
         {
-            return 0;
+            return false;
         }
-        return Math.min((failures - 1) / 3, TIER_DURATIONS_MS.length - 1);
+        return failures == FIRST_LOCKOUT_FAILURE_COUNT ||
+            (failures - FIRST_LOCKOUT_FAILURE_COUNT) % NEXT_LOCKOUT_FAILURE_INTERVAL == 0;
+    }
+
+    private static long lockoutDurationMs(int failures)
+    {
+        if (failures <= FIRST_LOCKOUT_FAILURE_COUNT)
+        {
+            return ONE_HOUR_MS;
+        }
+        return ONE_DAY_MS;
     }
 
     private void requireSession() throws PakeException

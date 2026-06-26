@@ -25,9 +25,6 @@ public enum EnumCommandResult
 	WRONG_CODE                    ((short)22, "WRONG_CODE"),
 	RETRY_REQUIRED_NEW_SESSION    ((short)23, "RETRY_REQUIRED_NEW_SESSION"),
 	PAKE_RATE_LIMITED_60_MIN      ((short)24, "PAKE_RATE_LIMITED_60_MIN"),
-	PAKE_RATE_LIMITED_2_H         ((short)25, "PAKE_RATE_LIMITED_2_H"),
-	PAKE_RATE_LIMITED_4_H         ((short)26, "PAKE_RATE_LIMITED_4_H"),
-	PAKE_RATE_LIMITED_8_H         ((short)27, "PAKE_RATE_LIMITED_8_H"),
 	PAKE_RATE_LIMITED_24_H        ((short)28, "PAKE_RATE_LIMITED_24_H"),
 	INVALID                       ((short)29, "invalid");
 
@@ -100,12 +97,6 @@ public enum EnumCommandResult
 				return EnumCommandResult.RETRY_REQUIRED_NEW_SESSION;
 			case 24:
 				return EnumCommandResult.PAKE_RATE_LIMITED_60_MIN;
-			case 25:
-				return EnumCommandResult.PAKE_RATE_LIMITED_2_H;
-			case 26:
-				return EnumCommandResult.PAKE_RATE_LIMITED_4_H;
-			case 27:
-				return EnumCommandResult.PAKE_RATE_LIMITED_8_H;
 			case 28:
 				return EnumCommandResult.PAKE_RATE_LIMITED_24_H;
 			default:
