@@ -1,12 +1,11 @@
 # MovisensGattLib
 
-MovisensGattLib ist eine Java-11-Bibliothek für movisens BLE-GATT-Daten. Sie
-enthält die movisens Service- und Characteristic-UUIDs, typisierte Attribute zum
-Lesen und Schreiben der Rohdaten und die Security-Helfer für SPAKE2, Pairing und
-Sealing.
+MovisensGattLib is a Java 11 library for movisens BLE GATT data. It contains
+the movisens service and characteristic UUIDs, typed attributes for reading and
+writing raw data, and security helpers for SPAKE2, pairing, and sealing.
 
-Die Bibliothek ist kein BLE-Stack. Scannen, Verbinden, Service Discovery, Reads,
-Writes und Notifications kommen aus der Anwendung.
+The library is not a BLE stack. Scanning, connecting, service discovery, reads,
+writes, and notifications are provided by the application.
 
 ## Dependency
 
@@ -16,17 +15,17 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.movisens:MovisensGattLib:4.0.0"
+    implementation "com.github.movisens:MovisensGattLib:5.0.0"
 }
 ```
 
-`SmartGattLib` ist eine transitive Dependency und liefert die gemeinsamen
-Basisklassen wie `AbstractAttribute`, `Characteristic` und `CryptoManager`.
+`SmartGattLib` is a transitive dependency and provides the shared base classes
+such as `AbstractAttribute`, `Characteristic`, and `CryptoManager`.
 
-## BLE-Stack-Grenze
+## BLE Stack Boundary
 
-Diese README setzt voraus, dass der unbekannte BLE-Stack über diese drei
-Methoden angebunden wird:
+This README assumes that the BLE stack is connected through these three
+methods:
 
 ```java
 String getAdvertizedName();
@@ -34,9 +33,9 @@ AbstractAttribute processIncomingAttribute(UUID uuid, byte[] rawAttributeData);
 void writeOutgoingAttribute(UUID uuid, byte[] rawAttributeData);
 ```
 
-Die movisens Library kennt den Stack nicht direkt. Die Anwendung kapselt den
-Stack in einem Adapter und übersetzt dort zwischen BLE-Rohdaten und typisierten
-Attributen:
+The movisens library does not know the stack directly. The application wraps
+the stack in an adapter and translates between BLE raw data and typed
+attributes there:
 
 ```java
 import java.nio.charset.StandardCharsets;
@@ -85,37 +84,37 @@ public abstract class MovisensBleAdapter {
 }
 ```
 
-`processIncomingAttribute` wird für jedes BLE-Read-Result und jede Notification
-aufgerufen. `MovisensCharacteristics.lookup(uuid)` findet movisens
-Characteristics und fällt bei Standard-BLE-Characteristics auf `SmartGattLib`
-zurück. `createAttribute(cryptoManager, rawAttributeData)` entschlüsselt
-automatisch, sobald `cryptoManager` einen Session-Key hat.
+`processIncomingAttribute` is called for every BLE read result and every
+notification. `MovisensCharacteristics.lookup(uuid)` finds movisens
+characteristics and falls back to `SmartGattLib` for standard BLE
+characteristics. `createAttribute(cryptoManager, rawAttributeData)` decrypts
+automatically once `cryptoManager` has a session key.
 
-`writeAttribute` ist die Gegenrichtung: Ein typisiertes Attribut erzeugt über
-`getOutgoingData(cryptoManager)` die Bytes, die der BLE-Stack an die UUID
-schreibt. Auch hier wird automatisch verschlüsselt, sobald ein Session-Key
-gesetzt ist. Plaintext-Attribute wie PAKE-Daten bleiben Plaintext.
+`writeAttribute` is the reverse direction: a typed attribute uses
+`getOutgoingData(cryptoManager)` to produce the bytes that the BLE stack writes
+to the UUID. This also encrypts automatically once a session key is set.
+Plaintext attributes such as PAKE data stay plaintext.
 
-`writeOutgoingAttribute(...)` ist nur der BLE-Write. Es ist kein Sensor-
-`CommandResult`. Wenn die Anwendung den Sensorstatus eines Kommandos braucht,
-liest oder empfängt sie `MovisensCharacteristics.COMMAND_RESULT` separat und
-wertet das daraus erzeugte `CommandResult`-Attribut aus.
+`writeOutgoingAttribute(...)` is only the BLE write. It is not a sensor
+`CommandResult`. If the application needs the sensor status of a command, it
+reads or receives `MovisensCharacteristics.COMMAND_RESULT` separately and
+evaluates the generated `CommandResult` attribute.
 
-## Services und Characteristics
+## Services and Characteristics
 
-Bei Service Discovery vergleichst du die UUIDs mit den Konstanten:
+During service discovery, compare UUIDs with the constants:
 
 ```java
 if (MovisensServices.PHYSICAL_ACTIVITY.equals(serviceUuid)) {
-    // Notifications für Messwerte aktivieren, z. B. MOVEMENT_ACCELERATION.
+    // Enable notifications for measured values, e.g. MOVEMENT_ACCELERATION.
 }
 
 if (MovisensCharacteristics.MOVEMENT_ACCELERATION.equals(characteristicUuid)) {
-    // Notification für diese Characteristic aktivieren.
+    // Enable notification for this characteristic.
 }
 ```
 
-Eingehende Werte werden typisiert:
+Incoming values are typed:
 
 ```java
 AbstractAttribute attribute = processIncomingAttribute(uuid, rawAttributeData);
@@ -126,7 +125,7 @@ if (attribute instanceof MovementAcceleration) {
 }
 ```
 
-Ausgehende Werte werden als Attribut erstellt und geschrieben:
+Outgoing values are created as attributes and written:
 
 ```java
 writeAttribute(new CurrentTimeMs(new Date()));
@@ -134,15 +133,54 @@ writeAttribute(new TimeZoneId(ZoneId.systemDefault().getId()));
 writeAttribute(new StartMeasurement(3600L));
 ```
 
-## Security, Pairing und Sealing
+### Return Values via Command Result
 
-Geschützte BLE-Attribute werden erst nach einer erfolgreichen SPAKE2-Session
-nutzbar. `SpakeSession` arbeitet mit `SpakeGattConnection`. Diese Schnittstelle
-ist eine zusätzliche Brücke für den PAKE-Flow, nicht die allgemeine
-Schreib-API: `setAttribute(...)` muss den Sensor-`CommandResult` für den
-geschriebenen PAKE-Schritt liefern.
+Many writable movisens characteristics trigger a `command_result` after the BLE
+write. The BLE write itself only confirms transport. The sensor status is
+reported separately through `MovisensCharacteristics.COMMAND_RESULT`; the
+application reads that characteristic after the write or handles its
+notification and processes the value as `CommandResult`.
+`CommandResult.getError()` returns the `EnumCommandResult`.
 
-Ein Adapter kann das so anbinden:
+The `EnumCommandResult` values that a specific attribute can produce are
+documented in the corresponding characteristic attribute class under
+`com.movisens.movisensgattlib.attributes`. Look for
+`This triggers a command_result notification` and `Possible results`. The list
+is attribute-specific; do not apply it to all writes.
+
+## Security, Pairing, and Sealing
+
+Protected BLE attributes become usable only after a successful SPAKE2 session.
+`SpakeSession` works with `SpakeGattConnection`. That interface is an
+additional bridge for the PAKE flow, not the general write API:
+`setAttribute(...)` must return the sensor `CommandResult` for the written PAKE
+step.
+
+For PAKE, every written step must return `OK`. `SpakeSession` aborts on any
+other result with a `PakeException`; `PakeException.getResult()` then contains
+the `EnumCommandResult` returned by the sensor. The characteristic
+documentation lists the possible values per step:
+
+- `PakeStart`: `OK`, `UNEXPECTED_EXCEPTION`, or a `PAKE_RATE_LIMITED_*`
+  result (`PAKE_RATE_LIMITED_60_MIN` or `PAKE_RATE_LIMITED_24_H`) while a
+  lockout is active.
+- `PakeClientShare1` / `PakeClientShare2`: `OK`,
+  `INVALID_PAKE_STATE`; on the fragment that completes the share, also
+  `INVALID_POINT` or `UNEXPECTED_EXCEPTION`.
+- `PakeClientConfirm1` / `PakeClientConfirm2`: `OK`,
+  `INVALID_PAKE_STATE`; on the fragment that completes the confirmation, also
+  `INVALID_POINT`, `WRONG_CODE`, or `KEY_CONFIRMATION_FAILED`.
+
+In an application, the PAKE-specific results usually mean:
+`WRONG_CODE` is a wrong colour code or a wrong sealing password,
+`INVALID_PAKE_STATE` is a missing, aborted, or incorrectly sequenced PAKE
+state, `INVALID_POINT` is invalid SPAKE2 point data or failed key derivation,
+`KEY_CONFIRMATION_FAILED` is a failed sensor confirmation, and
+`UNEXPECTED_EXCEPTION` is an internal sensor error. For `PAKE_RATE_LIMITED_*`,
+PAKE is locked; map the suffix (`60_MIN` or `24_H`) to the wait time and do not
+start an automatic retry.
+
+An adapter can connect it like this:
 
 ```java
 import java.util.UUID;
@@ -184,7 +222,7 @@ public final class SpakeBleConnection implements SpakeGattConnection {
     }
 
     private byte[] readAttributeWithBleStack(UUID uuid) {
-        // Stack-spezifischer BLE-Read. Das gelesene Ergebnis geht danach durch
+        // Stack-specific BLE read. The read result is then passed through
         // adapter.processIncomingAttribute(uuid, rawAttributeData).
         throw new UnsupportedOperationException("connect this to your BLE stack");
     }
@@ -196,14 +234,13 @@ public final class SpakeBleConnection implements SpakeGattConnection {
 }
 ```
 
-Die `sensorId` für SPAKE2 ist die Seriennummer aus dem BLE Advertized Name. Sie
-muss bytegenau zur Firmware passen. In den üblichen movisens Advertized Names
-ist sie der letzte Leerzeichen-getrennte Token des Namens.
+The `sensorId` for SPAKE2 is the serial number from the BLE advertised name. It
+must match the firmware byte-for-byte. In the usual movisens advertised names,
+it is the last space-separated token of the name.
 
 ### Sealed Sensor
 
-Bei einem bereits sealed Sensor ist das Secret aus dem Benutzerpasswort
-abgeleitet:
+For an already sealed sensor, the secret is derived from the user password:
 
 ```java
 byte[] sensorId = sensorIdFromAdvertizedName();
@@ -215,16 +252,16 @@ byte[] aesKey = SpakeSession.run(spakeConnection, sensorId, clientId, secret);
 cryptoManager.setKey(aesKey);
 ```
 
-Wenn das Passwort falsch ist oder der Sensor wegen zu vieler Fehlversuche
-limitiert, wirft `SpakeSession.run(...)` eine `PakeException`. Der enthaltene
-`EnumCommandResult` beschreibt den Sensorfehler, z. B. `WRONG_CODE` oder
+If the password is wrong or the sensor is rate-limited after too many failed
+attempts, `SpakeSession.run(...)` throws a `PakeException`. The contained
+`EnumCommandResult` describes the sensor error, for example `WRONG_CODE` or
 `PAKE_RATE_LIMITED_60_MIN`.
 
 ### Unsealed Sensor
 
-Bei einem unsealed Sensor startet die App zuerst die PAKE-Session, damit der
-Sensor den Farbcode anzeigen kann. Danach wird der vom Benutzer gelesene Code in
-Secret-Bytes übersetzt:
+For an unsealed sensor, the app first starts the PAKE session so the sensor can
+show the colour code. The code read by the user is then converted to secret
+bytes:
 
 ```java
 SpakeBleConnection spakeConnection = new SpakeBleConnection(this);
@@ -249,8 +286,8 @@ byte[] aesKey = SpakeSession.runExistingSession(
 cryptoManager.setKey(aesKey);
 ```
 
-Nach `cryptoManager.setKey(aesKey)` ist der verschlüsselte BLE-Kanal aktiv. Erst
-dann kann die App den Sensor mit einem persistenten Passwort sealen:
+After `cryptoManager.setKey(aesKey)`, the encrypted BLE channel is active. Only
+then can the app seal the sensor with a persistent password:
 
 ```java
 writeAttribute(new SealSensor(cryptoManager, password));
