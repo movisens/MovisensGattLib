@@ -9,7 +9,7 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
  * First part of the client key-confirmation MAC HMAC-SHA256 (bytes 0..19).
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the fragment was accepted.
+ * - OK: the fragment was accepted.
  * - INVALID_PAKE_STATE: no active PAKE session, failed PAKE state or invalid length.
  * If pake_client_confirm_2 was already written and this write completes the
  * confirmation, the final result can also be:

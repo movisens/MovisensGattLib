@@ -9,9 +9,9 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * send to start a measurement and set duration of measurement in seconds
  * This triggers a command_result notification.
  * Possible results:
- * - ok: measurement start was accepted.
- * - not_started_proband_info_missing: mandatory participant information is missing.
- * - not_started_measurement_on: measurement is already active, delayed or paused.
+ * - OK: measurement start was accepted.
+ * - NOT_STARTED_PROBAND_INFO_MISSING: mandatory participant information is missing.
+ * - NOT_STARTED_MEASUREMENT_ON: measurement is already active, delayed or paused.
  * - INVALID_CALL_PARAMETERS: duration is greater than INT32_MAX.
  * - EVALUATION_PERIOD_EXPIRED: the evaluation period has expired.
  * - ACCESS_DENIED: the write is not allowed in the current security state.

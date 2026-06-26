@@ -9,7 +9,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * Unseals the sensor and resets the sealing key.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the sensor was unsealed.
+ * - OK: the sensor was unsealed.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class UnsealSensor extends AbstractWriteAttribute

@@ -10,7 +10,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * set do invalid and is deleted before the next measurement if it is not set again.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the value was accepted.
+ * - OK: the value was accepted.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class CustomData extends AbstractReadWriteAttribute

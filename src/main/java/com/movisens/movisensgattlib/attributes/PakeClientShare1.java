@@ -10,7 +10,7 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
  * Requires an active PAKE session started via pake_start.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the fragment was accepted.
+ * - OK: the fragment was accepted.
  * - INVALID_PAKE_STATE: no active PAKE session, failed PAKE state or invalid length.
  * If pake_client_share_2 was already written and this write completes the share, the
  * final result can also be:

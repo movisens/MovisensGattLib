@@ -9,7 +9,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * Time zone id of the zone in which the sensor was or will be started
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the value was accepted.
+ * - OK: the value was accepted.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class TimeZoneId extends AbstractReadWriteAttribute

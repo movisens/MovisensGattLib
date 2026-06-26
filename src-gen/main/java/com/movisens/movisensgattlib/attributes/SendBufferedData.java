@@ -9,7 +9,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * If set to 1 and buffered data is available the sensor sends out the data.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the value was accepted.
+ * - OK: the value was accepted.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class SendBufferedData extends AbstractWriteAttribute

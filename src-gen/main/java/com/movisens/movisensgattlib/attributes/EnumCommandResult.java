@@ -2,20 +2,22 @@ package com.movisens.movisensgattlib.attributes;
 
 public enum EnumCommandResult
 {
-	OK                            ((short)0, "ok"),
-	NOT_STARTED_BATTERY_LOW       ((short)1, "not_started_battery_low"),
-	NOT_STARTED_DATA_AVAILABLE    ((short)2, "not_started_data_available"),
-	NOT_STARTED_PROBAND_INFO_MISSING((short)3, "not_started_proband_info_missing"),
-	NOT_DELETED_MEASUREMENT_ON    ((short)4, "not_deleted_measurement_on"),
-	NOT_STARTED_MEASUREMENT_ON    ((short)5, "not_started_measurement_on"),
-	NOT_STOPPED_MEASUREMENT_OFF   ((short)6, "not_stopped_measurement_off"),
-	NOT_ACTIVATED_PARTICIPANT_INFO_MISSING((short)7, "not_activated_participant_info_missing"),
+	OK                            ((short)0, "OK"),
+	NOT_STARTED_BATTERY_LOW       ((short)1, "NOT_STARTED_BATTERY_LOW"),
+	NOT_STARTED_DATA_AVAILABLE    ((short)2, "NOT_STARTED_DATA_AVAILABLE"),
+	NOT_STARTED_PROBAND_INFO_MISSING((short)3, "NOT_STARTED_PROBAND_INFO_MISSING"),
+	NOT_DELETED_MEASUREMENT_ON    ((short)4, "NOT_DELETED_MEASUREMENT_ON"),
+	NOT_STARTED_MEASUREMENT_ON    ((short)5, "NOT_STARTED_MEASUREMENT_ON"),
+	NOT_STOPPED_MEASUREMENT_OFF   ((short)6, "NOT_STOPPED_MEASUREMENT_OFF"),
+	NOT_ACTIVATED_PARTICIPANT_INFO_MISSING((short)7, "NOT_ACTIVATED_PARTICIPANT_INFO_MISSING"),
 	NOT_STARTED_DEMO_TRIAL_PERIOD_EXPIRED((short)8, "NOT_STARTED_DEMO_TRIAL_PERIOD_EXPIRED"),
 	INVALID_CALL_PARAMETERS       ((short)9, "INVALID_CALL_PARAMETERS"),
 	UNEXPECTED_EXCEPTION          ((short)10, "UNEXPECTED_EXCEPTION"),
 	SENSOR_RUNLEVEL_TOO_LOW       ((short)11, "SENSOR_RUNLEVEL_TOO_LOW"),
+	LOGIN_KEY_INVALID             ((short)12, "LOGIN_KEY_INVALID"),
 	ACCESS_DENIED                 ((short)13, "ACCESS_DENIED"),
 	EVALUATION_PERIOD_EXPIRED     ((short)14, "EVALUATION_PERIOD_EXPIRED"),
+	KEY_EXCHANGE_FAILED           ((short)15, "KEY_EXCHANGE_FAILED"),
 	NOT_IMPLEMENTED               ((short)16, "NOT_IMPLEMENTED"),
 	UNSUPPORTED_SECURITY_VERSION  ((short)17, "UNSUPPORTED_SECURITY_VERSION"),
 	INVALID_PAKE_STATE            ((short)18, "INVALID_PAKE_STATE"),
@@ -26,7 +28,7 @@ public enum EnumCommandResult
 	RETRY_REQUIRED_NEW_SESSION    ((short)23, "RETRY_REQUIRED_NEW_SESSION"),
 	PAKE_RATE_LIMITED_60_MIN      ((short)24, "PAKE_RATE_LIMITED_60_MIN"),
 	PAKE_RATE_LIMITED_24_H        ((short)28, "PAKE_RATE_LIMITED_24_H"),
-	INVALID                       ((short)29, "invalid");
+	INVALID                       ((short)29, "INVALID");
 
 	private final short value;
 	private final String name;
@@ -75,10 +77,14 @@ public enum EnumCommandResult
 				return EnumCommandResult.UNEXPECTED_EXCEPTION;
 			case 11:
 				return EnumCommandResult.SENSOR_RUNLEVEL_TOO_LOW;
+			case 12:
+				return EnumCommandResult.LOGIN_KEY_INVALID;
 			case 13:
 				return EnumCommandResult.ACCESS_DENIED;
 			case 14:
 				return EnumCommandResult.EVALUATION_PERIOD_EXPIRED;
+			case 15:
+				return EnumCommandResult.KEY_EXCHANGE_FAILED;
 			case 16:
 				return EnumCommandResult.NOT_IMPLEMENTED;
 			case 17:

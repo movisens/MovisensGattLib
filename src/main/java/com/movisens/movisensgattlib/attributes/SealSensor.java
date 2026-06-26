@@ -14,7 +14,7 @@ import com.movisens.smartgattlib.security.KeyGenerator;
  * Seals the sensor and sets the given key.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the sensor was sealed.
+ * - OK: the sensor was sealed.
  * - ACCESS_DENIED: the connection is not encrypted, not authenticated or not allowed
  *   to seal in the current security state.
  */

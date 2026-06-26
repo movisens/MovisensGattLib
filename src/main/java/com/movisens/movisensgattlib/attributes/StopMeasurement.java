@@ -9,8 +9,8 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * stops the measurement if any
  * This triggers a command_result notification.
  * Possible results:
- * - ok: measurement stop was accepted.
- * - not_stopped_measurement_off: no measurement is active, delayed or paused.
+ * - OK: measurement stop was accepted.
+ * - NOT_STOPPED_MEASUREMENT_OFF: no measurement is active, delayed or paused.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class StopMeasurement extends AbstractWriteAttribute

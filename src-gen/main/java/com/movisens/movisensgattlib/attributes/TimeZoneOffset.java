@@ -10,7 +10,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * See java.time.ZoneOffset ofTotalSeconds and getTotalSeconds.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the value was accepted.
+ * - OK: the value was accepted.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class TimeZoneOffset extends AbstractReadWriteAttribute

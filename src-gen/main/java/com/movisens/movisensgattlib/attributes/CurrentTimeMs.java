@@ -9,7 +9,7 @@ import com.movisens.smartgattlib.helper.GattByteBuffer;
  * A number representing the milliseconds elapsed between 1 January 1970 00:00:00 UTC and the given date in UTC. Must be set before the Measurement is Enabed.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: the value was accepted.
+ * - OK: the value was accepted.
  * - ACCESS_DENIED: the write is not allowed in the current security state.
  */
 public class CurrentTimeMs extends AbstractReadWriteAttribute

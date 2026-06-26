@@ -10,7 +10,7 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
  * Disables encryption.
  * This triggers a command_result notification.
  * Possible results:
- * - ok: encryption was disabled and the PAKE session was cleared.
+ * - OK: encryption was disabled and the PAKE session was cleared.
  */
 public class DisableEncryption extends AbstractWriteAttribute implements PlainTextAttribute
 {
