@@ -7,10 +7,10 @@ import java.util.UUID;
 import java.util.Vector;
 
 import com.movisens.movisensgattlib.attributes.CurrentTime;
-import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
 import com.movisens.movisensgattlib.attributes.MovementAcceleration;
 import com.movisens.movisensgattlib.attributes.MovementAccelerationData;
 import com.movisens.movisensgattlib.attributes.SaveEnergy;
+import com.movisens.movisensgattlib.attributes.StartMeasurement;
 import com.movisens.movisensgattlib.helper.AbstractBufferedAttribute;
 import com.movisens.movisensgattlib.helper.AbstractData;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
@@ -107,8 +107,6 @@ public class Example
         }
         else if (MovisensServices.SENSOR_CONTROL.equals(serviceUuid))
         {
-            byte[] enable = GattByteBuffer.allocate(1).putBoolean(true).array();
-
             // TODO: iterate over characteristics
             UUID characteristicUuid = null;// characteristic.getUuid();
             if (MovisensCharacteristics.CURRENT_TIME.equals(characteristicUuid))
@@ -117,11 +115,11 @@ public class Example
                 // TODO: Write currentTime.getBytes() to the characteristic currentTime.getCharacteristic().getUuid() to sync
                 // time
             }
-            else if (MovisensCharacteristics.MEASUREMENT_ENABLED.equals(characteristicUuid))
+            else if (MovisensCharacteristics.START_MEASUREMENT.equals(characteristicUuid))
             {
-                MeasurementEnabled measurementEnabled = new MeasurementEnabled(true);
-                // TODO: Write measurementEnabled.getBytes() to the characteristic
-                // measurementEnabled.getCharacteristic().getUuid() to enable measurement
+                StartMeasurement startMeasurement = new StartMeasurement(3600L);
+                // TODO: Write startMeasurement.getBytes() to the characteristic
+                // startMeasurement.getCharacteristic().getUuid() to start measurement
             }
             else if (MovisensCharacteristics.SAVE_ENERGY.equals(characteristicUuid))
             {

@@ -16,7 +16,6 @@ import com.movisens.movisensgattlib.attributes.DataAvailable;
 import com.movisens.movisensgattlib.attributes.EnumBodyPosition;
 import com.movisens.movisensgattlib.attributes.EnumSensorLocation;
 import com.movisens.movisensgattlib.attributes.HrvIsValid;
-import com.movisens.movisensgattlib.attributes.MeasurementEnabled;
 import com.movisens.movisensgattlib.attributes.Met;
 import com.movisens.movisensgattlib.attributes.MetLevel;
 import com.movisens.movisensgattlib.attributes.MovementAcceleration;
@@ -87,15 +86,6 @@ public class CharacteristicsTest {
         gattByteBuffer.putBoolean(hrvIsValid);
         HrvIsValid available = new HrvIsValid(gattByteBuffer.array());
         assertEquals(hrvIsValid, available.getHrvIsValid());
-    }
-
-    @Test
-    public void testMeasurementEnabled() {
-        boolean measurementEnabled = true;
-        GattByteBuffer gattByteBuffer = GattByteBuffer.allocate(4);
-        gattByteBuffer.putUint8((short) (measurementEnabled ? 1 : 0));
-        MeasurementEnabled available = new MeasurementEnabled(gattByteBuffer.array());
-        assertEquals(measurementEnabled, available.getMeasurementEnabled());
     }
 
     @Test

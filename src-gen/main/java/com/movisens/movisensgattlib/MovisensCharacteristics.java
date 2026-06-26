@@ -9,6 +9,7 @@ import com.movisens.smartgattlib.helper.AbstractAttribute;
 import com.movisens.movisensgattlib.attributes.*;
 import com.movisens.movisensgattlib.helper.BufferedCharacteristic;
 
+@SuppressWarnings("deprecation")
 public class MovisensCharacteristics
 {
 
@@ -51,7 +52,6 @@ public class MovisensCharacteristics
 	public static final BufferedCharacteristic<LightRgbBuffered, LightRgbData> LIGHT_RGB_BUFFERED = new BufferedCharacteristic<LightRgbBuffered, LightRgbData>("2c4abbf8-8da6-4e47-afcd-18034d67c5ee", "Light RGB buffered", 20, LightRgbBuffered.class);
 	public static final Characteristic<LightRgbWaiting> LIGHT_RGB_WAITING = new Characteristic<LightRgbWaiting>("c758f5a6-516d-4125-b8de-ae3ebcabeabc", "Light RGB waiting", LightRgbWaiting.class);
 	public static final Characteristic<LightWaiting> LIGHT_WAITING = new Characteristic<LightWaiting>("d166790b-9531-44fd-8314-14f303280de1", "Light Waiting", LightWaiting.class);
-	public static final Characteristic<MeasurementEnabled> MEASUREMENT_ENABLED = new Characteristic<MeasurementEnabled>("f89edec7-f7e0-94f2-747d-ee7acaa6d412", "Measurement Enabled", MeasurementEnabled.class);
 	public static final Characteristic<MeasurementStartTime> MEASUREMENT_START_TIME = new Characteristic<MeasurementStartTime>("2d81487d-08f7-47e1-a060-0659d9b4b766", "Measurement Start Time", MeasurementStartTime.class);
 	public static final Characteristic<MeasurementStatus> MEASUREMENT_STATUS = new Characteristic<MeasurementStatus>("66f1e70e-54ab-489c-8f5d-0008b67553c7", "Measurement Status", MeasurementStatus.class);
 	public static final Characteristic<MetLevelWaiting> MET_LEVEL_WAITING = new Characteristic<MetLevelWaiting>("547729db-1f9b-422f-a581-ea377ffcadf9", "Met Level Waiting", MetLevelWaiting.class);
@@ -148,7 +148,6 @@ public class MovisensCharacteristics
 		characteristics.put(LIGHT_RGB_BUFFERED);
 		characteristics.put(LIGHT_RGB_WAITING);
 		characteristics.put(LIGHT_WAITING);
-		characteristics.put(MEASUREMENT_ENABLED);
 		characteristics.put(MEASUREMENT_START_TIME);
 		characteristics.put(MEASUREMENT_STATUS);
 		characteristics.put(MET);
