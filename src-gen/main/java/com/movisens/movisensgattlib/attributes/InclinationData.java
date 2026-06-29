@@ -23,9 +23,9 @@ public class InclinationData extends AbstractData
 		return z;
 	}
 	
-    public InclinationData(long localTime, long sampleTime, int periodlength, Double x, Double y, Double z)
+    public InclinationData(long localTime, long sampleTime, int periodLength, Double x, Double y, Double z)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.x = x;
 		this.y = y;
 		this.z = z;

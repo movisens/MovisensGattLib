@@ -28,9 +28,9 @@ public class MetLevelData extends AbstractData
 		return vigorous;
 	}
 	
-    public MetLevelData(long localTime, long sampleTime, int periodlength, Double sedentary, Double light, Double moderate, Double vigorous)
+    public MetLevelData(long localTime, long sampleTime, int periodLength, Double sedentary, Double light, Double moderate, Double vigorous)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.sedentary = sedentary;
 		this.light = light;
 		this.moderate = moderate;

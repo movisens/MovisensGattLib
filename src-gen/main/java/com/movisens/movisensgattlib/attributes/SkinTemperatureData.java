@@ -13,9 +13,9 @@ public class SkinTemperatureData extends AbstractData
 		return skinTemperature;
 	}
 	
-    public SkinTemperatureData(long localTime, long sampleTime, int periodlength, Double skinTemperature)
+    public SkinTemperatureData(long localTime, long sampleTime, int periodLength, Double skinTemperature)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.skinTemperature = skinTemperature;
     }
 	

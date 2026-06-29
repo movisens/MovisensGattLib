@@ -13,9 +13,9 @@ public class SensorTemperatureData extends AbstractData
 		return temperature;
 	}
 	
-    public SensorTemperatureData(long localTime, long sampleTime, int periodlength, Double temperature)
+    public SensorTemperatureData(long localTime, long sampleTime, int periodLength, Double temperature)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.temperature = temperature;
     }
 	

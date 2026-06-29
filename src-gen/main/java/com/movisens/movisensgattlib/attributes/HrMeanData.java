@@ -13,9 +13,9 @@ public class HrMeanData extends AbstractData
 		return hrMean;
 	}
 	
-    public HrMeanData(long localTime, long sampleTime, int periodlength, Double hrMean)
+    public HrMeanData(long localTime, long sampleTime, int periodLength, Double hrMean)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.hrMean = hrMean;
     }
 	

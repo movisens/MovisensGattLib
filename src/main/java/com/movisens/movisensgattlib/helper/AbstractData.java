@@ -3,36 +3,45 @@ package com.movisens.movisensgattlib.helper;
 public abstract class AbstractData
 {
 
-    private long arivalTime;
+    private long arrivalTime;
 
     private long sampleTime;
 
-    private int periodlength;
+    private int periodLength;
 
-    public AbstractData(long arivalTime, long sampleTime, int periodlength)
+    public AbstractData(long arrivalTime, long sampleTime, int periodLength)
     {
         super();
-        this.arivalTime = arivalTime;
+        this.arrivalTime = arrivalTime;
         this.sampleTime = sampleTime;
-        this.periodlength = periodlength;
+        this.periodLength = periodLength;
     }
 
-    
+    public long getArrivalTime()
+    {
+        return arrivalTime;
+    }
+
+    @Deprecated
     public long getArivalTime()
     {
-        return arivalTime;
+        return getArrivalTime();
     }
 
-    
     public long getSampleTime()
     {
         return sampleTime;
     }
 
-    
+    public int getPeriodLength()
+    {
+        return periodLength;
+    }
+
+    @Deprecated
     public int getPeriodlength()
     {
-        return periodlength;
+        return getPeriodLength();
     }
 
     public abstract BufferedCharacteristic<?, ?> getCharacteristic();

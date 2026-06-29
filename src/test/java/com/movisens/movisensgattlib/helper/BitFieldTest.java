@@ -52,6 +52,18 @@ public class BitFieldTest
     }
 
     @Test
+    public void testSetBitTwiceIsIdempotent()
+    {
+        BitField bf = new BitField(new byte[1]);
+
+        assertTrue(bf.setBit(0));
+        assertTrue(bf.setBit(0));
+
+        assertTrue(bf.isBitSet(0));
+        assertFalse(bf.isBitSet(1));
+    }
+
+    @Test
     public void testSetAllBits()
     {
         final int arrayLength = 20;

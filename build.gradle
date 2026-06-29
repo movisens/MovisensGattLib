@@ -40,9 +40,14 @@ sourceSets {
 jar {
     manifest {
         attributes(
-                'Bundle-SymbolicName': project.group + project.name,
+                'Bundle-SymbolicName': "${project.group}.${project.name}",
                 'Bundle-Version': project.version,
-                'Export-Package': 'com.movisens.movisensgattlib'
+                'Export-Package': [
+                        'com.movisens.movisensgattlib',
+                        'com.movisens.movisensgattlib.attributes',
+                        'com.movisens.movisensgattlib.helper',
+                        'com.movisens.movisensgattlib.security'
+                ].join(',')
         )
     }
 }

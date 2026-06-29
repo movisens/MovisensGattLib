@@ -23,9 +23,9 @@ public class LightRgbData extends AbstractData
 		return blue;
 	}
 	
-    public LightRgbData(long localTime, long sampleTime, int periodlength, Long red, Long green, Long blue)
+    public LightRgbData(long localTime, long sampleTime, int periodLength, Long red, Long green, Long blue)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.red = red;
 		this.green = green;
 		this.blue = blue;

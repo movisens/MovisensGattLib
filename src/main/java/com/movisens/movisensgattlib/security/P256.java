@@ -47,7 +47,6 @@ final class P256
             N = PARAMS.getOrder();
             G = PARAMS.getGenerator();
             // RFC 9382, Section 4: fixed seed points for P-256 (compressed SEC1).
-            // TODO: verify these constants against RFC 9382 before production use.
             M = Secp256r1PointCodec
                 .decodeCompressed(hex("02886e2f97ace46e55ba9dd7242579f2993b64e16ef3dcab95afd497333d8fa12f"))
                 .getW();

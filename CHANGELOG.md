@@ -12,6 +12,9 @@
 - added `CustomData()` with a one-byte zero payload
 - added fixed-length validation for generated PAKE, sealing, unsealing, and encryption write attributes
 - documented command-result notifications on writable attributes
+- fixed the OSGi bundle symbolic name and exported all public API packages
+- added correctly spelled buffered-data and sample-rate accessors while keeping the old misspelled methods as deprecated aliases
+
 
 ## 3.0.1
 

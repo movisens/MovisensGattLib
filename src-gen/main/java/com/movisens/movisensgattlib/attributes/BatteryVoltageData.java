@@ -13,9 +13,9 @@ public class BatteryVoltageData extends AbstractData
 		return level;
 	}
 	
-    public BatteryVoltageData(long localTime, long sampleTime, int periodlength, Double level)
+    public BatteryVoltageData(long localTime, long sampleTime, int periodLength, Double level)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.level = level;
     }
 	

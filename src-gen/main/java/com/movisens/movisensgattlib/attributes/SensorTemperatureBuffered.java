@@ -28,9 +28,16 @@ public class SensorTemperatureBuffered extends AbstractBufferedAttribute<SensorT
 	}
 
 	@Override
-	public double getSamplerate()
+	public double getSampleRate()
 	{
 		return 1.0/periodLength;
+	}
+
+	@Override
+	@Deprecated
+	public double getSamplerate()
+	{
+		return getSampleRate();
 	}
 
 	@Override

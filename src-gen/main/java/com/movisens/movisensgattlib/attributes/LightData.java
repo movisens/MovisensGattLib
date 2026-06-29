@@ -18,9 +18,9 @@ public class LightData extends AbstractData
 		return ir;
 	}
 	
-    public LightData(long localTime, long sampleTime, int periodlength, Long clear, Long ir)
+    public LightData(long localTime, long sampleTime, int periodLength, Long clear, Long ir)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.clear = clear;
 		this.ir = ir;
     }

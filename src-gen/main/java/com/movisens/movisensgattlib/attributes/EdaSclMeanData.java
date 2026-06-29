@@ -13,9 +13,9 @@ public class EdaSclMeanData extends AbstractData
 		return edaSclMean;
 	}
 	
-    public EdaSclMeanData(long localTime, long sampleTime, int periodlength, Double edaSclMean)
+    public EdaSclMeanData(long localTime, long sampleTime, int periodLength, Double edaSclMean)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.edaSclMean = edaSclMean;
     }
 	

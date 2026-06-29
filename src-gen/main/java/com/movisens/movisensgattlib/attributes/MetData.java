@@ -13,9 +13,9 @@ public class MetData extends AbstractData
 		return met;
 	}
 	
-    public MetData(long localTime, long sampleTime, int periodlength, Double met)
+    public MetData(long localTime, long sampleTime, int periodLength, Double met)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.met = met;
     }
 	

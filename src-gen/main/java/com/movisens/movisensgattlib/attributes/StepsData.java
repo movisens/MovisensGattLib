@@ -13,9 +13,9 @@ public class StepsData extends AbstractData
 		return steps;
 	}
 	
-    public StepsData(long localTime, long sampleTime, int periodlength, Integer steps)
+    public StepsData(long localTime, long sampleTime, int periodLength, Integer steps)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.steps = steps;
     }
 	

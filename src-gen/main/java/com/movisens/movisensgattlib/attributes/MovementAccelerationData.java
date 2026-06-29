@@ -13,9 +13,9 @@ public class MovementAccelerationData extends AbstractData
 		return movementAcceleration;
 	}
 	
-    public MovementAccelerationData(long localTime, long sampleTime, int periodlength, Double movementAcceleration)
+    public MovementAccelerationData(long localTime, long sampleTime, int periodLength, Double movementAcceleration)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.movementAcceleration = movementAcceleration;
     }
 	

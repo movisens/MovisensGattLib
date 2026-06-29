@@ -82,7 +82,7 @@ public class Example
         
         for(MovementAccelerationData mad : mads)
         {
-            System.out.println(mad.getArivalTime());
+            System.out.println(mad.getArrivalTime());
             System.out.println(mad.getSampleTime());
             System.out.println(mad.getMovementAcceleration());
             System.out.println(mad.getCharacteristic());

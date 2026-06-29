@@ -13,9 +13,9 @@ public class BodyPositionData extends AbstractData
 		return bodyPosition;
 	}
 	
-    public BodyPositionData(long localTime, long sampleTime, int periodlength, EnumBodyPosition bodyPosition)
+    public BodyPositionData(long localTime, long sampleTime, int periodLength, EnumBodyPosition bodyPosition)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.bodyPosition = bodyPosition;
     }
 	

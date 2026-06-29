@@ -13,9 +13,9 @@ public class ChargingData extends AbstractData
 		return charging;
 	}
 	
-    public ChargingData(long localTime, long sampleTime, int periodlength, Boolean charging)
+    public ChargingData(long localTime, long sampleTime, int periodLength, Boolean charging)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.charging = charging;
     }
 	

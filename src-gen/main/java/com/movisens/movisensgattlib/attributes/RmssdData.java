@@ -13,9 +13,9 @@ public class RmssdData extends AbstractData
 		return rmssd;
 	}
 	
-    public RmssdData(long localTime, long sampleTime, int periodlength, Double rmssd)
+    public RmssdData(long localTime, long sampleTime, int periodLength, Double rmssd)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.rmssd = rmssd;
     }
 	

@@ -6,7 +6,9 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 /**
- * Returns true if measurement data is available on the sensor.
+ * Returns true if at least one measurement is stored on the sensor and
+ * the measurement data can be downloaded from the sensor via USB.
+ * This attribute does not relate to buffered attribute data used in BLE.
  */
 public class DataAvailable extends AbstractReadAttribute
 {

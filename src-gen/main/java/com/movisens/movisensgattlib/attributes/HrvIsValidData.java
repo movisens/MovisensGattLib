@@ -13,9 +13,9 @@ public class HrvIsValidData extends AbstractData
 		return hrvIsValid;
 	}
 	
-    public HrvIsValidData(long localTime, long sampleTime, int periodlength, Boolean hrvIsValid)
+    public HrvIsValidData(long localTime, long sampleTime, int periodLength, Boolean hrvIsValid)
     {
-        super(localTime, sampleTime, periodlength);
+        super(localTime, sampleTime, periodLength);
 		this.hrvIsValid = hrvIsValid;
     }
 	
