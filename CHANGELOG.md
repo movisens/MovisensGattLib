@@ -3,8 +3,14 @@
 ## 5.0.0
 
 - replaced the legacy BLE Diffie-Hellman login with the balanced SPAKE2 PAKE pairing flow, including PAKE attributes, pairing-code and sealed-session helpers, and test fixtures
-- removed the old `LOGIN`, key-exchange, and `AUTH_CONFIRM` client-side implementation
-- breaking API change: `SealSensor` now derives the sealing key via `SmartGattLib` without a sensor serial number
+- removed the legacy `LOGIN`, `AUTH_CONFIRM`, `KEY_EXCHANGE_REQUEST_1`, `KEY_EXCHANGE_REQUEST_2`, `KEY_EXCHANGE_RESPONSE_1`, and `KEY_EXCHANGE_RESPONSE_2` characteristics, plus the related `BleLoginCrypto` and `KeyExchangeManager` APIs
+- removed the deprecated `MEASUREMENT_ENABLED` characteristic
+- changed `SealSensor` from `SealSensor(CryptoManager, String)` to `SealSensor(Long)`; use `SealSensorBuilder.create(CryptoManager, String)` to create sealing writes from a password
+- changed `EnumCommandResult` to match the current firmware status codes; removed the legacy `LOGIN_KEY_INVALID` and `KEY_EXCHANGE_FAILED` results and changed `getName()`/`toString()` strings for values 0 through 7 from lowercase to firmware-style uppercase
+- added `SealSensorBuilder` to create `SealSensor` writes from an active encrypted crypto context and sealing password
+- added `CustomData()` with a one-byte zero payload
+- added fixed-length validation for generated PAKE, sealing, unsealing, and encryption write attributes
+- documented command-result notifications on writable attributes
 
 ## 3.0.1
 
