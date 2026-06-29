@@ -6,7 +6,7 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 /**
- * If set to 1, data of the last measurement is deleted and the next measurement can be started.
+ * Writing this characteristic deletes data of the last measurement so the next measurement can be started.
  * This triggers a command_result notification.
  * Possible results:
  * - OK: the data delete command was accepted.
@@ -18,23 +18,11 @@ public class DeleteData extends AbstractWriteAttribute
 
 	public static final Characteristic<DeleteData> CHARACTERISTIC = MovisensCharacteristics.DELETE_DATA;
 	
-	private Boolean deleteData;
 	
-	public Boolean getDeleteData()
+	public DeleteData()
 	{
-		return deleteData;
-	}
-	
-	public String getDeleteDataUnit()
-	{
-		return "";
-	}
-	
-	public DeleteData(Boolean deleteData)
-	{
-		this.deleteData = deleteData;
 		GattByteBuffer bb = GattByteBuffer.allocate(1);
-		bb.putBoolean(deleteData);
+		bb.putInt8((byte) 0);
 		this.data = bb.array();
 	}
 
@@ -47,6 +35,6 @@ public class DeleteData extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return getDeleteData().toString();
+		return "DELETE_DATA";
 	}
 }

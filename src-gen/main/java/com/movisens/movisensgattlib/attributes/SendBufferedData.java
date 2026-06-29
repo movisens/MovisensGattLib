@@ -6,7 +6,7 @@ import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
 
 /**
- * If set to 1 and buffered data is available the sensor sends out the data.
+ * Writing this characteristic sends out buffered data if available.
  * This triggers a command_result notification.
  * Possible results:
  * - OK: the value was accepted.
@@ -17,23 +17,11 @@ public class SendBufferedData extends AbstractWriteAttribute
 
 	public static final Characteristic<SendBufferedData> CHARACTERISTIC = MovisensCharacteristics.SEND_BUFFERED_DATA;
 	
-	private Boolean sendBufferedData;
 	
-	public Boolean getSendBufferedData()
+	public SendBufferedData()
 	{
-		return sendBufferedData;
-	}
-	
-	public String getSendBufferedDataUnit()
-	{
-		return "";
-	}
-	
-	public SendBufferedData(Boolean sendBufferedData)
-	{
-		this.sendBufferedData = sendBufferedData;
 		GattByteBuffer bb = GattByteBuffer.allocate(1);
-		bb.putBoolean(sendBufferedData);
+		bb.putInt8((byte) 0);
 		this.data = bb.array();
 	}
 
@@ -46,6 +34,6 @@ public class SendBufferedData extends AbstractWriteAttribute
 	@Override
 	public String toString()
 	{
-		return getSendBufferedData().toString();
+		return "SEND_BUFFERED_DATA";
 	}
 }

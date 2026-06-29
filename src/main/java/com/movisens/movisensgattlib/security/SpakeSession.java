@@ -30,7 +30,7 @@ public final class SpakeSession
     /** Starts a fresh sensor-side PAKE session (blink colour code on unsealed sensors, arm sealed access). */
     public static void start(SpakeGattConnection connection) throws GeneralSecurityException
     {
-        requireOk(connection.setAttribute(new PakeStart(Boolean.TRUE)));
+        requireOk(connection.setAttribute(new PakeStart()));
     }
 
     /**

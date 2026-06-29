@@ -6,6 +6,7 @@
 - removed the legacy `LOGIN`, `AUTH_CONFIRM`, `KEY_EXCHANGE_REQUEST_1`, `KEY_EXCHANGE_REQUEST_2`, `KEY_EXCHANGE_RESPONSE_1`, and `KEY_EXCHANGE_RESPONSE_2` characteristics, plus the related `BleLoginCrypto` and `KeyExchangeManager` APIs
 - removed the deprecated `MEASUREMENT_ENABLED` characteristic
 - changed `SealSensor` from `SealSensor(CryptoManager, String)` to `SealSensor(Long)`; use `SealSensorBuilder.create(CryptoManager, String)` to create sealing writes from a password
+- changed `DeleteData` and `SendBufferedData` from Boolean writes to parameterless command writes
 - changed `EnumCommandResult` to match the current firmware status codes; removed the legacy `LOGIN_KEY_INVALID` and `KEY_EXCHANGE_FAILED` results and changed `getName()`/`toString()` strings for values 0 through 7 from lowercase to firmware-style uppercase
 - added `SealSensorBuilder` to create `SealSensor` writes from an active encrypted crypto context and sealing password
 - added `CustomData()` with a one-byte zero payload

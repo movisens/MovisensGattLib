@@ -22,23 +22,11 @@ public class PakeStart extends AbstractWriteAttribute implements PlainTextAttrib
 
 	public static final Characteristic<PakeStart> CHARACTERISTIC = MovisensCharacteristics.PAKE_START;
 	
-	private Boolean start;
 	
-	public Boolean getStart()
+	public PakeStart()
 	{
-		return start;
-	}
-	
-	public String getStartUnit()
-	{
-		return "";
-	}
-	
-	public PakeStart(Boolean start)
-	{
-		this.start = start;
 		GattByteBuffer bb = GattByteBuffer.allocate(1);
-		bb.putBoolean(start);
+		bb.putInt8((byte) 0);
 		this.data = bb.array();
 	}
 
@@ -51,6 +39,6 @@ public class PakeStart extends AbstractWriteAttribute implements PlainTextAttrib
 	@Override
 	public String toString()
 	{
-		return getStart().toString();
+		return "PAKE_START";
 	}
 }
