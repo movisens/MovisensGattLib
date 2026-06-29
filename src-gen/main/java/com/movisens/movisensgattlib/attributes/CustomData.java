@@ -19,6 +19,13 @@ public class CustomData extends AbstractReadWriteAttribute
 	public static final Characteristic<CustomData> CHARACTERISTIC = MovisensCharacteristics.CUSTOM_DATA;
 	
 	
+	public CustomData()
+	{
+		GattByteBuffer bb = GattByteBuffer.allocate(1);
+		bb.putInt8((byte) 0);
+		this.data = bb.array();
+	}
+
 	public CustomData(byte[] data)
 	{
 		this.data = data;
@@ -30,4 +37,9 @@ public class CustomData extends AbstractReadWriteAttribute
 		return CHARACTERISTIC;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "CUSTOM_DATA";
+	}
 }
