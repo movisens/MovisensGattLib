@@ -6,17 +6,17 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class BatteryVoltageData extends AbstractData
 {
-	private Double level;
+	private Double voltage;
 	
-	public Double getLevel()
+	public Double getVoltage()
 	{
-		return level;
+		return voltage;
 	}
 	
-    public BatteryVoltageData(long localTime, long sampleTime, int periodLength, Double level)
+    public BatteryVoltageData(long localTime, long sampleTime, int periodLength, Double voltage)
     {
         super(localTime, sampleTime, periodLength);
-		this.level = level;
+		this.voltage = voltage;
     }
 	
     @Override

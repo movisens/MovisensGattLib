@@ -19,7 +19,7 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 	
 	public static final int periodLength = 60;
 	private long time;
-	private Double level[];
+	private Double voltage[];
 	
 	@Override
 	public Date getTime()
@@ -43,7 +43,7 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 	@Override
 	public String[] getValueNames()
 	{
-		String[] names = {"level"};
+		String[] names = {"voltage"};
 		return names;
 	}
 
@@ -57,23 +57,23 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 	@Override
 	public double[][] getValues()
 	{
-		int numSamples = level.length;
+		int numSamples = voltage.length;
 		double[][] data = new double[numSamples][1];
 		
 		for(int i=0; i<numSamples; i++)
 		{
-			data[i][0] = level[i];
+			data[i][0] = voltage[i];
 		}
 		
 		return data;
 	}
 
-	public Double[] getLevel()
+	public Double[] getVoltage()
 	{
-		return level;
+		return voltage;
 	}
 	
-	public String getLevelUnit()
+	public String getVoltageUnit()
 	{
 		return "mV";
 	}
@@ -86,11 +86,11 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 		time = bb.getUint32();
 		short numValues = bb.getUint8();
 		
-		level = new Double[numValues];
+		voltage = new Double[numValues];
 		
 		for (int i = 0; i < numValues; i++)
 		{
-			level[i] = (double) bb.getUint16();
+			voltage[i] = (double) bb.getUint16();
 		}
 	}
 
@@ -104,9 +104,9 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 	public String toString()
 	{
 		String result = "";
-		for(int i=0; i<level.length; i++)
+		for(int i=0; i<voltage.length; i++)
 		{
-			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getLevel()[i].toString() + getLevelUnit() + " \r\n";
+			result += "time = " + new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date((time + (periodLength * i)) * 1000)) + ", " + getVoltage()[i].toString() + getVoltageUnit() + " \r\n";
 		}
 		return result;
 	}
@@ -117,9 +117,9 @@ public class BatteryVoltageBuffered extends AbstractBufferedAttribute<BatteryVol
 	    Vector<BatteryVoltageData> datas = new Vector<BatteryVoltageData>();
 	    long now = new Date().getTime();
 	    
-	    for(int i=0; i<level.length; i++)
+	    for(int i=0; i<voltage.length; i++)
 	    {
-	        datas.add(new BatteryVoltageData(now, (time + (periodLength * i)) * 1000, periodLength, getLevel()[i]));
+	        datas.add(new BatteryVoltageData(now, (time + (periodLength * i)) * 1000, periodLength, getVoltage()[i]));
 	    }
 	    
 	    return datas;

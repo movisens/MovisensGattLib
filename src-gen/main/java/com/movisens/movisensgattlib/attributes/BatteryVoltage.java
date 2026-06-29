@@ -13,14 +13,14 @@ public class BatteryVoltage extends AbstractReadAttribute
 
 	public static final Characteristic<BatteryVoltage> CHARACTERISTIC = MovisensCharacteristics.BATTERY_VOLTAGE;
 	
-	private Double batteryLevel;
+	private Double voltage;
 	
-	public Double getBatteryLevel()
+	public Double getVoltage()
 	{
-		return batteryLevel;
+		return voltage;
 	}
 	
-	public String getBatteryLevelUnit()
+	public String getVoltageUnit()
 	{
 		return "mV";
 	}
@@ -29,7 +29,7 @@ public class BatteryVoltage extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
-		batteryLevel = (double) bb.getUint16();
+		voltage = (double) bb.getUint16();
 	}
 
 	@Override
@@ -41,6 +41,6 @@ public class BatteryVoltage extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return getBatteryLevel().toString() + getBatteryLevelUnit();
+		return getVoltage().toString() + getVoltageUnit();
 	}
 }

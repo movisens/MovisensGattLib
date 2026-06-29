@@ -6,17 +6,17 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 
 public class SkinTemperature1sData extends AbstractData
 {
-	private Double skinTemperature;
+	private Double temperature;
 	
-	public Double getSkinTemperature()
+	public Double getTemperature()
 	{
-		return skinTemperature;
+		return temperature;
 	}
 	
-    public SkinTemperature1sData(long localTime, long sampleTime, int periodLength, Double skinTemperature)
+    public SkinTemperature1sData(long localTime, long sampleTime, int periodLength, Double temperature)
     {
         super(localTime, sampleTime, periodLength);
-		this.skinTemperature = skinTemperature;
+		this.temperature = temperature;
     }
 	
     @Override

@@ -17,19 +17,19 @@ public class SealSensor extends AbstractWriteAttribute
 {
 
 	public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
-
+	
 	private Long key;
-
+	
 	public Long getKey()
 	{
 		return key;
 	}
-
+	
 	public String getKeyUnit()
 	{
 		return "";
 	}
-
+	
 	public SealSensor(Long key)
 	{
 		this.key = key;
