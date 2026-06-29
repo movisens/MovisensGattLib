@@ -15,25 +15,25 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
 public class DisableEncryption extends AbstractWriteAttribute implements PlainTextAttribute
 {
 
-    public static final Characteristic<DisableEncryption> CHARACTERISTIC = MovisensCharacteristics.DISABLE_ENCRYPTION;
+	public static final Characteristic<DisableEncryption> CHARACTERISTIC = MovisensCharacteristics.DISABLE_ENCRYPTION;
+	
+	
+	public DisableEncryption()
+	{
+		GattByteBuffer bb = GattByteBuffer.allocate(1);
+		bb.putInt8((byte) 0);
+		this.data = bb.array();
+	}
 
-    public DisableEncryption()
-    {
-        GattByteBuffer bb = GattByteBuffer.allocate(1);
-        bb.putInt8((byte) 0);
-        this.data = bb.array();
-    }
+	@Override
+	public Characteristic<DisableEncryption> getCharacteristic()
+	{
+		return CHARACTERISTIC;
+	}
 
-    @Override
-    public Characteristic<DisableEncryption> getCharacteristic()
-    {
-        return CHARACTERISTIC;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "DISABLE_ENCRYPTION";
-    }
-
+	@Override
+	public String toString()
+	{
+		return "DISABLE_ENCRYPTION";
+	}
 }

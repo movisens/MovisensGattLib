@@ -3,6 +3,7 @@ package com.movisens.movisensgattlib.attributes;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
@@ -19,16 +20,23 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
  */
 public class PakeClientConfirm2 extends AbstractWriteAttribute implements PlainTextAttribute
 {
-    public static final Characteristic<PakeClientConfirm2> CHARACTERISTIC = MovisensCharacteristics.PAKE_CLIENT_CONFIRM_2;
 
-    public PakeClientConfirm2(byte[] data)
-    {
-        this.data = data;
-    }
+	public static final Characteristic<PakeClientConfirm2> CHARACTERISTIC = MovisensCharacteristics.PAKE_CLIENT_CONFIRM_2;
+	
+	
+	public PakeClientConfirm2(byte[] data)
+	{
+		if (data.length != 12)
+		{
+			throw new IllegalArgumentException("PakeClientConfirm2 expects 12 bytes but got " + data.length);
+		}
+		this.data = data;
+	}
 
-    @Override
-    public Characteristic<PakeClientConfirm2> getCharacteristic()
-    {
-        return CHARACTERISTIC;
-    }
+	@Override
+	public Characteristic<PakeClientConfirm2> getCharacteristic()
+	{
+		return CHARACTERISTIC;
+	}
+
 }

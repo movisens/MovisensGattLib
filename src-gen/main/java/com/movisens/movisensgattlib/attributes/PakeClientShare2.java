@@ -3,6 +3,7 @@ package com.movisens.movisensgattlib.attributes;
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
+import com.movisens.smartgattlib.helper.GattByteBuffer;
 import com.movisens.smartgattlib.helper.PlainTextAttribute;
 
 /**
@@ -18,16 +19,23 @@ import com.movisens.smartgattlib.helper.PlainTextAttribute;
  */
 public class PakeClientShare2 extends AbstractWriteAttribute implements PlainTextAttribute
 {
-    public static final Characteristic<PakeClientShare2> CHARACTERISTIC = MovisensCharacteristics.PAKE_CLIENT_SHARE_2;
 
-    public PakeClientShare2(byte[] data)
-    {
-        this.data = data;
-    }
+	public static final Characteristic<PakeClientShare2> CHARACTERISTIC = MovisensCharacteristics.PAKE_CLIENT_SHARE_2;
+	
+	
+	public PakeClientShare2(byte[] data)
+	{
+		if (data.length != 13)
+		{
+			throw new IllegalArgumentException("PakeClientShare2 expects 13 bytes but got " + data.length);
+		}
+		this.data = data;
+	}
 
-    @Override
-    public Characteristic<PakeClientShare2> getCharacteristic()
-    {
-        return CHARACTERISTIC;
-    }
+	@Override
+	public Characteristic<PakeClientShare2> getCharacteristic()
+	{
+		return CHARACTERISTIC;
+	}
+
 }

@@ -18,13 +18,14 @@ public class StopMeasurement extends AbstractWriteAttribute
 
 	public static final Characteristic<StopMeasurement> CHARACTERISTIC = MovisensCharacteristics.STOP_MEASUREMENT;
 	
+	
 	public StopMeasurement()
 	{
-        GattByteBuffer bb = GattByteBuffer.allocate(1);
-        bb.putInt8((byte)0);
-        this.data = bb.array();
+		GattByteBuffer bb = GattByteBuffer.allocate(1);
+		bb.putInt8((byte) 0);
+		this.data = bb.array();
 	}
-	
+
 	@Override
 	public Characteristic<StopMeasurement> getCharacteristic()
 	{
