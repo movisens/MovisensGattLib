@@ -290,5 +290,5 @@ After `cryptoManager.setKey(aesKey)`, the encrypted BLE channel is active. Only
 then can the app seal the sensor with a persistent password:
 
 ```java
-writeAttribute(new SealSensor(cryptoManager, password));
+writeAttribute(SealSensorBuilder.create(cryptoManager, password));
 ```

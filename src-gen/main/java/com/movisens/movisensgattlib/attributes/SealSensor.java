@@ -1,14 +1,9 @@
 package com.movisens.movisensgattlib.attributes;
 
-import java.security.GeneralSecurityException;
-
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.smartgattlib.helper.AbstractWriteAttribute;
 import com.movisens.smartgattlib.helper.Characteristic;
 import com.movisens.smartgattlib.helper.GattByteBuffer;
-import com.movisens.smartgattlib.helper.PlainTextAttribute;
-import com.movisens.smartgattlib.security.CryptoManager;
-import com.movisens.smartgattlib.security.KeyGenerator;
 
 /**
  * Seals the sensor and sets the given key.
@@ -21,51 +16,37 @@ import com.movisens.smartgattlib.security.KeyGenerator;
 public class SealSensor extends AbstractWriteAttribute
 {
 
-    public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
+	public static final Characteristic<SealSensor> CHARACTERISTIC = MovisensCharacteristics.SEAL_SENSOR;
 
-    private long key;
+	private Long key;
 
-    public long getKey()
-    {
-        return key;
-    }
+	public Long getKey()
+	{
+		return key;
+	}
 
-    /**
-     * @param cryptoManager active BLE crypto context; encryption must already be enabled
-     * @param password      the sealing password
-     */
-    public SealSensor(CryptoManager cryptoManager, String password)
-    {
-        if (cryptoManager.encryptionEnabled())
-        {
-            try
-            {
-                this.key = KeyGenerator.createKey(password);
-            }
-            catch (GeneralSecurityException e)
-            {
-                throw new RuntimeException("failed to derive sealing key", e);
-            }
+	public String getKeyUnit()
+	{
+		return "";
+	}
 
-            GattByteBuffer bb = GattByteBuffer.allocate(8);
-            bb.putInt64(key);
-            this.data = bb.array();
-        }
-        else
-        {
-            throw new RuntimeException("sealing needs encrypted connection");
-        }
-    }
+	public SealSensor(Long key)
+	{
+		this.key = key;
+		GattByteBuffer bb = GattByteBuffer.allocate(8);
+		bb.putInt64(key);
+		this.data = bb.array();
+	}
 
-    @Override
-    public Characteristic<SealSensor> getCharacteristic()
-    {
-        return CHARACTERISTIC;
-    }
+	@Override
+	public Characteristic<SealSensor> getCharacteristic()
+	{
+		return CHARACTERISTIC;
+	}
 
-    @Override
-    public String toString()
-    {
-        return Long.toString(getKey());
-    }
+	@Override
+	public String toString()
+	{
+		return getKey().toString();
+	}
 }
