@@ -13,8 +13,19 @@ public class Light extends AbstractReadAttribute
 
 	public static final Characteristic<Light> CHARACTERISTIC = MovisensCharacteristics.LIGHT;
 	
+	private Integer packetCounter;
 	private Long clear;
 	private Long ir;
+	
+	public Integer getPacketCounter()
+	{
+		return packetCounter;
+	}
+	
+	public String getPacketCounterUnit()
+	{
+		return "";
+	}
 	
 	public Long getClear()
 	{
@@ -40,6 +51,7 @@ public class Light extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
+		packetCounter = bb.getUint16();
 		clear = bb.getUint32();
 		ir = bb.getUint32();
 	}
@@ -53,6 +65,6 @@ public class Light extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "clear = " + getClear().toString() + ", " + "ir = " + getIr().toString();
+		return "packetCounter = " + getPacketCounter().toString() + ", " + "clear = " + getClear().toString() + ", " + "ir = " + getIr().toString();
 	}
 }

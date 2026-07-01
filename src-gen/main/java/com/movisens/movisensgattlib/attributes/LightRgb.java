@@ -13,9 +13,20 @@ public class LightRgb extends AbstractReadAttribute
 
 	public static final Characteristic<LightRgb> CHARACTERISTIC = MovisensCharacteristics.LIGHT_RGB;
 	
+	private Integer packetCounter;
 	private Long red;
 	private Long green;
 	private Long blue;
+	
+	public Integer getPacketCounter()
+	{
+		return packetCounter;
+	}
+	
+	public String getPacketCounterUnit()
+	{
+		return "";
+	}
 	
 	public Long getRed()
 	{
@@ -51,6 +62,7 @@ public class LightRgb extends AbstractReadAttribute
 	{
 		this.data = data;
 		GattByteBuffer bb = GattByteBuffer.wrap(data);
+		packetCounter = bb.getUint16();
 		red = bb.getUint32();
 		green = bb.getUint32();
 		blue = bb.getUint32();
@@ -65,6 +77,6 @@ public class LightRgb extends AbstractReadAttribute
 	@Override
 	public String toString()
 	{
-		return "red = " + getRed().toString() + ", " + "green = " + getGreen().toString() + ", " + "blue = " + getBlue().toString();
+		return "packetCounter = " + getPacketCounter().toString() + ", " + "red = " + getRed().toString() + ", " + "green = " + getGreen().toString() + ", " + "blue = " + getBlue().toString();
 	}
 }
