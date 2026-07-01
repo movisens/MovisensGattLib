@@ -3,6 +3,9 @@ package com.movisens.movisensgattlib.security;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
@@ -38,6 +41,7 @@ public final class MockSpakeBleConnection implements SpakeGattConnection
     private byte[] pendingClientShare1;
     private byte[] pendingClientConfirm1;
     private EnumCommandResult lastResult = EnumCommandResult.OK;
+    private final Map<UUID, byte[]> protectedAttributeValues = new HashMap<>();
 
     public MockSpakeBleConnection(SpakeSensorEmulator emulator, String advertisedName)
     {
@@ -109,7 +113,12 @@ public final class MockSpakeBleConnection implements SpakeGattConnection
             return ok();
         }
         // Any other attribute is a protected write: allowed only after an authenticated handshake.
-        return record(emulator.isSessionAuthenticated() ? EnumCommandResult.OK : EnumCommandResult.ACCESS_DENIED);
+        if (!emulator.isSessionAuthenticated())
+        {
+            return record(EnumCommandResult.ACCESS_DENIED);
+        }
+        protectedAttributeValues.put(characteristic.getUuid(), raw.clone());
+        return ok();
     }
 
     @Override
@@ -139,6 +148,14 @@ public final class MockSpakeBleConnection implements SpakeGattConnection
         else if (characteristic == MovisensCharacteristics.PAKE_SENSOR_CONFIRM_2)
         {
             data = secondPart(emulator.sensorConfirm());
+        }
+        else if (protectedAttributeValues.containsKey(characteristic.getUuid()))
+        {
+            if (!emulator.isSessionAuthenticated())
+            {
+                throw new GeneralSecurityException("ACCESS_DENIED: protected read before PAKE");
+            }
+            data = protectedAttributeValues.get(characteristic.getUuid()).clone();
         }
         else
         {

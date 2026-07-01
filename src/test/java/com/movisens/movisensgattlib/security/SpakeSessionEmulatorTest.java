@@ -11,7 +11,10 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.movisens.movisensgattlib.MovisensCharacteristics;
+import com.movisens.movisensgattlib.attributes.AgeFloat;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
+import com.movisens.movisensgattlib.attributes.TimeZoneId;
 import com.movisens.smartgattlib.security.CryptoManager;
 
 /**
@@ -158,6 +161,25 @@ public class SpakeSessionEmulatorTest
         assertEquals(EnumCommandResult.OK,
             connection.setAttribute(SealSensorBuilder.create(cryptoManager, "newpw")));
         assertTrue(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
+    }
+
+    @Test
+    public void protectedAttributeWriteCanBeReadAfterHandshake() throws Exception
+    {
+        byte[] secret = sealingSecret("Tr0ub4dor&3");
+        MockSpakeBleConnection connection =
+            new MockSpakeBleConnection(emulator(secret, true, new SensorClock.Mutable()), ADVERTISED_NAME);
+
+        assertEquals(EnumCommandResult.ACCESS_DENIED, connection.setAttribute(new AgeFloat(42.5)));
+
+        SpakeSession.run(connection, connection.getSensorSerial(), CLIENT_ID, secret);
+
+        assertEquals(EnumCommandResult.OK, connection.setAttribute(new AgeFloat(42.5)));
+        assertEquals(42.5, connection.getAttribute(MovisensCharacteristics.AGE_FLOAT).getAge(), 0.001);
+
+        String zoneId = "America/Indiana/Indianapolis";
+        assertEquals(EnumCommandResult.OK, connection.setAttribute(new TimeZoneId(zoneId)));
+        assertEquals(zoneId, connection.getAttribute(MovisensCharacteristics.TIME_ZONE_ID).getZoneId());
     }
 
     // --- helpers --------------------------------------------------------------------------------
