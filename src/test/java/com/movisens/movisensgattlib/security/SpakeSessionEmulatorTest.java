@@ -15,6 +15,7 @@ import com.movisens.movisensgattlib.MovisensCharacteristics;
 import com.movisens.movisensgattlib.attributes.AgeFloat;
 import com.movisens.movisensgattlib.attributes.EnumCommandResult;
 import com.movisens.movisensgattlib.attributes.TimeZoneId;
+import com.movisens.movisensgattlib.attributes.UnsealSensor;
 import com.movisens.smartgattlib.security.CryptoManager;
 
 /**
@@ -153,14 +154,17 @@ public class SpakeSessionEmulatorTest
         cryptoManager.setKey(new byte[16]); // SealSensor requires an encrypted session to build
         assertEquals(EnumCommandResult.ACCESS_DENIED,
             connection.setAttribute(SealSensorBuilder.create(cryptoManager, "newpw")));
+        assertEquals(EnumCommandResult.ACCESS_DENIED, connection.setAttribute(new UnsealSensor()));
         assertFalse(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
 
-        // After a successful handshake the protected write is accepted and seals the sensor.
+        // After a successful handshake the protected writes are accepted.
         byte[] aesKey = SpakeSession.run(connection, connection.getSensorSerial(), CLIENT_ID, secret);
         cryptoManager.setKey(aesKey);
         assertEquals(EnumCommandResult.OK,
             connection.setAttribute(SealSensorBuilder.create(cryptoManager, "newpw")));
         assertTrue(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
+        assertEquals(EnumCommandResult.OK, connection.setAttribute(new UnsealSensor()));
+        assertFalse(connection.getAttribute(com.movisens.movisensgattlib.MovisensCharacteristics.SENSOR_SEALED).getValue());
     }
 
     @Test
