@@ -24,8 +24,12 @@ public class SpakePairingClientTest
 {
     private static final byte[] SENSOR_ID = "sensor".getBytes(StandardCharsets.US_ASCII);
     private static final byte[] CLIENT_ID = "client".getBytes(StandardCharsets.US_ASCII);
-    private static final byte[] CODE = {0, 1, 2, 2, 4, 3};
-    private static final byte[] WRONG_CODE = {0, 1, 2, 2, 4, 4};
+    private static final byte[] CODE = PairingColour.toSecret(Arrays.asList(
+        PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
+        PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE));
+    private static final byte[] WRONG_CODE = PairingColour.toSecret(Arrays.asList(
+        PairingColour.RED, PairingColour.GREEN, PairingColour.BLUE,
+        PairingColour.RED, PairingColour.GREEN, PairingColour.GREEN));
 
     private final SecureRandom rng = new SecureRandom();
 
