@@ -55,6 +55,8 @@ publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            suppressPomMetadataWarningsFor('testFixturesApiElements')
+            suppressPomMetadataWarningsFor('testFixturesRuntimeElements')
         }
     }
 }
